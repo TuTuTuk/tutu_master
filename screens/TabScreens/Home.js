@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View,Modal } from "react-native";
-import { NavigationHelpersContext } from "@react-navigation/native";
 import styled from "styled-components/native";
+import Icon from 'react-native-vector-icons/Ionicons'
+import BoardBox from "../../components/BoardBox";
+import ModalTwoOptions from "../../components/ModalTwoOptions";
 
 
 //scrollView 
@@ -18,84 +20,82 @@ import styled from "styled-components/native";
 const Container = styled.ScrollView.attrs(()=>({
     contentContainerStyle:{
         showsVerticalScrollIndicator:false,
+        alignItems:"center"
     }
 }))`
-    flex:1;
-    border:1px;
-    border-color:teal;
-    margin:2px;
+    height:100%;
 `;
 
 const HeaderBox = styled.View`
-    height:100px;
-    border:1px;
-    border-color:black;
+    height:50px;
+    width:310px;
     margin:2px;
     flex-direction:row;
     justify-content:space-between;
     align-items:center;
 `;
     const LoginBtn = styled.Pressable`
-        border: 1px;
-        width:30px;
+        width:90px;
         height:30px;
-        background-color: ${(props)=>props.tomato ? "blue":"pink"};
+        border-radius: 5px;
+        background-color: #545454;
+        justify-content: center;
+        align-items: center;
     `;
         const LoginText = styled.Text`
-            color:red;
+            color:#FFFFFF;
             font-size:10px;
         `;
 
     const ConfigureBtn = styled.TouchableOpacity`
-        border: 1px;
         width:30px;
         height:30px;
     `;
-        const ConfigureText = styled.Text`
-            color:red;
-            font-size:10px;
-        `;
 
 const SignBoardBox = styled.View`
-    height:100px;
-    border:1px;
-    border-color:teal;
-    margin:2px;
+    width:310px;
+    height:120px;
+    border-radius: 10px;
+    background-color: #E3E3E3;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 `;
     const MainLogoBox = styled.View`
-        border: 2px;
-        border-radius: 20px;
+        border: 1px;
         border-color:black;
         width:40%;
         height:50%;
     `;
 
-    const MainTextBox = styled.View`
-        border: 1px;
-        border-color:black;
-        margin-top:3px;
-        width:50%;
-        height:30px;
+    const MainTextBox = styled.Text`
+        font-family: Pretendard;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 8px;
+
+        text-align: center;
+    `;
+
+    const MainTextBox2 = styled.Text`
+        font-family: Pretendard;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+
+        text-align: center;
     `;
 
 const ImageBox = styled.View`
     height:140px;
-    border:1px;
-    border-color:red;
-    margin:2px;
+    width:310px;
     flex-direction: row;
     justify-content: space-between;
     align-items:center;
 `;
     const Image1Box = styled.View`
-        border:1px;
-        border-color:black;
-        margin:1px;
-        width:30%;
-        height:90%;
+        height:140px;
+        width:103px;
         flex-direction:column;
         justify-content: center;
         align-items: center;
@@ -103,95 +103,74 @@ const ImageBox = styled.View`
         const Image = styled.Image`
             border:1px;
             border-color:black;
-            border-radius:35px;
-            width:70px;
-            height:70px;
+            border-radius:40px;
+            width:80px;
+            height:80px;
         `;
-        const ImageTextBox = styled.View`
-            border:1px;
-            border-color:black;
-            margin-top:3px;
-            width:100px;
-            height:30px;
+        const ImageTextBox = styled.Text`
+            width:100%;
+            height:14px;
+            font-weight: 600;
+            font-size: 12px;
+            text-align: center;
         `;
     const Image2Box = styled.View`
+        height:140px;
+        width:103px;
+        flex-direction:column;
+        justify-content: center;
+        align-items: center;
+    `;
+        const Image2 = styled.Image`
         border:1px;
         border-color:black;
-        margin:1px;
-        width:30%;
-        height:90%;
-    `;
+        border-radius:40px;
+        width:80px;
+        height:80px;
+        `;
+        const Image2TextBox = styled.Text`
+            width:100%;
+            height:14px;
+            font-weight: 600;
+            font-size: 12px;
+            text-align: center;
+        `;
     const Image3Box = styled.View`
+        height:140px;
+        width:103px;
+        flex-direction:column;
+        justify-content: center;
+        align-items: center;
+    `;
+        const Image3 = styled.Image`
         border:1px;
         border-color:black;
-        margin:1px;
-        width:30%;
-        height:90%;
-    `;
-
+        border-radius:40px;
+        width:80px;
+        height:80px;
+        `;
+        const Image3TextBox = styled.Text`
+            width:100%;
+            height:14px;
+            font-weight: 600;
+            font-size: 12px;
+            text-align: center;
+        `;
 const PopularBoardBox = styled.View`
-    border:1px;
-    border-color:red;
     height:100%;
+    width:310px;
     margin:2px;
-    align-items: center;
 `;
 
     const PopularText = styled.Text`
-
-        border:1px;
-        border-color:orange;
         width:100%;
-        height:20px;
-        font-size: 10px;
+        height:21px;
+        margin-bottom:10px;
+        margin-top:10px;
+        font-size: 18px;
+        font-weight: 600;
+        color:#0062FF;
     `;
-    const PopularBox = styled.View`
-        border:1px;
-        border-color:black;
-        margin:5px;
-        width:90%;
-        height:20px;
-    `;
-
-const ModalBackView=styled.View`
-    position:absolute;
-    background-color: black;
-    opacity: 0.5;
-    width:100%;
-    height:100%;
-`;
-const ModalView = styled.View`
-    background-color: white;
-    width:60%;
-    height:120px;
-    border-radius: 20px;
-    opacity: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding:10px;
-    left:12%;
-    top:50%;
-`;
-    const ModalYesPressable = styled.Pressable`
-        border:1px;
-        border-radius: 10px;
-        background-color: aqua;
-        width:40%;
-        height:30px;
-        justify-content: center;
-        align-items: center;
-    `;
-    const ModalNoPressable = styled.Pressable`
-       border:1px;
-        border-radius: 10px;
-        background-color: aqua;
-        width:40%;
-        height:30px;
-        justify-content: center;
-        align-items: center;
-    `;
-
 //pressable
 //---------
 //onPress : 눌렀다가 뗐을때(onLongPress 실행되기 전에 떼면 발동)
@@ -203,29 +182,15 @@ const ModalView = styled.View`
 const Home =({navigation:{navigate}})=>{
     const [click,setClick] = useState(false);
     const [modalVisible,setModalVisible] = useState(false)
-
     return(
         <Container>
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-            >
-                <ModalBackView>
-                </ModalBackView>
-                <ModalView>
-                    <ModalYesPressable>
-                        <Text>
-                            Yes
-                        </Text>
-                    </ModalYesPressable>
-                    <ModalNoPressable onPress={()=>setModalVisible(false)}>
-                        <Text>
-                            No
-                        </Text>
-                    </ModalNoPressable>
-                </ModalView>
-            </Modal>
+            <ModalTwoOptions 
+                visible={modalVisible} 
+                setvisible={setModalVisible}
+                title="신고하기"
+                contents="해당 게시물을 신고 하시겠습니까?"
+                yestext="신고하기"
+            />
             <HeaderBox>
                 <LoginBtn 
                     onPress={()=>navigate("Stack",{screen:"LoginPage"})}
@@ -236,44 +201,46 @@ const Home =({navigation:{navigate}})=>{
                     tomato={click}
                 >
                     <LoginText>
-                        Login
+                        로그인/회원가입
                     </LoginText>
                 </LoginBtn>
                 <ConfigureBtn onPress={()=>setModalVisible(true)}>
-                    <ConfigureText>
-                        Configure
-                    </ConfigureText>
+                    <Icon name="settings-outline" size={30} color="#0062FF"/>
                 </ConfigureBtn>
             </HeaderBox>
             <SignBoardBox>
                 <MainLogoBox></MainLogoBox>
-                <MainTextBox></MainTextBox>
+                <MainTextBox>Communication Space for TUKorea Students</MainTextBox>
+                <MainTextBox2>한국공대 학생들을 위한 소통공간</MainTextBox2>
             </SignBoardBox>
             <ImageBox>
                 <Image1Box>
                     <Image></Image>
-                    <ImageTextBox></ImageTextBox>
+                    <ImageTextBox>마이페이지</ImageTextBox>
                 </Image1Box>
-                <Image2Box></Image2Box>
-                <Image3Box></Image3Box>
+                <Image2Box>
+                    <Image2></Image2>
+                    <Image2TextBox>게시판</Image2TextBox>
+                </Image2Box>
+                <Image3Box>
+                    <Image3></Image3>
+                    <Image3TextBox>선후배 매칭</Image3TextBox>
+                </Image3Box>
             </ImageBox>
             <PopularBoardBox>
                 <TouchableOpacity onPress={()=>navigate("Stack",{screen:"PopularBoard"})}>
                     <PopularText>인기글</PopularText>
                 </TouchableOpacity>
-                <PopularBox></PopularBox>
-                <PopularBox></PopularBox>
-                <PopularBox></PopularBox>
-                <PopularBox></PopularBox>
-                <PopularBox></PopularBox>
-                <PopularBox></PopularBox>
-                <PopularBox></PopularBox>
-                <PopularBox></PopularBox>
-                <PopularBox></PopularBox>
-                <PopularBox></PopularBox>
-                <PopularBox></PopularBox>
-                <PopularBox></PopularBox>
-                <PopularBox></PopularBox>
+                <BoardBox/>
+                <BoardBox/>
+                <BoardBox/>
+                <BoardBox/>
+                <BoardBox/>
+                <BoardBox/>
+                <BoardBox/>
+                <BoardBox/>
+                <BoardBox/>
+                <BoardBox/>
             </PopularBoardBox>
         </Container>
     )
