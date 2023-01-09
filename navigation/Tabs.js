@@ -1,5 +1,5 @@
-
-export default Tabs;import React from "react";
+export default Tabs;
+import React from "react";
 import { StyleSheet, Text} from 'react-native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/TabScreens/Home";
@@ -30,5 +30,3 @@ const Tabs=()=>(
         <Tab.Screen name="My" component={My}/>
     </Tab.Navigator>
 )
-
-export default Tabs;
