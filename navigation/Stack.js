@@ -7,10 +7,12 @@ import JoinPage from "../screens/StackScreens/Login/JoinPage";
 import PopularBoard from "../screens/StackScreens/PopularBoard";
 import ProfilePage from "../screens/StackScreens/My/ProfilePage";
 
-import Designboard_min from "../screens/StackScreens/Designboard_min";
-import Board_research_min from "../screens/StackScreens/Board_research_min";
-import HotBoard_min from "../screens/StackScreens/HotBoard_min";
-import Integrated_Board_min from "../screens/StackScreens/Integrated_Board_min";
+import Designboard_min from "../screens/StackScreens/Board/Designboard_min";
+import Board_research_min from "../screens/StackScreens/Board/Board_research_min";
+import HotBoard_min from "../screens/StackScreens/Board/HotBoard_min";
+import Integrated_Board_min from "../screens/StackScreens/Board/Integrated_Board_min";
+import BoardWriting_min from "../screens/StackScreens/Board/BoardWriting_min";
+import BoardWriting_min2 from "../screens/StackScreens/Board/BoardWriting_min2";
 
 
 
@@ -32,6 +34,8 @@ const Stack =()=>(
         <NativeStack.Screen name="Board_research_min" component={Board_research_min}/>
         <NativeStack.Screen name="HotBoard_min" component={HotBoard_min}/>
         <NativeStack.Screen name="Integrated_Board_min" component={Integrated_Board_min}/>
+        <NativeStack.Screen name="BoardWriting_min" component={BoardWriting_min}/>
+        <NativeStack.Screen name="BoardWriting_min2" component={BoardWriting_min2}/>
     </NativeStack.Navigator>
 )
 
