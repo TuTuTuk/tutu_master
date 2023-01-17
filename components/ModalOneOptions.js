@@ -21,6 +21,17 @@ const ModalView = styled.View`
     align-items: center;
     justify-content: space-between;
 `;
+
+    const ModalContents = styled.Text`
+        font-family: Pretendard;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        text-align: center;
+        color:#1D1D1D;
+    `;
+
     const ModalTitle = styled.Text`
         font-family: Pretendard;
         font-style: normal;
@@ -36,7 +47,6 @@ const ModalView = styled.View`
         height:39px;
         justify-content: center;
         align-items: center;
-
     `;
         const ModalYesText = styled.Text`
             font-family: Pretendard;
@@ -48,7 +58,8 @@ const ModalView = styled.View`
         `;
 
 
-const ModalTwoOptions = ({visible,setvisible,title,yestext}) => {
+const ModalOneOptions = ({visible,setvisible,contents,yestext}) => {
+
 
     return(
         <Modal
@@ -59,7 +70,7 @@ const ModalTwoOptions = ({visible,setvisible,title,yestext}) => {
                 <ModalBackView>
                 </ModalBackView>
                 <ModalView>
-                    <ModalTitle>{title}</ModalTitle>
+                    <ModalContents>{contents}</ModalContents>
                     <ModalYesPressable onPress={()=>setvisible(false)}>
                         <ModalYesText>
                             {yestext}
@@ -69,5 +80,4 @@ const ModalTwoOptions = ({visible,setvisible,title,yestext}) => {
             </Modal>
     )
 }
-
-export default ModalTwoOptions;
+export default ModalOneOptions;
