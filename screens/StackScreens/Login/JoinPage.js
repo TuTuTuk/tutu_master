@@ -6,6 +6,7 @@ import Input from "../../../components/Input";
 import BlueButton from "../../../components/BlueButton";
 import BlackButton from "../../../components/BlackButton";
 import RadioGroup from 'react-native-radio-buttons-group';
+import auth from "@react-native-firebase/auth";
 
 
 const Container = styled.ScrollView.attrs(()=>({
@@ -72,15 +73,18 @@ const ModalView = styled.View`
     width:86.11%;
     background-color: #FFFFFF;
     border-radius: 10px;
-    padding-top:15px;
-    padding-bottom:15px;
     align-items:center;
-    justify-content: space-between;
 `;
+    const ModalTitle = styled.Text`
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;
+        color: #1D1D1D;
+    `;
 
 
 
-const JoinPage =()=>{
+const JoinPage =({navigation:{navigate}})=>{
     const [nameText,setNameText] = useState("");
     const [idText,setIdText] = useState("");
     const [pwText,setPwText] = useState("");
@@ -93,8 +97,6 @@ const JoinPage =()=>{
             id: '1', // acts as primary key, should be unique and non-empty string
             label: '컴퓨터공학부',
             value: 'option1',
-            borderSize:1,
-            marginBottom:2
         },
         {
             id: '2',
@@ -167,16 +169,28 @@ const JoinPage =()=>{
         setRadioButtons(radioButtonsArray);
     }
 
-    useEffect(()=>{
-        console.log("nameText"+nameText);
-        console.log("idText"+idText);
-        console.log("pwText"+pwText);
-        console.log("pwCheckText"+pwCheckText);
-        console.log("emailText"+emailText);
-        console.log("numText"+numText);
-        console.log("==============================");
-        setFinish(false);
-    },[finish]);
+    const onPress=()=>{
+        if(emailText!="" && pwText!=""){ 
+            auth().createUserWithEmailAndPassword(emailText,pwText)
+            .then(()=>{ //회원가입 성공 시
+                console.log("join!!");
+                navigate("Tabs",{screen:"Home"})
+            })
+            .catch((error)=>{ //회원가입 실패 시
+                if(error.code=='auth/email-already-in-use'){ //이메일 이미 존재
+                    console.log("already exist email");
+                }
+                if (error.code === 'auth/invalid-email') { //email이 형식에 맞지 않을 때
+                    console.log('That email address is invalid!');
+                }
+                console.error(error);
+            })
+        }
+        else{ //email과 password칸 중 하나라도 비어 있으면
+            return console.log("Fill email and password")
+        }
+    }
+
 
     return(
         <Container>
@@ -205,16 +219,17 @@ const JoinPage =()=>{
             </InputBox>
             <PressableBox>
                 <BlackButton title="본인인증 하기" mbottom="60" move=""/>
-                <BlueButton title="회원가입 완료" click={setFinish} mbottom="68"/>
+                <BlueButton title="회원가입 완료" click={onPress} mbottom="68"/>
             </PressableBox>
             {department?
                 <>
                     <DepartBackView></DepartBackView>
                     <ModalView>
+                        <ModalTitle>학과를 선택하세요</ModalTitle>
                         <RadioGroup
                             containerStyle={{
                                 width:"100%",
-                                alignItems:"flex-start"
+                                alignItems:"flex-start",
                             }}
                             radioButtons={radioButtons}
                             onPress={onPressRadioButton}

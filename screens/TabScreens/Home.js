@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons'
 import BoardBox from "../../components/BoardBox";
 import ModalTwoOptions from "../../components/ModalTwoOptions";
+import auth from "@react-native-firebase/auth";
 
 
 //scrollView 
@@ -51,6 +52,7 @@ const HeaderBox = styled.View`
         width:30px;
         height:30px;
     `;
+
 
 const SignBoardBox = styled.Pressable`
     width:310px;
@@ -193,16 +195,14 @@ const Home =({navigation:{navigate}})=>{
             />
             <HeaderBox>
                 <LoginBtn 
-                    onPress={()=>navigate("Stack",{screen:"LoginPage"})}
+                    onPress={()=>{auth().currentUser?navigate("Stack",{screen:"LogoutPage"}):navigate("Stack",{screen:"LoginPage"})}}
                     onPressIn={()=>setClick(true)}    
                     onLongPress={()=>console.log("onLongPress")}  
                     onPressOut={()=>setClick(false)} 
                      
                     tomato={click}
                 >
-                    <LoginText>
-                        로그인/회원가입
-                    </LoginText>
+                    {auth().currentUser ? <LoginText>로그인함</LoginText> : <LoginText>로그인/회원가입</LoginText>}
                 </LoginBtn>
                 <ConfigureBtn onPress={()=>setModalVisible(true)}>
                     <Icon name="settings-outline" size={30} color="#0062FF"/>

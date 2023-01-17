@@ -29,10 +29,10 @@ const HeaderBox = styled.View`
     padding-left:20px;
     padding-right:20px;
 `;
-const TitleText = styled.Text`
-            color:red;
-            font-size:10px;
-        `;
+    const TitleText = styled.Text`
+        color:red;
+        font-size:10px;
+    `;
 
 const BackBtn = styled.Pressable`
         border: 1px;
@@ -217,9 +217,9 @@ const My = ({navigation:{navigate}}) => {
             <PopualrBox></PopualrBox>
             <PopualrBox></PopualrBox>
             <PopualrBox></PopualrBox>
-            <PopualrBox>서비스 이용약관<NotionBtn onPress={()=>navigate("Stack",{screen:"ServicePage"})}>
+            <PopualrBox><NotionBtn onPress={()=>navigate("Stack",{screen:"ServicePage"})}>
                 <NotionText>▶</NotionText></NotionBtn></PopualrBox>
-            <PopualrBox>공지사항<NotionBtn onPress={()=>navigate("Stack",{screen:"NotionPage"})}>
+            <PopualrBox><NotionBtn onPress={()=>navigate("Stack",{screen:"NotionPage"})}>
                 <NotionText>▶</NotionText></NotionBtn></PopualrBox>
             <PopualrBox></PopualrBox>
             <PopualrBox></PopualrBox>

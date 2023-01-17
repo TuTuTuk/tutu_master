@@ -3,6 +3,7 @@ import {createNativeStackNavigator}from "@react-navigation/native-stack";
 import { TouchableOpacity } from "react-native";
 
 import LoginPage from "../screens/StackScreens/Login/LoginPage";
+import LogoutPage from "../screens/StackScreens/Login/LogoutPage";
 import JoinPage from "../screens/StackScreens/Login/JoinPage";
 import IdSearchPage from "../screens/StackScreens/Login/IdSearchPage";
 import PopularBoard from "../screens/StackScreens/PopularBoard";
@@ -26,9 +27,9 @@ const Stack =()=>(
         presentation:"card",
         headerTintColor:"#f1c40f",
         headerBackTitleStyle:false,
-        headerShown:false
     }}>
         <NativeStack.Screen name="LoginPage" component={LoginPage}/>
+        <NativeStack.Screen name="LogoutPage" component={LogoutPage}/>
         <NativeStack.Screen name="IdSearchPage" component={IdSearchPage}/>
         <NativeStack.Screen name="JoinPage" component={JoinPage}/>
         <NativeStack.Screen name="PopularBoard" component={PopularBoard}/>

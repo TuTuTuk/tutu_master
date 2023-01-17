@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import Input from "../../../components/Input";
 import BlueButton from "../../../components/BlueButton";
 import BlackButton from "../../../components/BlackButton";
+import auth from "@react-native-firebase/auth";
 
 
 const Container = styled.ScrollView.attrs(()=>({
@@ -88,10 +89,7 @@ const LoginPage =({navigation:{navigate}})=>{
     const [finish,setFinish] = useState(false);
 
 
-    useEffect(()=>{
-        checkEmpty();
-        setFinish(false);
-    },[finish]);
+
 
     const checkEmpty=()=>{
         setLoadingCheck(true);
@@ -110,6 +108,12 @@ const LoginPage =({navigation:{navigate}})=>{
             else{
                 setCheckPwBlank(true);
             }
+            if(checkIdBlank==true && checkPwBlank==true){
+                
+                  auth().signInWithEmailAndPassword(idChange,pwChange)
+                  .then(()=>console.log("login"))
+                  .catch(()=>console.log("loginfail"))
+            }
             setLoadingCheck(false);
             
         },3000); //3초후에 안에 실행
@@ -126,7 +130,7 @@ const LoginPage =({navigation:{navigate}})=>{
                         {checkIdBlank?null:<Text style={{color:"red",marginBottom:10}}>id 비어있음</Text>}
                     <Input title="P/W" changeText={setPwChange} mbottom="20"/>
                         {checkPwBlank?null:<Text style={{color:"red",marginBottom:10}}>pw 비어있음</Text>}
-                    <BlueButton title="로그인" click={setFinish} mbottom="35"/>
+                    <BlueButton title="로그인" click={checkEmpty} mbottom="35"/>
             </LoginBox>
             <JoinSearchView>
                 <BlackButton title="회원가입" mbottom="30" move="JoinPage"/>

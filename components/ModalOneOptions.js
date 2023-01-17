@@ -21,6 +21,7 @@ const ModalView = styled.View`
     align-items: center;
     justify-content: space-between;
 `;
+
     const ModalContents = styled.Text`
         font-family: Pretendard;
         font-style: normal;
@@ -30,11 +31,20 @@ const ModalView = styled.View`
         text-align: center;
         color:#1D1D1D;
     `;
+
+    const ModalTitle = styled.Text`
+        font-family: Pretendard;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px;
+        color:#1D1D1D;
+    `;
     const ModalYesPressable = styled.Pressable`
-        width:300px;
-        height:40px;
-        border-radius: 10px;
+        border-radius: 5px;
         background-color: #BBBBBB;
+        width:184px;
+        height:39px;
         justify-content: center;
         align-items: center;
     `;
@@ -49,6 +59,7 @@ const ModalView = styled.View`
 
 
 const ModalOneOptions = ({visible,setvisible,contents,yestext}) => {
+
 
     return(
         <Modal
@@ -69,3 +80,4 @@ const ModalOneOptions = ({visible,setvisible,contents,yestext}) => {
             </Modal>
     )
 }
+export default ModalOneOptions;
