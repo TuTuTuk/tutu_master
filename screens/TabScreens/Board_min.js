@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import OptionsMenu from "react-native-option-menu";
 import { Menu, MeneProvider, MenuOptions, MenuOption, MenuTrigger} from "react-native-popup-menu"
+import LinearGradient from 'react-native-linear-gradient';
 
 const Container = styled.ScrollView.attrs(()=>({
     contentContainerStyle:{
@@ -11,6 +12,8 @@ const Container = styled.ScrollView.attrs(()=>({
     }
 }))`
     flex:1;
+    margin-top: 10px;
+    margin-bottom: 10px;
 `;
 
 const HeaderBox = styled.View`
@@ -40,7 +43,7 @@ const HeaderBox = styled.View`
     const BoardTextBox = styled.View`
         border-color: black;
         border-radius: 3px;
-        background-color: lightgray;
+        background-color: #E3E3E3;
         width : 76%;
         height: 100%;
         flex-direction: row;
@@ -95,7 +98,7 @@ const HotBoardBox = styled.View`
     const HotArticle = styled.TouchableOpacity`
         //border: 1px;
         border-radius: 15px;
-        background-color: #C4BFBF;
+        background-color: #E3E3E3;
         height: 100px;
         flex-direction: row;
         justify-content: space-between;
@@ -105,13 +108,31 @@ const HotBoardBox = styled.View`
             //border:1px;
             width: 75%;
         `;
-            const ArticleTitle = styled.Text`
-                font-size: 15px;
-                font-weight: 500;
+            const ArticleTitleBox = styled.View`
+                //border: 1px;
+                width: 100%;
+                flex-direction: row;
             `;
+                const ArticleTitle = styled.Text`
+                    font-size: 15px;
+                    font-weight: 500;
+                    margin-right: 5px;
+                `;
+                const ArticleTimeBox = styled.View`
+                    //border: 1px;
+                    height : 20px;
+                    justify-content: center;
+                `;
+                const ArticleTime = styled.Text`
+                    font-weight: 400;
+                    font-size: 8px;
+                    color: #818181;
+                `;
             const ArticleContents = styled.Text`
                 margin-top: 3px;
                 font-size : 13px;
+                font-weight: 400;
+                color: #1D1D1D;
             `;
         const ArticleImageBox = styled.View`
             //border : 1px;
@@ -122,7 +143,7 @@ const HotBoardBox = styled.View`
         `;
             const HotImage = styled.Image`
                 border-radius: 10px;
-                background-color: grey;
+                background-color: #BBBBBB;
                 width : 60px;
                 height : 60px;
                 margin-bottom: 3px;
@@ -181,9 +202,7 @@ const HotPlusBar = styled.View`
 //------------------------------전공 통합 게시판-------------------------------------------------
 //----------------------------------------------------------------------------------------------
  const AllBoardBox = styled.TouchableOpacity`
-    border-radius:10px;
-    background-color: #1655E9;
-    width: 86%;;
+    width: 86%;
     height: 40px;
     margin-bottom: 30px;
     align-self: center;
@@ -194,6 +213,7 @@ const HotPlusBar = styled.View`
         font-size: 16px;
         align-self: center;
         font-weight: 600;
+        margin-top: 8px;
     `;
 
 const AllMajorBox = styled.View`
@@ -218,7 +238,7 @@ const AllMajorBox = styled.View`
             const Image11 = styled.View`
                 //border: 1px;
                 border-radius: 40px;
-                background-color: lightgray;
+                background-color: #E3E3E3;
                 width: 80px;
                 height: 80px;
                 margin-top: 5px;
@@ -243,7 +263,7 @@ const AllMajorBox = styled.View`
             const Image12 = styled.View`
                 //border: 1px;
                 border-radius: 40px;
-                background-color: lightgray;
+                background-color: #E3E3E3;
                 width: 80px;
                 height: 80px;
                 margin-top: 5px;
@@ -267,7 +287,7 @@ const AllMajorBox = styled.View`
         `;
             const Image13 = styled.View`
                 //border: 1px;
-                background-color: lightgray;
+                background-color: #E3E3E3;
                 border-radius: 40px;
                 width: 80px;
                 height: 80px;
@@ -314,7 +334,13 @@ const Board_min = ({navigation:{navigate}})=>(
             <HotArticle
                 onPress={()=>navigate("Stack",{screen:"HotBoard_min"})}>
                 <AricleText>
-                    <ArticleTitle>제목을 입력하세요</ArticleTitle>
+                    <ArticleTitleBox>
+                        <ArticleTitle>제목을 입력하세요</ArticleTitle>
+                        <ArticleTimeBox>
+                            <ArticleTime>00분 전</ArticleTime>
+                        </ArticleTimeBox>
+                    </ArticleTitleBox>
+                    
                     <ArticleContents>내용을 입력하세요</ArticleContents>
                 </AricleText>
                 <ArticleImageBox>
@@ -341,7 +367,18 @@ const Board_min = ({navigation:{navigate}})=>(
         </HotPlusBar>
         <AllBoardBox
             onPress={()=>navigate("Stack",{screen:"Integrated_Board_min"})}>
+            <LinearGradient style={{
+                width : 354,
+                height:40,
+                borderRadius: 10,
+                backgroundColor:'#0062FF'
+            }}
+                colors={['#0062FF', '#0A7DFF', '#1398FF']}
+                start={{x:1,y:0}} end={{x:0,y:0}}
+            >
             <AllBoardText>통합 게시판</AllBoardText>
+            </LinearGradient>
+            
         </AllBoardBox>
         <AllMajorBox>
             <Major1>

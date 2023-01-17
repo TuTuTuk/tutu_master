@@ -69,5 +69,3 @@ const ModalOneOptions = ({visible,setvisible,contents,yestext}) => {
             </Modal>
     )
 }
-
-export default ModalOneOptions;
