@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 
+import BoardBox from "../../../components/BoardBox";
 import BoardBox_min from "../../../components/BoardBox_min";
 import KeywordSearchBox_min from "../../../components/KeywordSearchBox_min";
 
@@ -13,30 +14,27 @@ const Container = styled.ScrollView.attrs(()=>({
     }
 }))`
     flex:1;
-    margin:10px;
+    margin-bottom: 10px;
 `;
 //----------------------------------------------------------------------------
 //----------------------------------검색box------------------------------------
 //----------------------------------------------------------------------------
 const HeaderBox = styled.View`
     //border: 1px;
-    flex:1;
+    width: 86%;
     margin:10px;
-    margin-left: 10px;
-    margin-right: 10px;
-
-    flex-direction:row;
     justify-content: space-between;
-    align-items: center;
+    align-self: center;
+    flex-direction:row;
 `;
     const BackView = styled.View`
+        //border: 1px;
         border-color: orange;
-        width:25px;
+        width:8.8%;
         height:40px;
     `;
         const BackBtn = styled.TouchableOpacity`
             //border : 1px;
-            width  : 100%;
             height : 40px;
             justify-content: center;
         `;
@@ -44,7 +42,7 @@ const HeaderBox = styled.View`
         border-color: black;
         border-radius: 7px;
         background-color: lightgray;
-        width : 300px;
+        width : 79%;
         height: 40px;
         flex-direction: row;
         justify-content:space-between;
@@ -58,16 +56,15 @@ const HeaderBox = styled.View`
         `;
         const SearchBtn = styled.TouchableOpacity`
             //border : 1px;
-            width:30px;
-            height:30px;
+            width:10%;
             margin-right: 10px;
             margin-top: 7px;
             justify-self: center;
         `;
     const PlusBtn = styled.TouchableOpacity`
+        //border: 1px;
         border-color: orange;
-        width:25px;
-        height:40px;
+        height: 40px;
         justify-content: center;
     `;
 const WritingBtn = styled.TouchableOpacity`
@@ -107,12 +104,12 @@ const Designboard_min = ({navigation:{navigate}})=>(
             </PlusBtn>
         </HeaderBox>
         <KeywordSearchBox_min></KeywordSearchBox_min>
-        <BoardBox_min></BoardBox_min>
-        <BoardBox_min></BoardBox_min>
-        <BoardBox_min></BoardBox_min>
-        <BoardBox_min></BoardBox_min>
-        <BoardBox_min></BoardBox_min>
-        <BoardBox_min></BoardBox_min>
+        <BoardBox_min move = "Writing_self_min"/>
+        <BoardBox></BoardBox>
+        <BoardBox></BoardBox>
+        <BoardBox></BoardBox>
+        <BoardBox></BoardBox>
+        <BoardBox></BoardBox>
         <WritingBtn
             onPress={()=>navigate("Stack",{screen:"BoardWriting_min"})}>
             <WritingBtnText>글쓰기</WritingBtnText>

@@ -11,17 +11,23 @@ const BoardBox = styled.View`
     border-radius: 10px;
     width: 100%;
     margin-bottom: 2.8%;
-    height: 31.6%;
+    height: 230px;
 `;
     const WriterProfileBox = styled.View` 
         width: 100%;
         //border: 1px;
         height: 25%;
         flex-direction: row;
-        padding-top: 1.2%;
+        justify-content: space-between;
+        padding-top: 2.0%;
+        padding-bottom: 2.0%;
     `;
+        const WriterProfileLeft = styled.View`
+            //border: 1px;
+            flex-direction: row;
+            margin-left: 6.9%;
+        `;
         const WriterPicture = styled.View`
-            margin-left: 20px;
             border-radius: 10px;
             background-color: #BBBBBB;
             width : 40px;
@@ -30,7 +36,6 @@ const BoardBox = styled.View`
         const PostinforBox = styled.View`
             margin-right: 5px;
             //border : 1px;
-            width : 60%;
             height: 40px;
             justify-content: center;
             padding-left: 5px;
@@ -44,50 +49,37 @@ const BoardBox = styled.View`
                 font-size: 8px;
                 font-weight: 300;
             `;
-        const ShareIcon = styled.TouchableOpacity`
-            margin-top: 20px;
-            background-color: #CECECE;
-            border-radius: 5px;
-            height: 20px;
-            width: 20px;
-            margin-right: 5px;
+        const DelectBox = styled.View`
+            margin-top:5%;
+            margin-right: 6.9%;
+            background-color: #E3E3E3;
+            border-radius: 3px;
+            padding-left: 5px;
+            padding-right: 5px;
+            padding-top: 3px;
+            padding-bottom: 3px;
             //border: 1px;
-            justify-content: center;
+            flex-direction: row;
         `;
-        const SaveIcon = styled.TouchableOpacity`
-            margin-top: 20px;
-            background-color: #CECECE;
-            border-radius: 5px;
-            height: 20px;
-            width: 20px;
-            margin-right: 5px;
-            //border: 1px;
-            justify-content: center;
-        `;
-        const SendIcon = styled.TouchableOpacity`
-            margin-top: 20px;
-            background-color: #CECECE;
-            border-radius: 5px;
-            height: 20px;
-            width: 20px;
-            //border: 1px;
-            justify-content: center;
-        `;
+            const DelectText = styled.Text`
+                font-size: 12px;
+                font-weight: 400;
+            `;
+            const DelectIcon = styled.Pressable`
+            `;
 
     const WriterPost = styled.View`
-        //border: 1px;
         width: 100%;
         background-color: #E3E3E3;
         height: 75%;
         border-radius: 10px;
-        padding-top: 2.0%;
-        padding-bottom: 1.36%;
-        align-items: center;
+        padding-top: 15px;
     `;
         const PostTitle = styled.View`
             //border: 1px;
-            margin-bottom: 1.36%;
+            margin-bottom: 10px;
             width: 86%;
+            align-self: center;
         `;
             const PostTitleText = styled.Text`
                 font-size : 16px;
@@ -95,8 +87,10 @@ const BoardBox = styled.View`
             `;
         const PostContent = styled.View`
             //border: 1px;
+            height: 51%;
             width: 86%;
-            margin-bottom: 2%;
+            align-self: center;
+            margin-bottom: 4%;
     `;
             const PostContentText = styled.Text`
                 font-size : 12px;
@@ -107,12 +101,14 @@ const BoardBox = styled.View`
             //border: 1px;
             flex-direction: row;
             width: 86%;
-            margin-bottom: 2.0%;
+            align-self: center;
         `;
             const KeywordBox = styled.View`
                 //border: 1px;
                 width: 76%;
+                height: 75%;
                 flex-direction: row;
+                margin-top: 1%;
             `;
                 const KeywordBox1 = styled.View`
                         height: 15px;
@@ -208,31 +204,35 @@ const AllBoardBox_min = () => {
             <ModalTwoOptions 
                 visible={modalVisible} 
                 setvisible={setModalVisible}
-                title="해당 게시물을 스크랩 하시겠습니까?"
-                yestext="스크랩하기"
+                title="게시글 삭제"
+                contents="해당 게시물을 삭제 하시겠습니까?"
+                yestext="삭제하기"
             />
                 <WriterProfileBox>
-                    <WriterPicture></WriterPicture>
-                    <PostinforBox>
-                        <WriterName>익명</WriterName>
+                    <WriterProfileLeft>
+                        <WriterPicture></WriterPicture>
+                        <PostinforBox>
+                        <WriterName>나</WriterName>
                         <PostDate>09/26 16:00</PostDate>
                     </PostinforBox>
-                    <ShareIcon>
-                        <Icon name="share-social" size = {18} color = '#545454'/>
-                    </ShareIcon>
-                    <SaveIcon ConfigureBtn onPress={()=>setModalVisible(true)}>
-                    </SaveIcon>
-                    <SendIcon></SendIcon>
+
+                    </WriterProfileLeft>
+                    <DelectBox>
+                        <DelectText>내가 쓴 글 삭제하기</DelectText>
+                        <DelectIcon
+                            ConfigureBtn onPress={()=>setModalVisible(true)}>
+                            <Icon name="close" size = {16} color = "#FF3D00"/>
+                        </DelectIcon>
+                    </DelectBox>
                 </WriterProfileBox>
                 <WriterPost>
                     <PostTitle>
                         <PostTitleText>제목을 입력하세요</PostTitleText>
                     </PostTitle>
                     <PostContent>
-                        <PostContentText>내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 내용을 입력하세요
-                        내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 
-                        내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 내용을 입력하세요
-                        내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 내용을 입력하세요
+                        <PostContentText>내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 내용을 입력하세요
+                        내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 
+                        내용을 입력하세요 내용을 입력하세요 내용을 입력하세요
                         </PostContentText>
                     </PostContent>
                     <OtherBox>

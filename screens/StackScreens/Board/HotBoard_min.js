@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Text, TouchableOpacity, View,Modal } from "react-native";
+import { Modal } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import AllBoardBox_min from "../../../components/AllBoardBox_min";
 import CommentBox_min from "../../../components/CommentBox_min";
+import ModalOneOptions from "../../../components/ModalOneOptions";
 
 const Container = styled.ScrollView.attrs(()=>({
     contentContainerStyle:{
@@ -39,6 +40,40 @@ const HeaderBox = styled.View`
             height : 40px;
             justify-content: center;
         `;
+    const PlusBtn = styled.TouchableOpacity`
+        border-color: orange;
+        width:5%;
+        height: 100%;
+        justify-content: center;
+    `;
+
+//-------------Modal-----------------
+const ModalBackView=styled.View`
+    position:absolute;
+    width:100%;
+    height:100%; 
+`;
+const ModalView = styled.View`
+    background-color: #BBBBBB;
+    width:95px;
+    height:87px;
+    border-radius: 5px;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-right: 6.5%;
+    align-self: flex-end;
+    top:15%;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:5px;
+`;
+    const Modalinquire = styled.Pressable`
+        height:25%;
+    `;
+        const MiddleText = styled.Text`
+            font-size:12px;
+        `;
+
 
 const InputWindow = styled.TouchableOpacity`
     margin-top: 6%;
@@ -65,79 +100,6 @@ const InputWindow = styled.TouchableOpacity`
         margin-right: 1.75%;
     `;
 
-
-const ModalBackView=styled.View`
-    position:absolute;
-    background-color: black;
-    opacity: 0.5;
-    width:100%;
-    height:100%;
-`;
-const ModalView = styled.View`
-    background-color: white;
-    width:88.9%;
-    height:15.2%;
-    border-radius: 10px;
-    opacity: 1;
-    top : 42.9%;
-    left : 5.55%;
-    padding-top: 1.93%;
-    padding-bottom: 2.07%;
-    padding-left: 4.68%;
-    padding-right: 4.68%;
-    justify-content: space-between;
-`; 
-    const Text1Box = styled.View`
-        //border : 1px;
-        width: 100%;
-
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 7px;
-    `;
-        const Text1 = styled.Text`
-            font-size: 18px;
-            color : black;
-            font-weight: 600;
-        `;
-    const SelectBtnBox = styled.View`
-        //border : 1px;
-        width: 100%;
-        height: 36.4%;
-        flex-direction: row;
-        align-items: flex-end;
-        justify-content: space-between;
-    `;
-        const ModalYesPressable = styled.Pressable`
-            border-radius: 5px;
-            background-color: lightblue;
-            width:63.4%;
-            height:100%;
-            justify-content: center;
-            align-items: center;
-        `;
-            const ModelYesText = styled.Text`
-                color : white;
-                font-size: 16px;
-                font-weight: 600;
-            `;
-        const ModalNoPressable = styled.Pressable`
-            border-radius: 5px;
-            background-color: lightgray;
-            width:33.1%;
-            height:100%;
-            justify-content: center;
-            align-items: center;
-            margin-right: 3.33%;
-        `;
-            const ModelNoText = styled.Text`
-                color : black;
-                font-size: 16px;
-                font-weight: 600;
-            `;
-
-
-
 const HotBoard_min = ({navigation:{navigate}})=>{
     const [click,setClick] = useState(false);
     const [modalVisible,setModalVisible] = useState(false)
@@ -152,21 +114,18 @@ const HotBoard_min = ({navigation:{navigate}})=>{
                 <ModalBackView>
                 </ModalBackView>
                 <ModalView>
-                    <Text1Box>
-                        <Text1>해당 게시물을 스크랩 하시겠습니까?</Text1>
-                    </Text1Box>
-                    <SelectBtnBox>
-                        <ModalNoPressable onPress={()=>setModalVisible(false)}>
-                            <ModelNoText>
-                                취소
-                            </ModelNoText>
-                        </ModalNoPressable>
-                        <ModalYesPressable>
-                            <ModelYesText>
-                                삭제하기
-                            </ModelYesText>
-                        </ModalYesPressable>
-                    </SelectBtnBox>
+                    <Modalinquire onPress={()=>setModalVisible(false)}>
+                        <MiddleText>문의하기</MiddleText>
+                    </Modalinquire>
+                    <Modalinquire onPress={()=>setModalVisible(false)}>
+                        <MiddleText>신고하기</MiddleText>
+                    </Modalinquire>
+                    <Modalinquire onPress={()=>setModalVisible(false)}>
+                        <MiddleText>새로고침</MiddleText>
+                    </Modalinquire>
+                    <Modalinquire onPress={()=>setModalVisible(false)}>
+                        <MiddleText>URL 복사</MiddleText>
+                    </Modalinquire>
                 </ModalView>
             </Modal>
             <HeaderBox>
@@ -176,6 +135,9 @@ const HotBoard_min = ({navigation:{navigate}})=>{
                         <Icon name="chevron-back-outline" size = {30} />
                     </BackBtn>
                 </BackView>
+                <PlusBtn onPress={()=>setModalVisible(true)}> 
+                    <Icon name="ellipsis-vertical-outline" size = {25}/>
+                </PlusBtn>
             </HeaderBox>
             <AllBoardBox_min/>
             <CommentBox_min></CommentBox_min>

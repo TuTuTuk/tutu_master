@@ -196,8 +196,8 @@ const Home =({navigation:{navigate}})=>{
             <HeaderBox>
                 <LoginBtn 
                     onPress={()=>{auth().currentUser?navigate("Stack",{screen:"LogoutPage"}):navigate("Stack",{screen:"LoginPage"})}}
-                    onPressIn={()=>setClick(true)}    
-                    onLongPress={()=>console.log("onLongPress")}  
+                    onPressIn={()=>null}    
+                    onLongPress={()=>console.log(auth().currentUser)}  
                     onPressOut={()=>setClick(false)} 
                      
                     tomato={click}
