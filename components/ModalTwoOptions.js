@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View,Modal } from "react-native";
 import styled from "styled-components/native";
+import LinearGradient from 'react-native-linear-gradient';
 
 const ModalBackView=styled.View`
     position:absolute;
@@ -79,17 +80,18 @@ const ModalView = styled.View`
                 font-weight: 600;
                 font-size: 16px;
                 line-height: 19px;
-                color: #1D1D1D;
+                color: #FFFFFF;
             `;
 
 
-const ModalTwoOptions = ({visible,setvisible,title,contents,yestext}) => {
+const ModalTwoOptions = ({visible,setvisible,title,contents,yestext,visibleyes, setvisibleyes}) => {
 
     return(
         <Modal
             animationType="fade"
             transparent={true}
             visible={visible}
+            visibleyes = {visibleyes}
         >
                 <ModalBackView>
                 </ModalBackView>
@@ -102,10 +104,24 @@ const ModalTwoOptions = ({visible,setvisible,title,contents,yestext}) => {
                                 취소
                             </ModalNoText>
                         </ModalNoPressable>
-                        <ModalYesPressable>
-                            <ModalYesText>
-                                {yestext}
-                            </ModalYesText>
+                        <ModalYesPressable 
+                            onPress={()=> {
+                                setvisible(false);
+                                setvisibleyes(true)}}
+                            >
+                            <LinearGradient style={{
+                                width:"100%",
+                                height:"100%",
+                                borderRadius: 10,
+                                alignItems:"center",
+                                justifyContent:"center"
+                            }}
+                                colors={['#0062FF', '#0A7DFF', '#1398FF']}
+                                start={{x:1,y:0}} end={{x:0,y:0}}>
+                                <ModalYesText>
+                                    {yestext}
+                                </ModalYesText>
+                            </LinearGradient>
                         </ModalYesPressable>
                     </ModalPressableBox>
                 </ModalView>
