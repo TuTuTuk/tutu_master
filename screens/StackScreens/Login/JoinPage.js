@@ -271,10 +271,12 @@ const JoinPage =({navigation:{navigate,reset}})=>{
             })
             .catch((error)=>{ //회원가입 실패 시
                 if(error.code=='auth/email-already-in-use'){ //이메일 이미 존재
-                    console.log("already exist email");
+                    setEmailError("이미 존재하는 이메일 입니다.")
+                    setPwError("")
                 }
                 if (error.code === 'auth/invalid-email') { //email이 형식에 맞지 않을 때
-                    console.log('That email address is invalid!');
+                    setEmailError("이메일 양식에 맞춰 메일 주소를 입력해주세요")
+                    setPwError("")
                 }
                 console.error(error);
             })

@@ -2,36 +2,38 @@ import react from "react";
 import styled from "styled-components/native";
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
+import { Dimensions } from "react-native";
 
 const PopularBox = styled.View`
-width:310px;
-height:100px;
-border-radius: 10px;
-margin-bottom:10px;
-padding-left:15px;
-padding-right:15px;
-flex-direction:row;
-background-color: #E3E3E3;
+    width:100%;
+    height:${({hei})=>hei*0.125}px;
+    border-radius:${({hei})=>hei*0.0125}px;
+    margin-bottom:${({hei})=>hei*0.0125}px;
+    padding-left:4.8%;
+    padding-right:4.8%;
+    padding-top:${({hei})=>hei*0.0187}px;
+    padding-bottom:${({hei})=>hei*0.0187}px;
+    flex-direction:row;
+    background-color: #E3E3E3;
 `;
+
 const PopularBoxLeft = styled.View`
-    width:223px;
-    height:100px;
+    width:83.9%;
+    height:100%;
     justify-content: center;
 `;
     const PopularBoxTitle = styled.Text`
-        font-family: 'Pretendard';
-        font-style: normal;
         font-weight: 500;
         font-size: 14px;
         line-height: 17px;
+        margin-bottom:4.19px;
         color: #1D1D1D;
     `;
     const PopularBoxContent = styled.Text`
-        font-family: 'Pretendard';
-        font-style: normal;
         font-weight: 400;
         font-size: 12px;
         line-height: 14px;
+        margin-bottom:7.18px;
         color: #1D1D1D;
     `;
     const PopularBoxKeywordBox = styled.View`
@@ -46,32 +48,32 @@ const PopularBoxLeft = styled.View`
             text-align:center;
         `;
 const PopularBoxRight = styled.View`    
-    width:72px;
-    height:100px;
+    width:16.1%;
+    height:100%;
     align-items: center;
     justify-content: center;
 `;
     const PopularBoxImage = styled.Image`
         border-radius:5px;
-        width:50px;
-        height:50px;
+        width:${({hei})=>hei*0.0625}px;
+        height:${({hei})=>hei*0.0625}px;
         background: #BBBBBB;
     `;
-        const PopularBoxComment = styled.Text`
-            width:100%;
-            height:12px;
-            font-family: 'Pretendard';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 10px;
-            text-align: center;
-        `;
+    const PopularBoxComment = styled.View`
+        width:100%;
+        flex-direction: row;
+        justify-content: space-between;
+    `;
+        const CommentImage = styled.Image``;
+        const GoodImage = styled.Image``;
 
 
 const BoardBox = () => {
     const navigation = useNavigation();
+    const HEIGHT = Dimensions.get('window').height;
+    console.log(HEIGHT);
     return(
-        <PopularBox>
+        <PopularBox hei={HEIGHT}>
                     <PopularBoxLeft>
                         <PopularBoxTitle>질문글 또는 가벼운 글</PopularBoxTitle>
                         <PopularBoxContent>제목을 입력하세요 제목을 입력하세요 제목을 입 력하세요 제목을 입력하세요 제목을 입력하</PopularBoxContent>
@@ -115,8 +117,19 @@ const BoardBox = () => {
                         </PopularBoxKeywordBox>
                     </PopularBoxLeft>
                     <PopularBoxRight>
-                        <PopularBoxImage></PopularBoxImage>
-                        <PopularBoxComment>#18 @18</PopularBoxComment>
+                        <PopularBoxImage
+                            hei={HEIGHT}
+                        />
+                        <PopularBoxComment>
+                            <CommentImage
+                                resizeMode="stretch"
+                                source={require('../images/comment.png')}
+                            />
+                             <CommentImage
+                                resizeMode="stretch"
+                                source={require('../images/good.png')}
+                            />
+                        </PopularBoxComment>
                     </PopularBoxRight>
                 </PopularBox>
     )

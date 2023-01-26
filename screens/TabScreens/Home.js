@@ -24,19 +24,20 @@ const Container = styled.ScrollView.attrs(()=>({
         alignItems:"center"
     }
 }))`
+    background-color: white;
     height:100%;
 `;
 
 const HeaderBox = styled.View`
+    width:86.11%;
     height:50px;
-    width:310px;
     margin:2px;
     flex-direction:row;
     justify-content:space-between;
     align-items:center;
 `;
     const LoginBtn = styled.Pressable`
-        width:90px;
+        width:29%;
         height:30px;
         border-radius: 5px;
         background-color: #545454;
@@ -48,14 +49,37 @@ const HeaderBox = styled.View`
             font-size:10px;
         `;
 
-    const ConfigureBtn = styled.TouchableOpacity`
-        width:30px;
+    const ConfigureAlarm = styled.View`
+        width:19.3%;
         height:30px;
+        flex-direction: row;
     `;
+
+        const AlarmButton = styled.Pressable`
+            width:50%;
+            height:100%;
+            justify-content: center;
+            align-items: center;
+        `;
+            const AlarmImage = styled.Image`
+                width:66%;
+                height:66%;
+            `;
+
+        const ConfigureBtn = styled.TouchableOpacity`
+            width:50%;
+            height:100%;
+            justify-content: center;
+            align-items: center;
+        `;
+            const ConfigureImage = styled.Image`
+                width:66%;
+                height:66%;
+            `;
 
 
 const SignBoardBox = styled.Pressable`
-    width:310px;
+    width:86.11%;
     height:120px;
     border-radius: 10px;
     background-color: #E3E3E3;
@@ -63,8 +87,7 @@ const SignBoardBox = styled.Pressable`
     align-items: center;
     justify-content: center;
 `;
-    const MainLogoBox = styled.View`
-        border: 1px;
+    const MainLogoBox = styled.Image`
         border-color:black;
         width:40%;
         height:50%;
@@ -89,8 +112,8 @@ const SignBoardBox = styled.Pressable`
     `;
 
 const ImageBox = styled.View`
+    width:86.11%;
     height:140px;
-    width:310px;
     flex-direction: row;
     justify-content: space-between;
     align-items:center;
@@ -159,8 +182,8 @@ const ImageBox = styled.View`
             text-align: center;
         `;
 const PopularBoardBox = styled.View`
+    width:86.11%;
     height:100%;
-    width:310px;
     margin:2px;
 `;
 
@@ -199,17 +222,35 @@ const Home =({navigation:{navigate}})=>{
                     onPressIn={()=>null}    
                     onLongPress={()=>console.log(auth().currentUser)}  
                     onPressOut={()=>setClick(false)} 
-                     
                     tomato={click}
                 >
                     {auth().currentUser ? <LoginText>로그인함</LoginText> : <LoginText>로그인/회원가입</LoginText>}
                 </LoginBtn>
-                <ConfigureBtn onPress={()=>setModalVisible(true)}>
-                    <Icon name="settings-outline" size={30} color="#0062FF"/>
-                </ConfigureBtn>
+                <ConfigureAlarm>
+                    {auth().currentUser ? 
+                        <AlarmButton>
+                            <AlarmImage
+                                resizeMode="stretch"
+                                source={require('../../images/alarm.png')}
+                            />
+                        </AlarmButton> 
+                            : 
+                        <AlarmButton>
+                        </AlarmButton> 
+                    }
+                    <ConfigureBtn onPress={()=>setModalVisible(true)}>
+                        <ConfigureImage
+                            resizeMode="stretch"
+                            source={require('../../images/configure.png')}
+                        />
+                    </ConfigureBtn>
+                </ConfigureAlarm>
             </HeaderBox>
             <SignBoardBox onPress={()=>navigate("Stack",{screen:"Contributor"})}>
-                <MainLogoBox></MainLogoBox>
+                <MainLogoBox
+                    resizeMode="stretch"
+                    source={require('../../images/tutu-logo.png')}
+                />
                 <MainTextBox>Communication Space for TUKorea Students</MainTextBox>
                 <MainTextBox2>한국공대 학생들을 위한 소통공간</MainTextBox2>
             </SignBoardBox>
