@@ -8,19 +8,20 @@ import { Text, View } from "react-native";
 //-----------------------------키워드 검색하는 부분------------------------------
 //-----------------------------------------------------------------------------
 const SearchFilterBox = styled.View`
-//border : 1px;
-margin-left: 20px;
-margin-right: 20px;
-margin-bottom: 20px;
-height : 40px;
-flex-direction : row;
-`;   
-const FilterBox = styled.View`
-    height : 20px;
-    flex-direction:row;
-    width: 70%;
-    margin-top: 10px;
-`;
+    //border : 1px;
+    width: 86%;
+    align-self: center;
+    margin-bottom: 20px;
+    height : 4.8%;
+    flex-direction : row;
+    `;   
+    const FilterBox = styled.View`
+        //border: 1px;
+        height : 62.8%;
+        flex-direction:row;
+        width: 70%;
+        margin-top: 1.9%;
+    `;
     const Filter1 = styled.View`
         border: 1px;
         border-color: #1398FF;
@@ -63,9 +64,9 @@ const FilterBox = styled.View`
         `;
 const SearchFilterBtn = styled.View`
     width: 30%;
+    height: 100%;
     align-items: center;
     justify-content: center;
-    margin-left: 3px;
 `;
     const SearchFilterIcon = styled.View`
         //border : 1px;

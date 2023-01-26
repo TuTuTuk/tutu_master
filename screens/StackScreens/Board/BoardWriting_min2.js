@@ -1,9 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { Modal } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 
+import ModalTwoOptions from "../../../components/ModalTwoOptions";
+import ModalOneOptTwoTitle from "../../../components/ModalOneOptTwoTitle";
 
 const Container = styled.ScrollView.attrs(()=>({
     contentContainerStyle:{
@@ -29,7 +32,7 @@ const HeaderBox = styled.View`
     justify-content: space-between;
     align-items: center;
 `;
-    const BackView = styled.View`
+    const BackView = styled.Pressable`
         border-color: orange;
         width:10%;
     `;
@@ -222,19 +225,83 @@ const CompleteBtn = styled.TouchableOpacity`
         color: white;
         align-self: center;
     `;
-const BoardWriting_min2 = ({navigation:{navigate}})=>(
+//-------------Modal-----------------
+const ModalBackView=styled.View`
+    position:absolute;
+    width:100%;
+    height:100%; 
+`;
+const ModalView = styled.View`
+    background-color: #BBBBBB;
+    width:95px;
+    height:50px;
+    border-radius: 5px;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-right: 6.5%;
+    align-self: flex-end;
+    top:15%;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:5px;
+`;
+    const Modalinquire = styled.Pressable`
+        height:50%;
+    `;
+        const MiddleText = styled.Text`
+            font-size:12px;
+        `;
+
+const BoardWriting_min2 = ({navigation:{navigate}})=>{
+    const [modalVisible,setModalVisible] = useState(false)
+    const [modalVisible2,setModalVisible2] = useState(false)
+    const [modalVisible3,setModalVisible3] = useState(false)
+    return(
     <Container>
+        <ModalTwoOptions 
+                visible={modalVisible} 
+                setvisible={setModalVisible}
+                title="뒤로가기"
+                contents="지금 뒤로가면 입력하신 내용이 삭제됩니다."
+                yestext="뒤로가기"
+        />
+        <ModalOneOptTwoTitle
+            visible={modalVisible2} 
+            setvisible={setModalVisible2}
+            title="경고"
+            contents="욕설/혐오 등의 표현은 사용하실 수 없습니다."
+            yestext="확인"
+        />
+        <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible3}>
+                <ModalBackView>
+                </ModalBackView>
+                <ModalView>
+                    <Modalinquire onPress={()=>setModalVisible3(false)}>
+                        <MiddleText>
+                            문의하기
+                        </MiddleText>
+                    </Modalinquire>
+                    <Modalinquire onPress={()=>setModalVisible3(false)}>
+                        <MiddleText>
+                            새로고침
+                        </MiddleText>
+                    </Modalinquire>
+                </ModalView>
+            </Modal>
         <HeaderBox>
             <BackView>
                 <BackBtn 
-                    onPress={()=>navigate("Stack",{screen:"BoardWriting_min"})}>
+                    ConfigureBtn onPress={()=>setModalVisible(true)}>
                     <Icon name="chevron-back-outline" size = {30} />
                 </BackBtn>
             </BackView>
             <BoardTextBox>
                 <BoardText>게시판 글쓰기</BoardText>   
             </BoardTextBox>
-            <PlusBtn> 
+            <PlusBtn onPress={()=>setModalVisible3(true)}> 
                 <Icon name="ellipsis-vertical-outline" size = {25} color = '#545454'/>
             </PlusBtn>
         </HeaderBox>
@@ -341,7 +408,7 @@ const BoardWriting_min2 = ({navigation:{navigate}})=>(
             <InputKeywordBox></InputKeywordBox>
         </AddKeywordBox>
         <CompleteBtn
-            onPress={()=>navigate("Stack",{screen:"BoardWriting_min2"})}>
+            ConfigureBtn onPress={()=>setModalVisible2(true)}>
             <LinearGradient style={{
                 margin:0,
                 height:40,
@@ -356,5 +423,6 @@ const BoardWriting_min2 = ({navigation:{navigate}})=>(
             </LinearGradient>
         </CompleteBtn>
     </Container>
-)
+    );
+};
 export default BoardWriting_min2;

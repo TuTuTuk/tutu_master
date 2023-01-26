@@ -1,7 +1,11 @@
 import react from "react";
+import { useState } from "react";
+import { Modal } from "react-native";
 import styled from "styled-components/native";
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+//댓글 Box
 
 const CommentBox = styled.View`
     border-radius: 10px;
@@ -18,6 +22,7 @@ const CommentBox = styled.View`
         height: 25px;
         align-self: center;
         margin: 10px;
+        margin-bottom : 1.37%;
         flex-direction: row;
     `;  
         const ProfileImage = styled.Image`
@@ -62,7 +67,7 @@ const CommentBox = styled.View`
                 justify-content: center;
             `;
     const CommentContent = styled.Text`
-        height: 30px;
+        height: 32%;
         //border: 1px;
         margin-left: 10px;
         margin-right : 10px;
@@ -90,10 +95,55 @@ const CommentBox = styled.View`
             font-size: 10px;
             color : red;
         `;
-
+//-------------Modal-----------------
+const ModalBackView=styled.View`
+    position:absolute;
+    width:100%;
+    height:100%; 
+`;
+const ModalView = styled.View`
+    background-color: #BBBBBB;
+    width:95px;
+    height:70px;
+    border-radius: 5px;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-right: 7%;
+    align-self: flex-end;
+    top:56%;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:5px;
+`;
+    const Modalinquire = styled.Pressable`
+        height:33.3%;
+    `;
+        const MiddleText = styled.Text`
+            font-size:12px;
+        `;
 const CommentBox_min = () => {
+    const [modalVisible,setModalVisible] = useState(false)
     return(
         <CommentBox>
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+            >
+                <ModalBackView>
+                </ModalBackView>
+                <ModalView>
+                    <Modalinquire onPress={()=>setModalVisible(false)}>
+                        <MiddleText>댓글달기</MiddleText>
+                    </Modalinquire>
+                    <Modalinquire onPress={()=>setModalVisible(true)}>
+                        <MiddleText>신고하기</MiddleText>
+                    </Modalinquire>
+                    <Modalinquire onPress={()=>setModalVisible(false)}>
+                        <MiddleText>쪽지 보내기</MiddleText>
+                    </Modalinquire>
+                </ModalView>
+            </Modal>
                 <CommentProfileBox>
                     <ProfileImage></ProfileImage>
                     <CommentName>익명 1</CommentName>
@@ -104,12 +154,12 @@ const CommentBox_min = () => {
                         <CommentGoodIcon>
                             <Icon name="thumbs-up-sharp" size = {18} color = '#808080'/>
                         </CommentGoodIcon>
-                        <CommentPlusIcon>
+                        <CommentPlusIcon onPress={()=>setModalVisible(true)}>
                             <Icon name="ellipsis-vertical-outline" size = {15} color = '#808080'/>
                         </CommentPlusIcon>
                     </CommentMenuBox>
                 </CommentProfileBox>
-                <CommentContent>내용을 입력하세요</CommentContent>
+                <CommentContent>내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 내용을 입력하세요</CommentContent>
                 <DataAndGoodBox>
                     <CommentDate>09/26 16:00</CommentDate>
                     <CommentGood>

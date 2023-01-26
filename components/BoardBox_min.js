@@ -2,15 +2,16 @@ import react from "react";
 import styled from "styled-components/native";
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
-const BoardBox = styled.View`
+const BoardBox = styled.Pressable`
     //border: 1px;
     border-radius: 15px;
     width: 92%;
     align-self: center;
     margin-bottom: 10px;
 `;
-    const Article = styled.TouchableOpacity`
+    const Article = styled.View`
         //border: 1px;
         border-radius: 15px;
         background-color: #E3E3E3;
@@ -88,9 +89,11 @@ const BoardBox = styled.View`
                     font-size: 11px;
                 `;
 
-const BoardBox_min = () => {
+const BoardBox_min = ({move}) => {
+    const navigation = useNavigation();
     return(
-        <BoardBox>
+        <BoardBox
+            onPress={()=>navigation.navigate("Stack",{screen:`${move}`})}>
             <Article>
                 <AricleText>
                     <ArticleTitleBox>

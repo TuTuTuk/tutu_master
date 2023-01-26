@@ -13,9 +13,7 @@ const Container = styled.ScrollView.attrs(()=>({
             alignItems:"center"
         }
     }))`
-
 `;
-
 
 const LogoImage = styled.Image`
     width:100px;
@@ -77,7 +75,7 @@ const HelpView = styled.View`
 //}
 //중괄호 안에 변수선언 이나 useState(),useEffect등등 사용가능
 
-const LoginPage =({navigation:{navigate}})=>{
+const LoginPage =({navigation:{navigate,reset}})=>{
     //setIdChange()함수를 통해 idChange 변수값 변경, 초기값은 ""
     const [idChange,setIdChange] = useState("");
     const [pwChange,setPwChange] = useState("");
@@ -89,7 +87,10 @@ const LoginPage =({navigation:{navigate}})=>{
     const [finish,setFinish] = useState(false);
 
 
-
+    const LoginDone = async ()=>{
+        await reset({routes:[{name:"Home"}]})
+        navigate("Tabs",{screen:"Home"})
+    }
 
     const checkEmpty=()=>{
         setLoadingCheck(true);
@@ -109,10 +110,9 @@ const LoginPage =({navigation:{navigate}})=>{
                 setCheckPwBlank(true);
             }
             if(checkIdBlank==true && checkPwBlank==true){
-                
-                  auth().signInWithEmailAndPassword(idChange,pwChange)
-                  .then(()=>console.log("login"))
-                  .catch(()=>console.log("loginfail"))
+                    auth().signInWithEmailAndPassword(idChange,pwChange)
+                        .then(()=>LoginDone())
+                        .catch((error)=>console.log(error))
             }
             setLoadingCheck(false);
             
@@ -130,12 +130,12 @@ const LoginPage =({navigation:{navigate}})=>{
                         {checkIdBlank?null:<Text style={{color:"red",marginBottom:10}}>id 비어있음</Text>}
                     <Input title="P/W" changeText={setPwChange} mbottom="20"/>
                         {checkPwBlank?null:<Text style={{color:"red",marginBottom:10}}>pw 비어있음</Text>}
-                    <BlueButton title="로그인" click={checkEmpty} mbottom="35"/>
+                    <BlueButton title="로그인" click={checkEmpty} mbottom="35" />
             </LoginBox>
             <JoinSearchView>
-                <BlackButton title="회원가입" mbottom="30" move="JoinPage"/>
-                <BlackButton title="아이디 찾기" mbottom="10" move="IdSearchPage"/>
-                <BlackButton title="비밀번호 찾기" mbottom="45" move=""/>
+                <BlackButton title="회원가입" mbottom="30" click={null} move="JoinPage"/>
+                <BlackButton title="아이디 찾기" mbottom="10" click={null} move="IdSearchPage"/>
+                <BlackButton title="비밀번호 찾기" mbottom="45" click={null} move=""/>
             </JoinSearchView>
             <HelpView>
                 <HelpTextPressable>

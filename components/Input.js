@@ -2,7 +2,7 @@ import react from "react";
 import styled from "styled-components/native";
 
 const Box = styled.View`
-    width:310px;
+    width:100%;
     margin-bottom: ${(props)=>props.mbottom}px;
 `;
     const Text = styled.Text`
@@ -17,6 +17,8 @@ const Box = styled.View`
         padding-left:10px;
         border-radius: 10px;
         background-color: #E3E3E3;
+        font-weight: 400;
+        font-size: 16px;
     `;
 
 

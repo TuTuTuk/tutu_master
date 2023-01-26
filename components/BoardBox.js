@@ -43,7 +43,6 @@ const PopularBoxLeft = styled.View`
             font-weight: 600;
             font-size: 8px;
             color:#FFFFFF;
-            text-justify: center;
             text-align:center;
         `;
 const PopularBoxRight = styled.View`    

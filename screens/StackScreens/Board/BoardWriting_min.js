@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { Modal } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -237,8 +238,56 @@ const CompleteBtn = styled.TouchableOpacity`
         color: white;
         align-self: center;
     `;
-const BoardWriting_min = ({navigation:{navigate}})=>(
+
+//-------------Modal-----------------
+const ModalBackView=styled.View`
+    position:absolute;
+    width:100%;
+    height:100%; 
+`;
+const ModalView = styled.View`
+    background-color: #BBBBBB;
+    width:95px;
+    height:50px;
+    border-radius: 5px;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-right: 6.5%;
+    align-self: flex-end;
+    top:15%;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:5px;
+`;
+    const Modalinquire = styled.Pressable`
+        height:50%;
+    `;
+        const MiddleText = styled.Text`
+            font-size:12px;
+        `;
+const BoardWriting_min = ({navigation:{navigate}})=>{
+    const [modalVisible,setModalVisible] = useState(false)
+    return(
     <Container>
+        <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}>
+                <ModalBackView>
+                </ModalBackView>
+                <ModalView>
+                    <Modalinquire onPress={()=>setModalVisible(false)}>
+                        <MiddleText>
+                            문의하기
+                        </MiddleText>
+                    </Modalinquire>
+                    <Modalinquire onPress={()=>setModalVisible(false)}>
+                        <MiddleText>
+                            새로고침
+                        </MiddleText>
+                    </Modalinquire>
+                </ModalView>
+            </Modal>
         <HeaderBox>
             <BackView>
                 <BackBtn 
@@ -249,7 +298,7 @@ const BoardWriting_min = ({navigation:{navigate}})=>(
             <BoardTextBox>
                 <BoardText>게시판 글쓰기</BoardText>   
             </BoardTextBox>
-            <PlusBtn> 
+            <PlusBtn onPress={()=>setModalVisible(true)}>
                 <Icon name="ellipsis-vertical-outline" size = {25} color = '#545454'/>
             </PlusBtn>
         </HeaderBox>
@@ -452,5 +501,6 @@ const BoardWriting_min = ({navigation:{navigate}})=>(
             </LinearGradient>
         </CompleteBtn>
     </Container>
-)
+    );
+        };
 export default BoardWriting_min;
