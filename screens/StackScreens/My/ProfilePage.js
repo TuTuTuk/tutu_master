@@ -41,9 +41,9 @@ const BackBtn = styled.Pressable`
     `;
 
 const BackText = styled.Text`
-            color:red;
-            font-size:10px;
-        `;
+        color:red;
+        font-size:10px;
+    `;
 const ConfigureBtn = styled.TouchableOpacity`
         border:1px;
         width:30px;
@@ -62,15 +62,15 @@ const InformText = styled.Text`
 
 const NameBox = styled.View`
     margin : 5px;
-    marginTop : -3px;
-    marginLeft : 50px;
+    margin-top : -3px;
+    margin-left : 50px;
 `;
 
 const ImageBox = styled.View`
     width:150px;
     height:150px;
     margin : 30px;
-    marginLeft : 125px;
+    margin-left : 125px;
     background-color: #BBBBBB;
 `;
 
@@ -81,7 +81,7 @@ const BGBox = styled.View`
         background-color: #E3E3E3;
         border:1px;
         border-color : #E3E3E3;
-        borderRadius: 10px;
+        border-radius: 10px;
     `;
 
 const Image1 = styled.Image`
@@ -96,7 +96,7 @@ const BGText = styled.Text`
         width:100%;
         height:20px;
         font-size:15px;
-        fontweight : bold;
+        font-weight : bold;
         margin : 5px;
     `;
 const StyleButton = styled.Pressable`
@@ -116,7 +116,7 @@ const StyleView = styled.View`
         flex-direction:row;
         justify-content: space-between;
         align-items: center;
-        marginLeft : 3px;
+        margin-left : 3px;
 `;
 
 

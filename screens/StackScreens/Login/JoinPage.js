@@ -257,15 +257,19 @@ const JoinPage =({navigation:{navigate,reset}})=>{
 
         auth().createUserWithEmailAndPassword(emailText,pwText)
             .then(async()=>{ //회원가입 성공 시
-                await auth().currentUser.updateProfile({displayName:nameText})
+                await auth().currentUser.updateProfile({displayName:nameText,photoURL:"false"})
                 await firestore().collection("users").doc(auth().currentUser.uid).set({ //유저 정보 추가 저장
                     user_uid:auth().currentUser.uid,
                     user_name:auth().currentUser.displayName,
                     user_department:chooseRadio,
-                    user_class_number:numText
+                    user_class_number:numText,
+                    user_boards_count:0,
+                    user_comment_count:0,
+                    user_reported_count:0
                 }).then(()=>{
                     console.log("join!!");
-                    reset({routes:[{name:"Home"}]})
+                    console.log(auth().currentUser.photoURL);
+                    reset({routes:[{name:"Home"}]}) //새로고침
                     navigate("Tabs",{screen:"Home"})
                 })
             })

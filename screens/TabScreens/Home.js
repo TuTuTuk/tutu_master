@@ -207,6 +207,7 @@ const PopularBoardBox = styled.View`
 const Home =({navigation:{navigate}})=>{
     const [click,setClick] = useState(false);
     const [modalVisible,setModalVisible] = useState(false)
+
     return(
         <Container>
             <ModalTwoOptions 
@@ -218,13 +219,13 @@ const Home =({navigation:{navigate}})=>{
             />
             <HeaderBox>
                 <LoginBtn 
-                    onPress={()=>{auth().currentUser?navigate("Stack",{screen:"LogoutPage"}):navigate("Stack",{screen:"LoginPage"})}}
+                    onPress={()=>{auth().currentUser?navigate("Tabs",{screen:"My"}):navigate("Stack",{screen:"LoginPage"})}}
                     onPressIn={()=>null}    
                     onLongPress={()=>console.log(auth().currentUser)}  
                     onPressOut={()=>setClick(false)} 
                     tomato={click}
                 >
-                    {auth().currentUser ? <LoginText>로그인함</LoginText> : <LoginText>로그인/회원가입</LoginText>}
+                    {auth().currentUser ? <LoginText>마이페이지</LoginText> : <LoginText>로그인/회원가입</LoginText>}
                 </LoginBtn>
                 <ConfigureAlarm>
                     {auth().currentUser ? 
