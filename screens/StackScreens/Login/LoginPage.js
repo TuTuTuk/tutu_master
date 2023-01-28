@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import Input from "../../../components/Input";
 import BlueButton from "../../../components/BlueButton";
 import BlackButton from "../../../components/BlackButton";
+
 import auth from "@react-native-firebase/auth";
 
 

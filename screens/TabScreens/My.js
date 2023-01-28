@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Text, View} from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
+import auth from "@react-native-firebase/auth";
 
 
 
@@ -288,7 +289,13 @@ const My = ({navigation:{navigate}}) => {
         </BGBox>
         <BGBox>
             <BGText>기타</BGText>
-            <PopualrBox>
+            <PopualrBox
+                onPress={()=>auth().signOut()
+                    .then(()=>{
+                        navigate("Tabs",{screen:"Home"})
+                    })
+                }
+            >
                 <PickText>로그아웃</PickText>
                 <GoIcon>
                 <Icon name="chevron-forward-outline" size={25}/>
