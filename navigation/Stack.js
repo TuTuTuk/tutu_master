@@ -23,8 +23,11 @@ import Writing_self_min from "../screens/StackScreens/Board/Writing_self_min";
 import NoteHistory_min from "../screens/StackScreens/My/NoteHistory_min";
 import Question_min from "../screens/StackScreens/My/Question_min";
 
-
-
+//매칭(준서)
+import Cancle from "../screens/StackScreens/Matching/Cancle";
+import EyePage from "../screens/StackScreens/Matching/EyePage";
+import Matching_111 from "../screens/StackScreens/Matching/Matching_111";
+import Signup from "../screens/StackScreens/Matching/Signup";
 
 const NativeStack = createNativeStackNavigator();
 
@@ -55,6 +58,13 @@ const Stack =()=>(
         <NativeStack.Screen name="Writing_self_min" component={Writing_self_min}/>
         <NativeStack.Screen name="NoteHistory_min" component={NoteHistory_min}/>
         <NativeStack.Screen name="Question_min" component={Question_min}/>
+
+        <NativeStack.Screen name ="EyePage" component={EyePage}/>
+        <NativeStack.Screen name ="Signup" component={Signup}/>
+        <NativeStack.Screen name ="Matching_111" component={Matching_111}/>
+        <NativeStack.Screen name ="Cancle" component={Cancle}/>
+
+
     </NativeStack.Navigator>
 )
 
