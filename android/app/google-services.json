@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "168544598653",
+    "project_id": "tutu-4d432",
+    "storage_bucket": "tutu-4d432.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168544598653:android:c11fa0a9ab1d62ba91cf14",
+        "android_client_info": {
+          "package_name": "com.tutufirst"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "168544598653-atmh6o0v610i331aj6a7a9g50vgf6a65.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCosbFhhMRSBqsD6kwGPbWruPuPb7pQL64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "168544598653-atmh6o0v610i331aj6a7a9g50vgf6a65.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
