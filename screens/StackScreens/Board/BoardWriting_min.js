@@ -5,6 +5,8 @@ import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 
+import TopBar from "../../../components/TopBar";
+
 
 const Container = styled.ScrollView.attrs(()=>({
     contentContainerStyle:{
@@ -31,7 +33,6 @@ const HeaderBox = styled.View`
     align-items: center;
 `;
     const BackView = styled.View`
-        border-color: orange;
         width:10%;
     `;
         const BackBtn = styled.TouchableOpacity`
@@ -98,7 +99,7 @@ const AllBox = styled.View`
                 text-decoration: underline;
             `;
             const ChoiceText = styled.Text`
-                border: 1px;
+                //border: 1px;
                 font-size: 12px;
                 font-weight: 500;
                 color: #FF3D00;
@@ -289,27 +290,12 @@ const BoardWriting_min = ({navigation:{navigate}})=>{
                     </Modalinquire>
                 </ModalView>
             </Modal>
-        <HeaderBox>
-            <BackView>
-                <BackBtn 
-                    onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
-                    <Icon name="chevron-back-outline" size = {30} />
-                </BackBtn>
-            </BackView>
-            <BoardTextBox>
-                <BoardText>게시판 글쓰기</BoardText>   
-            </BoardTextBox>
-            <PlusBtn onPress={()=>setModalVisible(true)}>
-                <Icon name="ellipsis-vertical-outline" size = {25} color = '#545454'/>
-            </PlusBtn>
-        </HeaderBox>
+        <TopBar title="게시판 글쓰기"></TopBar>
         <AllBox>
             <KeyBox>
                 <TitleBox>
                     <Title>학과</Title>
-                    <ClearTextBox>
-                        <ClearText>선택해제</ClearText>
-                    </ClearTextBox>
+                    <ClearTextBox><ClearText>선택해제</ClearText></ClearTextBox>
                 </TitleBox>
                 <KeywordBox>
                     <Row>
@@ -318,85 +304,45 @@ const BoardWriting_min = ({navigation:{navigate}})=>{
                         </MajorKeyword>
                     </Row>
                     <Row>
-                        <MajorKeyword>
-                            <MajorKeywordText>컴퓨터공학부</MajorKeywordText>
-                        </MajorKeyword>
-                        <MajorKeyword>
-                            <MajorKeywordText>게임공학과</MajorKeywordText>
-                        </MajorKeyword>
+                        <MajorKeyword><MajorKeywordText>컴퓨터공학부</MajorKeywordText></MajorKeyword>
+                        <MajorKeyword><MajorKeywordText>게임공학과</MajorKeywordText></MajorKeyword>
                     </Row>
                     <Row>
-                        <MajorKeyword>
-                            <MajorKeywordText>기계설계공학과</MajorKeywordText>
-                        </MajorKeyword>
-                        <MajorKeyword>
-                            <MajorKeywordText>메카트로닉스공학부</MajorKeywordText>
-                        </MajorKeyword>
-                        <MajorKeyword>
-                            <MajorKeywordText>전자공학부</MajorKeywordText>
-                        </MajorKeyword>
+                        <MajorKeyword><MajorKeywordText>기계설계공학과</MajorKeywordText></MajorKeyword>
+                        <MajorKeyword><MajorKeywordText>메카트로닉스공학부</MajorKeywordText></MajorKeyword>
+                        <MajorKeyword><MajorKeywordText>전자공학부</MajorKeywordText></MajorKeyword>
                     </Row>
                     <Row>
-                        <MajorKeyword>
-                            <MajorKeywordText>신소재공학과</MajorKeywordText>
-                        </MajorKeyword>
-                        <MajorKeyword>
-                            <MajorKeywordText>생명화학공학과</MajorKeywordText>
-                        </MajorKeyword>
-                        <MajorKeyword>
-                            <MajorKeywordText>나노반도체공학과</MajorKeywordText>
-                        </MajorKeyword>
+                        <MajorKeyword><MajorKeywordText>신소재공학과</MajorKeywordText></MajorKeyword>
+                        <MajorKeyword><MajorKeywordText>생명화학공학과</MajorKeywordText></MajorKeyword>
+                        <MajorKeyword><MajorKeywordText>나노반도체공학과</MajorKeywordText></MajorKeyword>
                     </Row>
                     <Row>
-                        <MajorKeyword>
-                            <MajorKeywordText>에너지,전기공학과</MajorKeywordText>
-                        </MajorKeyword>
-                        <MajorKeyword>
-                            <MajorKeywordText>경영학부</MajorKeywordText>
-                        </MajorKeyword>
-                        <MajorKeyword>
-                            <MajorKeywordText>디자인공학부</MajorKeywordText>
-                        </MajorKeyword>
+                        <MajorKeyword><MajorKeywordText>에너지,전기공학과</MajorKeywordText></MajorKeyword>
+                        <MajorKeyword><MajorKeywordText>경영학부</MajorKeywordText></MajorKeyword>
+                        <MajorKeyword><MajorKeywordText>디자인공학부</MajorKeywordText></MajorKeyword>
                     </Row>
                 </KeywordBox>
             </KeyBox>
             <KeyBox>
                 <TitleBox>
                     <Title>분야</Title>
-                    <ClearTextBox>
-                        <ClearText>선택해제</ClearText>
-                    </ClearTextBox>
+                    <ClearTextBox><ClearText>선택해제</ClearText></ClearTextBox>
                 </TitleBox>
                 <KeywordBox>
                     <Row>
-                        <FieldKeyword>
-                            <FieldKeywordText>기타</FieldKeywordText>
-                        </FieldKeyword>
+                        <FieldKeyword><FieldKeywordText>기타</FieldKeywordText></FieldKeyword>
                     </Row>
                     <Row>
-                        <FieldKeyword>
-                            <FieldKeywordText>전공</FieldKeywordText>
-                        </FieldKeyword>
-                        <FieldKeyword>
-                            <FieldKeywordText>교양</FieldKeywordText>
-                        </FieldKeyword>
-                        <FieldKeyword>
-                            <FieldKeywordText>비교과</FieldKeywordText>
-                        </FieldKeyword>
-                        <FieldKeyword>
-                            <FieldKeywordText>대외활동</FieldKeywordText>
-                        </FieldKeyword>
+                        <FieldKeyword><FieldKeywordText>전공</FieldKeywordText></FieldKeyword>
+                        <FieldKeyword><FieldKeywordText>교양</FieldKeywordText></FieldKeyword>
+                        <FieldKeyword><FieldKeywordText>비교과</FieldKeywordText></FieldKeyword>
+                        <FieldKeyword><FieldKeywordText>대외활동</FieldKeywordText></FieldKeyword>
                     </Row>
                     <Row>
-                        <FieldKeyword>
-                            <FieldKeywordText>장학금</FieldKeywordText>
-                        </FieldKeyword>
-                        <FieldKeyword>
-                            <FieldKeywordText>핫플</FieldKeywordText>
-                        </FieldKeyword>
-                        <FieldKeyword>
-                            <FieldKeywordText>취업진로</FieldKeywordText>
-                        </FieldKeyword>
+                        <FieldKeyword><FieldKeywordText>장학금</FieldKeywordText></FieldKeyword>
+                        <FieldKeyword><FieldKeywordText>핫플</FieldKeywordText></FieldKeyword>
+                        <FieldKeyword><FieldKeywordText>취업진로</FieldKeywordText></FieldKeyword>
                     </Row>
                 </KeywordBox>
             </KeyBox>
@@ -408,34 +354,22 @@ const BoardWriting_min = ({navigation:{navigate}})=>{
             <WritingTitleBox>
                 <WritingTitleText>제목을 입력하세요</WritingTitleText>
                 <WritingTitlePlus>
-                    <InformTextBox>
-                        <InformText>정보글</InformText>
-                    </InformTextBox>
-                    <RemoveBtn>
-                        <Icon name="remove-outline" size={20} color = 'white'/>
-                    </RemoveBtn>
+                    <InformTextBox><InformText>정보글</InformText></InformTextBox>
+                    <RemoveBtn><Icon name="remove-outline" size={20} color = 'white'/></RemoveBtn>
                 </WritingTitlePlus>
             </WritingTitleBox>
             <WritingContentBox></WritingContentBox>
             <IconBox>
-                <Icon1>
-                    <Icon name="image" size={20} color = '#545454'/>
-                </Icon1>
-                <Icon1>
-                    <Icon name="camera" size={20} color = '#545454'/>
-                </Icon1>
-                <Icon1>
-                    <Icon name="attach" size={20} color = '#545454'/>
-                </Icon1>
+                <Icon1><Icon name="image" size={20} color = '#545454'/></Icon1>
+                <Icon1><Icon name="camera" size={20} color = '#545454'/></Icon1>
+                <Icon1><Icon name="attach" size={20} color = '#545454'/></Icon1>
             </IconBox>
         </WritingBox>
         <AddKeywordBox>
             <KeyBox>
                 <TitleBox>
                     <Title>인기</Title>
-                    <ClearTextBox>
-                        <ChoiceText>*선택</ChoiceText>
-                    </ClearTextBox>
+                    <ClearTextBox><ChoiceText>*선택</ChoiceText></ClearTextBox>
                 </TitleBox>
                 <KeywordBox>
                     <Row>

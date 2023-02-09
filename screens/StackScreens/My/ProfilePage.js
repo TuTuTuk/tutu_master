@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { Text, View} from "react-native";
 import styled from "styled-components/native";
+import TopBar from "../../../components/TopBar";
 
 
 const Container = styled.ScrollView.attrs(() => ({
@@ -9,173 +10,101 @@ const Container = styled.ScrollView.attrs(() => ({
     }
 }))`
     flex:1;
-    border:1px;
-    border-color:red;
-    margin:10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 `;
-
-
-
-const HeaderBox = styled.View`
-    flex:1;
-    border:1px;
-    border-color:red;
-    margin:10px;
-    height : 100px;
-    flex-direction:row;
-    justify-content: space-between;
-    align-items: center;
-    padding-left:20px;
-    padding-right:20px;
-`;
-const TitleText = styled.Text`
-            color:red;
-            font-size:10px;
-        `;
-
-const BackBtn = styled.Pressable`
-        border: 1px;
-        width:30px;
-        height:30px;
-        background-color: ${(props)=>props.tomato ? "blue":"pink"};
-    `;
-
-const BackText = styled.Text`
-        color:red;
-        font-size:10px;
-    `;
-const ConfigureBtn = styled.TouchableOpacity`
-        border:1px;
-        width:30px;
-        height:30px;
-    `;
-const ConfigureText = styled.Text`
-            color:red;
-            font-size:10px;
-        `;
 
 const InformText = styled.Text`
-        font-size:15px;
-        margin : 3px;
-    `;
-
-
-const NameBox = styled.View`
+    font-size:15px;
     margin : 5px;
-    margin-top : -3px;
-    margin-left : 50px;
+    //border: 1px;
+    color: #0062FF;
+    width: 25%;
 `;
-
+const NameBox = styled.View`
+    //border: 1px;
+    width: 86%;
+    align-self: center;
+    margin-top: 3%;
+    margin-bottom: 4.1%;
+`;
 const ImageBox = styled.View`
     width:150px;
     height:150px;
-    margin : 30px;
-    margin-left : 125px;
-    background-color: #BBBBBB;
+    align-self: center;
+    background-color: "#E3E3E3";
+    border-radius:500px;
+    //border: 1px;
 `;
-
+    const Image1 = styled.Image`
+        width : 90%;
+        height : 90%;
+        align-self: center;
+    `;
 const BGBox = styled.View`
-        width:95%;
-        height:45%;
-        margin : 10px;
-        background-color: #E3E3E3;
-        border:1px;
-        border-color : #E3E3E3;
-        border-radius: 10px;
-    `;
-
-const Image1 = styled.Image`
-            border:1px;
-            border-color:black;
-            border-radius:30px;
-            width : 100%;
-            height : 100%;
-        `;
-
-const BGText = styled.Text`
-        width:100%;
-        height:20px;
-        font-size:15px;
-        font-weight : bold;
-        margin : 5px;
-    `;
-const StyleButton = styled.Pressable`
-        border:1px;
-        border-color:#BBBBBB;
-        border-radius:3px;
-        width:70px;
-        height:70px;
-        margin : 10px;
-        background-color : #BBBBBB;
-    `;
-
-const StyleView = styled.View`
-        width:95%;
-        height:100px;
-        background-color: #E3E3E3;
-        flex-direction:row;
-        justify-content: space-between;
-        align-items: center;
-        margin-left : 3px;
+    width:86%;
+    height:45%;
+    background-color: #E3E3E3;
+    border-radius: 10px;
+    align-self: center;
+    padding : 15px;
 `;
-
-
+const BGText = styled.Text`
+    width:100%;
+    font-size:15px;
+    font-weight : bold;
+    margin-bottom: 15px;
+`;
+const StyleButton = styled.Pressable`
+    //border: 1px;
+    height: 65px;
+    border-radius:5px;
+    width: 65px;
+    background-color : #BBBBBB;
+    padding-top: 4px;
+`;
+const StyleView = styled.View`
+    //border: 1px;
+    height:65px;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 31px;
+`;
 const My = ({navigation:{navigate}}) => {
     const [click,setClick] = useState(false);
-
     return(
     <Container>
-        <HeaderBox>
-        <BackBtn 
-                    onPress={()=>navigate("Home")}
-                    onPressIn={()=>setClick(true)}    
-                    onLongPress={()=>console.log("onLongPress")}  
-                    onPressOut={()=>setClick(false)} 
-                >
-                <BackText>
-                        Back
-                </BackText>
-                </BackBtn>
-            <TitleText>프로필 설정</TitleText>
-            <ConfigureBtn>
-                <ConfigureText>Configure</ConfigureText>
-            </ConfigureBtn>
-        </HeaderBox>
+        <TopBar title="프로필 설정"></TopBar>
         <View>
         <ImageBox>
-            <Image1></Image1>
+            <Image1 source={require('../../../images/profilePicture/profileDefault.png')}></Image1>
         </ ImageBox>
         <NameBox>
-                <InformText>
-                    aaa
-                </InformText>
-                <InformText>
-                    bbb
-                </InformText>
-                <InformText>
-                    ccc
-                </InformText>
+                <InformText>아이디</InformText>
+                <InformText>학과/학번</InformText>
+                <InformText>포인트</InformText>
         </NameBox>
         </View>
         <BGBox>
             <BGText>프로필 이미지 구매</BGText>
             <StyleView>
-            <StyleButton></StyleButton>
-            <StyleButton></StyleButton>
-            <StyleButton></StyleButton>
-            <StyleButton></StyleButton>
+            <StyleButton><Image1 source={require('../../../images/profilePicture/profileDefault.png')}></Image1></StyleButton>
+            <StyleButton><Image1 source={require('../../../images/profilePicture/profile2.png')}></Image1></StyleButton>
+            <StyleButton><Image1 source={require('../../../images/profilePicture/profile3.png')}></Image1></StyleButton>
+            <StyleButton><Image1 source={require('../../../images/profilePicture/profile4.png')}></Image1></StyleButton>
             </StyleView>
             <StyleView>
-            <StyleButton></StyleButton>
-            <StyleButton></StyleButton>
-            <StyleButton></StyleButton>
-            <StyleButton></StyleButton>
+            <StyleButton><Image1 source={require('../../../images/profilePicture/profile5.png')}></Image1></StyleButton>
+            <StyleButton><Image1 source={require('../../../images/profilePicture/profile6.png')}></Image1></StyleButton>
+            <StyleButton><Image1 source={require('../../../images/profilePicture/profile7.png')}></Image1></StyleButton>
+            <StyleButton><Image1 source={require('../../../images/profilePicture/profile8.png')}></Image1></StyleButton>
             </StyleView>
             <StyleView>
-            <StyleButton></StyleButton>
-            <StyleButton></StyleButton>
-            <StyleButton></StyleButton>
-            <StyleButton></StyleButton>
+            <StyleButton><Image1 source={require('../../../images/profilePicture/profile9.png')}></Image1></StyleButton>
+            <StyleButton><Image1 source={require('../../../images/profilePicture/profile10.png')}></Image1></StyleButton>
+            <StyleButton><Image1 source={require('../../../images/profilePicture/profile11.png')}></Image1></StyleButton>
+            <StyleButton><Image1 source={require('../../../images/profilePicture/profile12.png')}></Image1></StyleButton>
             </StyleView>
         </BGBox>
         </Container>

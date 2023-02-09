@@ -62,6 +62,8 @@ const Designboard_min = ({navigation:{navigate}})=>{
             <BoardBox></BoardBox>
             <BoardBox></BoardBox>
             <BoardBox></BoardBox>
+            <BoardBox></BoardBox>
+            <BoardBox></BoardBox>
         </AllBoardBox>
     </Container>
     <WritingBtn
