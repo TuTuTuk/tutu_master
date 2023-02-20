@@ -10,6 +10,7 @@ const Box = styled.View`
         font-size: 14px;
         line-height: 17px;
         margin-bottom: 5px;
+        margin-left: 6px;
     `;
     const TextInput = styled.TextInput`
         width:100%;

@@ -86,6 +86,7 @@ const ModalView = styled.View`
 
 const ModalTwoOptions = ({visible,setvisible,title,contents,yestext,visibleyes, setvisibleyes}) => {
 
+    if(visibleyes != null){
     return(
         <Modal
             animationType="fade"
@@ -126,7 +127,46 @@ const ModalTwoOptions = ({visible,setvisible,title,contents,yestext,visibleyes, 
                     </ModalPressableBox>
                 </ModalView>
             </Modal>
-    )
+    )}else{
+        return(
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={visible}
+            >
+                    <ModalBackView>
+                    </ModalBackView>
+                    <ModalView>
+                        <ModalTitle>{title}</ModalTitle>
+                        <ModalContents>{contents}</ModalContents>
+                        <ModalPressableBox>
+                            <ModalNoPressable onPress={()=>setvisible(false)}>
+                                <ModalNoText>
+                                    취소
+                                </ModalNoText>
+                            </ModalNoPressable>
+                            <ModalYesPressable 
+                                onPress={()=> {setvisible(false);}}
+                                >
+                                <LinearGradient style={{
+                                    width:"100%",
+                                    height:"100%",
+                                    borderRadius: 10,
+                                    alignItems:"center",
+                                    justifyContent:"center"
+                                }}
+                                    colors={['#0062FF', '#0A7DFF', '#1398FF']}
+                                    start={{x:1,y:0}} end={{x:0,y:0}}>
+                                    <ModalYesText>
+                                        {yestext}
+                                    </ModalYesText>
+                                </LinearGradient>
+                            </ModalYesPressable>
+                        </ModalPressableBox>
+                    </ModalView>
+                </Modal>
+        )
+    }
 }
 
 export default ModalTwoOptions;
