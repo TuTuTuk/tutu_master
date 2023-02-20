@@ -136,7 +136,7 @@ const MajorBtn1 = styled.Pressable`
     height:30px;
     margin:5px
 `;
-const Matching = ({navigation:{navigate}})=>{
+const Matching_junseo = ({navigation:{navigate}})=>{
     const [click,setClick] = useState(false);
     const [modalVisible,setModalVisible] = useState(false)
     const [designClick,setDesignClick] = useState(false)
@@ -186,7 +186,7 @@ const Matching = ({navigation:{navigate}})=>{
             </HeaderBox>
             <EyeBox>
                 <EyeBtn 
-                    onPress={()=>navigate("Stack",{screen:"Signup"})}
+                    onPress={()=>navigate("Stack",{screen:"Registration"})}
                     onPressIn={()=>setClick(true)}    
                     onLongPress={()=>console.log("onLongPress")}  
                     onPressOut={()=>setClick(false)} >
@@ -243,4 +243,4 @@ const Matching = ({navigation:{navigate}})=>{
     )
 }
 
-export default Matching;
+export default Matching_junseo;

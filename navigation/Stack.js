@@ -23,8 +23,16 @@ import ViewMyBoard from "../screens/StackScreens/Board/ViewMyBoard";
 //마이페이지(민정)
 import NoteHistory_min from "../screens/StackScreens/My/NoteHistory_min";
 import Question_min from "../screens/StackScreens/My/Question_min";
-
-
+import Withdrawal from "../screens/StackScreens/My/Withdrawal";
+import Inquiry from "../screens/StackScreens/My/Inquiry";
+import Announcement from "../screens/StackScreens/My/Announcement";
+import PrivacyPolicy from "../screens/StackScreens/My/PrivacyPolicy";
+import Certification from "../screens/StackScreens/My/Certification_All/Certification";
+import CurrentStudent from "../screens/StackScreens/My/Certification_All/CurrentStudent";
+//매칭(민정)
+import Registration from "../screens/StackScreens/Matching/Registration";
+//매칭(준서)
+import Matching_junseo from "../screens/StackScreens/Matching/Matching_junseo";
 
 
 const NativeStack = createNativeStackNavigator();
@@ -57,6 +65,16 @@ const Stack =()=>(
         <NativeStack.Screen name="NoteHistory_min" component={NoteHistory_min}/>
         <NativeStack.Screen name="Question_min" component={Question_min}/>
         <NativeStack.Screen name="ViewMyBoard" component={ViewMyBoard}/>
+        <NativeStack.Screen name= "Withdrawal" component={Withdrawal}/>
+        <NativeStack.Screen name= "Inquiry" component={Inquiry}/>
+        <NativeStack.Screen name= "Announcement" component={Announcement}/>
+        <NativeStack.Screen name= "PrivacyPolicy" component={PrivacyPolicy}/>
+        <NativeStack.Screen name="Certification"component={Certification}/>
+        <NativeStack.Screen name="CurrentStudent"component={CurrentStudent}/>
+        <NativeStack.Screen name="Registration"component={Registration}/>
+
+
+        <NativeStack.Screen name="Matching_junseo" component={Matching_junseo}/>
     </NativeStack.Navigator>
 )
 

@@ -53,8 +53,7 @@ const HotKeywordBox = styled.View`
         `;
     const KeywordTextBox = styled.View`
         height: 30px;
-        //border: 1px;
-        width: 240px;
+        border: 1px;
         justify-content: center;
     `;
         const KeywordText = styled.Text`
