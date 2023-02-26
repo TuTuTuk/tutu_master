@@ -146,8 +146,10 @@ const My = ({navigation:{navigate}}) => {
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
             </PopualrBox>
-            <PopualrBox>
-                <PickText>최근에 본 댓글</PickText>
+            <PopualrBox
+                onPress={()=>navigate("Stack",{screen:"RecentWatch"})}
+            >
+                <PickText>최근에 본 글</PickText>
                 <GoIcon>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>

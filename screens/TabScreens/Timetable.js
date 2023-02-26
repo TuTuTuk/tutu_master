@@ -16,8 +16,7 @@ const Timetable =()=>{
     const [boardTitle,setBoardTitle] = useState("");
     const [boardContents,setBoardContents] = useState("");
 
-
-    const addStore=async()=>{
+    const addStore=async()=>{ 
         const save= await firestore().collection("users").doc(auth().currentUser.uid).get();
         setTempSave(save._data);
         console.log(save);

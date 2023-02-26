@@ -3,9 +3,13 @@ import { useState } from "react";
 import { Modal } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
-import LinearGradient from 'react-native-linear-gradient';
+
+import auth from "@react-native-firebase/auth";
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 import TopBar from "../../../components/TopBar";
+import BlueButton from "../../../components/BlueButton";
 
 
 const Container = styled.ScrollView.attrs(()=>({
@@ -192,7 +196,7 @@ const WritingBox = styled.View`
                 width: 20px;
                 height: 20px;
             `;
-    const WritingContentBox = styled.View`
+    const WritingContentBox = styled.TextInput`
         //border: 1px;
         width: 100%;
         height: 350px;
@@ -267,8 +271,64 @@ const ModalView = styled.View`
         const MiddleText = styled.Text`
             font-size:12px;
         `;
+
 const BoardWriting_min = ({navigation:{navigate}})=>{
+
     const [modalVisible,setModalVisible] = useState(false)
+
+    const [boardSave,setBoardSave] = useState("")
+    const [titleText,setTitleText] = useState("")
+    const [contentText,setContentText] = useState("")    
+
+    const DoneWrite=async()=>{
+        const tempSave = await firestore().collection("boards").doc("Design").get();
+
+        if(tempSave._data){
+            if(tempSave._data.arr[0] != ""){ //두번째 이후로 게시물 올릴때
+                firestore().collection("boards").doc("Design").update({
+                    arr:[...tempSave._data.arr,{
+                        title:titleText,
+                        contents:contentText,
+                        user_uid:auth().currentUser.uid,
+                        user_name:auth().currentUser.displayName,
+                        create_time:new Date(),
+                        hits_count:0
+                    }]
+                })
+                .then(async()=>{
+                    const save1= await firestore().collection("boards").doc(auth().currentUser.uid).get();
+                    setBoardSave(save1._data);
+                    const userTempSave= await firestore().collection("users").doc(auth().currentUser.uid).get();
+                    firestore().collection("users").doc(auth().currentUser.uid).update({
+                        user_boards_count: userTempSave._data.user_boards_count+1
+                    });
+                })
+                .catch(()=>{
+                    console.log("catch!!")
+                })
+            }
+            else{ //게시물 처음쓸때
+                firestore().collection("boards").doc("Design").set({
+                    arr:[{
+                        title:titleText,
+                        contents:contentText,
+                        user_uid:auth().currentUser.uid,
+                        user_name:auth().currentUser.displayName,
+                        create_time:new Date(),
+                        hits_count:0
+                    }]
+                })
+                .then(async()=>{
+                    const save2= await firestore().collection("boards").doc(auth().currentUser.uid).get();
+                    setBoardSave(save2._data);
+                })
+                .catch(()=>{
+                    console.log("catch!!!")
+                })
+            }
+        }
+    }
+
     return(
     <Container>
         <Modal
@@ -352,13 +412,19 @@ const BoardWriting_min = ({navigation:{navigate}})=>{
         </AllBox>
         <WritingBox>
             <WritingTitleBox>
-                <WritingTitleText>제목을 입력하세요</WritingTitleText>
+                <WritingTitleText
+                    placeholder="제목을 입력하세요"
+                    onChangeText={(text)=>setTitleText(text)}
+                />
                 <WritingTitlePlus>
                     <InformTextBox><InformText>정보글</InformText></InformTextBox>
                     <RemoveBtn><Icon name="remove-outline" size={20} color = 'white'/></RemoveBtn>
                 </WritingTitlePlus>
             </WritingTitleBox>
-            <WritingContentBox></WritingContentBox>
+            <WritingContentBox
+                placeholder="내용을 입력하고 원하는 해시태그를 사용해보세요!"
+                onChangeText={(text)=>setContentText(text)}
+            />
             <IconBox>
                 <Icon1><Icon name="image" size={20} color = '#545454'/></Icon1>
                 <Icon1><Icon name="camera" size={20} color = '#545454'/></Icon1>
@@ -420,21 +486,7 @@ const BoardWriting_min = ({navigation:{navigate}})=>{
             </TitleBox>
             <InputKeywordBox></InputKeywordBox>
         </AddKeywordBox>
-        <CompleteBtn
-            onPress={()=>navigate("Stack",{screen:"BoardWriting_min2"})}>
-            <LinearGradient style={{
-                margin:0,
-                height:40,
-                borderRadius: 10,
-                backgroundColor:'#0062FF',
-                paddingTop:8
-            }}
-                colors={['#0062FF', '#0A7DFF', '#1398FF']}
-                start={{x:1,y:0}} end={{x:0,y:0}}
-            >
-                <CompleteBtnText>작성 완료</CompleteBtnText>                   
-            </LinearGradient>
-        </CompleteBtn>
+        <BlueButton title="작성완료" click={DoneWrite} mbottom="35"/>
     </Container>
     );
         };
