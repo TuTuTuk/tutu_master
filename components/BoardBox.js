@@ -68,15 +68,15 @@ const PopularBoxRight = styled.View`
         const GoodImage = styled.Image``;
 
 
-const BoardBox = () => {
+const BoardBox = ({title,contents}) => {
     const navigation = useNavigation();
     const HEIGHT = Dimensions.get('window').height;
     console.log(HEIGHT);
     return(
         <PopularBox hei={HEIGHT}>
                     <PopularBoxLeft>
-                        <PopularBoxTitle>질문글 또는 가벼운 글</PopularBoxTitle>
-                        <PopularBoxContent>제목을 입력하세요 제목을 입력하세요 제목을 입 력하세요 제목을 입력하세요 제목을 입력하</PopularBoxContent>
+                        <PopularBoxTitle>{title}</PopularBoxTitle>
+                        <PopularBoxContent>{contents}</PopularBoxContent>
                         <PopularBoxKeywordBox>
                             <LinearGradient style={{
                                 width:40,

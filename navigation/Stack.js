@@ -29,6 +29,10 @@ import Announcement from "../screens/StackScreens/My/Announcement";
 import PrivacyPolicy from "../screens/StackScreens/My/PrivacyPolicy";
 import Certification from "../screens/StackScreens/My/Certification_All/Certification";
 import CurrentStudent from "../screens/StackScreens/My/Certification_All/CurrentStudent";
+
+//마이페이지(준범)
+import RecentWatch from "../screens/StackScreens/My/RecentWatch_jun";
+
 //매칭(민정)
 import Registration from "../screens/StackScreens/Matching/Registration";
 //매칭(준서)
@@ -54,6 +58,8 @@ const Stack =()=>(
         <NativeStack.Screen name="PopularBoard" component={PopularBoard}/>
         <NativeStack.Screen name="ProfilePage" component={ProfilePage}/>
         <NativeStack.Screen name="Contributor" component={Contributor}/>
+
+        <NativeStack.Screen name="RecentWatch" component={RecentWatch}/>
 
         <NativeStack.Screen name="Designboard_min" component={Designboard_min}/>
         <NativeStack.Screen name="Board_research_min" component={Board_research_min}/>

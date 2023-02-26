@@ -265,7 +265,8 @@ const JoinPage =({navigation:{navigate,reset}})=>{
                     user_class_number:numText,
                     user_boards_count:0,
                     user_comment_count:0,
-                    user_reported_count:0
+                    user_reported_count:0,
+                    user_createTime:new Date()
                 }).then(()=>{
                     console.log("join!!");
                     console.log(auth().currentUser.photoURL);

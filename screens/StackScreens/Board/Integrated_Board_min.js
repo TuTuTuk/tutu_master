@@ -86,6 +86,12 @@ const Integrated_Board_min = ({navigation:{navigate}})=>{
                 <BoardBox></BoardBox>
                 <BoardBox></BoardBox>
                 <BoardBox></BoardBox>
+                <BoardBox></BoardBox>
+                <BoardBox></BoardBox>
+                <BoardBox></BoardBox>
+                <BoardBox></BoardBox>
+                <BoardBox></BoardBox>
+                <BoardBox></BoardBox>
             </BoardsBox>
         </Container>
     );
