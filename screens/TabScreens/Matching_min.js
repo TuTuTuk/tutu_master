@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View} from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -17,7 +17,7 @@ const Container = styled.ScrollView.attrs(()=>({
     margin-bottom: 10px;
 `;
 
-const MenuBox = styled.View`
+const MenuBox = styled.Pressable`
     width: 86%;
     align-self: center;
     background: #E3E3E3;
@@ -92,7 +92,7 @@ const Matching_min = ({navigation:{navigate}})=>{
         <TopBar_Search title="게시판"></TopBar_Search>
         <HotBoard></HotBoard>
         <BlueButton title="한국공대 선-후배 한눈에 보기" mbottom={0} click={null} move="Matching_junseo"></BlueButton>
-        <MenuBox>
+        <MenuBox onPress={()=>navigate("Stack",{screen:"Matching111"})}>
             <Title>선후배 1:1:1 매칭</Title>
             <Content>1:1:1 매칭은 한국공학대 학생 한명이 선배1명,후배1명과{'\n'}
             연결되는 매칭 시스템 입니다.</Content>

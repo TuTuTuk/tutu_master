@@ -31,6 +31,8 @@ import Certification from "../screens/StackScreens/My/Certification_All/Certific
 import CurrentStudent from "../screens/StackScreens/My/Certification_All/CurrentStudent";
 //매칭(민정)
 import Registration from "../screens/StackScreens/Matching/Registration";
+import Matching111 from "../screens/StackScreens/Matching/Matching111";
+import Matching_Request from "../screens/StackScreens/Matching/Matching_Request";
 //매칭(준서)
 import Matching_junseo from "../screens/StackScreens/Matching/Matching_junseo";
 
@@ -72,6 +74,8 @@ const Stack =()=>(
         <NativeStack.Screen name="Certification"component={Certification}/>
         <NativeStack.Screen name="CurrentStudent"component={CurrentStudent}/>
         <NativeStack.Screen name="Registration"component={Registration}/>
+        <NativeStack.Screen name="Matching111"component={Matching111}/>
+        <NativeStack.Screen name="Matching_Request"component={Matching_Request}/>
 
 
         <NativeStack.Screen name="Matching_junseo" component={Matching_junseo}/>
