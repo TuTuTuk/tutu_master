@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, View,Modal } from "react-native";
 import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { TabRouter } from "@react-navigation/native";
+import TopBar from "../../../components/TopBar";
 
 const Container = styled.ScrollView.attrs(() => ({
     contentContainerStyle: {
@@ -163,27 +164,7 @@ const Matching_junseo = ({navigation:{navigate}})=>{
                     </ModalnewPressable>
                 </ModalView>
             </Modal>
-            <HeaderBox>
-                <BackBtn 
-                    onPress={()=>navigate("Tabs",{screen:"Matching"})}
-                    onPressIn={()=>setClick(true)}    
-                    onLongPress={()=>console.log("onLongPress")}  
-                    onPressOut={()=>setClick(false)} >
-
-                    <Icon name="chevron-back-outline"></Icon>
-                </BackBtn>
-                <TitleBox>
-                    <TitleBox2>
-                        <TitleText>선후배 한눈에 보기</TitleText>
-                    </TitleBox2>
-                    <TitleBox3>
-                        <MiddleText>16명</MiddleText>
-                    </TitleBox3>
-                </TitleBox>
-                <ConfigureBtn onPress={()=>setModalVisible(true)}>
-                    <Icon name="ellipsis-vertical-outline"></Icon>
-                </ConfigureBtn>
-            </HeaderBox>
+            <TopBar title="선후배 한눈에 보기"></TopBar>
             <EyeBox>
                 <EyeBtn 
                     onPress={()=>navigate("Stack",{screen:"Registration"})}
