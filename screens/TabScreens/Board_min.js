@@ -151,64 +151,88 @@ const Board_min = ({navigation:{navigate}})=>(
         <AllMajorBox>
             <Major1>
                <Major11
-                onPress={()=>navigate("Stack",{screen:"Designboard_min"})}
+                    onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Design"}})}
                >
                     <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Design.png')}></MajorIcon></Image11>
                     <TextBox11><Image11Text>디자인</Image11Text></TextBox11>
                </Major11>
-               <Major12>
+               <Major12
+                    onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Computer"}})}
+               >    
                     <Image12><MajorIcon source={require('../../images/Major_Icon/Major_Computer.png')}></MajorIcon></Image12>
                     <TextBox12><Image12Text>컴퓨터</Image12Text></TextBox12>
                </Major12>
-               <Major13>
+               <Major13
+                    onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Game"}})}
+               >
                     <Image13><MajorIcon source={require('../../images/Major_Icon/Major_Game.png')}></MajorIcon></Image13>
                     <TextBox13><Image13Text>게임</Image13Text></TextBox13>
                </Major13>
             </Major1>
             <Major1>
-               <Major11>
+               <Major11
+                    onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Ai"}})}
+               >
                     <Image11><MajorIcon source={require('../../images/Major_Icon/Major_AI.png')}></MajorIcon></Image11>
                     <TextBox11><Image11Text>인공지능</Image11Text></TextBox11>
                </Major11>
-               <Major12>
+               <Major12
+                    onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Machine"}})}
+               >
                     <Image12><MajorIcon source={require('../../images/Major_Icon/Major_Machine.png')}></MajorIcon></Image12>
                     <TextBox12><Image12Text>기계</Image12Text></TextBox12>
                </Major12>
-               <Major13>
+               <Major13
+                    onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"MachineDesign"}})}
+                >
                     <Image13><MajorIcon source={require('../../images/Major_Icon/Major_MechineDesing.png')}></MajorIcon></Image13>
                     <TextBox13><Image13Text>기계설계</Image13Text></TextBox13>
                </Major13>
             </Major1>
             <Major1>
-               <Major11>
+               <Major11
+                    onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Mechatronics"}})}
+               >
                     <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Mecha.png')}></MajorIcon></Image11>
                     <TextBox11><Image11Text>메카트로닉스</Image11Text></TextBox11>
                </Major11>
-               <Major12>
+               <Major12
+                    onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Electron"}})}
+               >
                     <Image12><MajorIcon source={require('../../images/Major_Icon/Major_Electon.png')}></MajorIcon></Image12>
                     <TextBox12><Image12Text>전자</Image12Text></TextBox12>
                </Major12>
-               <Major13>
+               <Major13
+                    onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"NewMaterial"}})}
+               >
                     <Image13><MajorIcon source={require('../../images/Major_Icon/Major_NewMaterial.png')}></MajorIcon></Image13>
                     <TextBox13><Image13Text>신소재</Image13Text></TextBox13>
                </Major13>
             </Major1>
             <Major1>
-               <Major11>
+               <Major11
+                    onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Chemistry"}})}
+               >
                     <Image11><MajorIcon source={require('../../images/Major_Icon/Major_LifeChemistry.png')}></MajorIcon></Image11>
                     <TextBox11><Image11Text>생명화학</Image11Text></TextBox11>
                </Major11>
-               <Major12>
+               <Major12
+                    onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Nano"}})}
+               >
                     <Image12><MajorIcon source={require('../../images/Major_Icon/Major_Nano.png')}></MajorIcon></Image12>
                     <TextBox12><Image12Text>나노반도체</Image12Text></TextBox12>
                </Major12>
-               <Major13>
+               <Major13
+                    onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Energy"}})}
+               >
                     <Image13><MajorIcon source={require('../../images/Major_Icon/Major_Energy.png')}></MajorIcon></Image13>
                     <TextBox13><Image13Text>에너지-전기</Image13Text></TextBox13>
                </Major13>
             </Major1>
             <Major1>
-               <Major11>
+               <Major11
+                    onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Management"}})}
+               >
                     <Image11><MajorIcon source={require('../../images/Major_Icon/Major_NewMaterial.png')}></MajorIcon></Image11>
                     <TextBox11><Image11Text>경영</Image11Text></TextBox11>
                </Major11>

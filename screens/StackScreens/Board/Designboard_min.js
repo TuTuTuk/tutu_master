@@ -20,6 +20,8 @@ import { useState } from "react";
 const Container = styled.View`
     flex:1;
     margin-bottom: 10px;
+    margin-left: 7%;
+    margin-right: 7%;
 `;
 //----------------------------------------------------------------------------
 //----------------------------------검색box------------------------------------
@@ -48,13 +50,13 @@ const WritingBtn = styled.TouchableOpacity`
         font-weight: 400;
     `;
 
-const Designboard_min = ({navigation:{navigate}})=>{
+const Designboard_min = ({navigation:{navigate},route})=>{
     const navigation = useNavigation();
 
     const [boardSave,setBoardSave] = useState("");
 
     const UpdateData=async()=>{
-        const tempSave = await firestore().collection("boards").doc("Design").get();
+        const tempSave = await firestore().collection("boards").doc(route.params.title).get();
         setBoardSave(tempSave._data);
     }
 
@@ -65,22 +67,20 @@ const Designboard_min = ({navigation:{navigate}})=>{
     return(
         <>
             <Container>
-                <AllBoardBox>
-                    <FlatList
-                        ListHeaderComponent={
-                            <>
-                                <TopBar_Search title="검색 키워드"/>
-                                <KeywordSearchBox_min></KeywordSearchBox_min>
-                            </>
-                        }
-                        showsVerticalScrollIndicator={false} //scroll바 가리기
-                        keyExtractor={(item)=>`${item.create_time}`}//고유 키값 부여
-                        data={boardSave.arr}
-                        renderItem={({item})=>
-                            <BoardBox title={item.title} contents={item.contents}/>
-                        }
-                    />
-                </AllBoardBox>
+                <FlatList
+                    ListHeaderComponent={
+                        <>
+                            <TopBar_Search title="검색 키워드"/>
+                            <KeywordSearchBox_min></KeywordSearchBox_min>
+                        </>
+                    }
+                    showsVerticalScrollIndicator={false} //scroll바 가리기
+                    keyExtractor={(item)=>`${item.create_time}`}//고유 키값 부여
+                    data={boardSave.arr}
+                    renderItem={({item})=>
+                        <BoardBox title={item.title} contents={item.contents}/>
+                    }
+                />
             </Container>
             <WritingBtn
                 onPress={()=>navigate("Stack",{screen:"BoardWriting_min"})}>

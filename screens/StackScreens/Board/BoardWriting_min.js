@@ -11,6 +11,8 @@ import storage from '@react-native-firebase/storage';
 import TopBar from "../../../components/TopBar";
 import BlueButton from "../../../components/BlueButton";
 
+import {v4 as uuid} from "uuid";
+
 
 const Container = styled.ScrollView.attrs(()=>({
     contentContainerStyle:{
