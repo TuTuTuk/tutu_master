@@ -19,7 +19,7 @@ const HeaderBox = styled.View`
     //border: 1px;
     flex:1;
     width: 86%;
-    height: 5.4%;
+    height: 45px;
     align-self: center;
     flex-direction:row;
     justify-content: space-between;

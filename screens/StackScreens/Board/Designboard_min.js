@@ -26,8 +26,6 @@ const Container = styled.View`
 //----------------------------------------------------------------------------
 const AllBoardBox = styled.View`
     border: 1px;
-    margin-left: 7%;
-    margin-right: 7%;
     
 `;
 

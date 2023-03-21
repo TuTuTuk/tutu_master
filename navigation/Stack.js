@@ -29,7 +29,8 @@ import Announcement from "../screens/StackScreens/My/Announcement";
 import PrivacyPolicy from "../screens/StackScreens/My/PrivacyPolicy";
 import Certification from "../screens/StackScreens/My/Certification_All/Certification";
 import CurrentStudent from "../screens/StackScreens/My/Certification_All/CurrentStudent";
-
+import ChangePW from "../screens/StackScreens/My/ChangePW"
+import ChangeEmail from "../screens/StackScreens/My/ChangeEmail";
 //마이페이지(준범)
 import RecentWatch from "../screens/StackScreens/My/RecentWatch_jun";
 
@@ -82,7 +83,8 @@ const Stack =()=>(
         <NativeStack.Screen name="Registration"component={Registration}/>
         <NativeStack.Screen name="Matching111"component={Matching111}/>
         <NativeStack.Screen name="Matching_Request"component={Matching_Request}/>
-
+        <NativeStack.Screen name="ChangePW"component={ChangePW}/>
+        <NativeStack.Screen name="ChangeEmail"component={ChangeEmail}/>
 
         <NativeStack.Screen name="Matching_junseo" component={Matching_junseo}/>
     </NativeStack.Navigator>

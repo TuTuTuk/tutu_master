@@ -12,7 +12,7 @@ const SearchFilterBox = styled.View`
     width: 86%;
     align-self: center;
     margin-bottom: 20px;
-    height : 4.8%;
+    height : 35px;
     flex-direction : row;
     `;   
     const FilterBox = styled.View`

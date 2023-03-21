@@ -5,7 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Dimensions } from "react-native";
 
 const PopularBox = styled.View`
-    width:100%;
+    width:86%;
     height:${({hei})=>hei*0.125}px;
     border-radius:${({hei})=>hei*0.0125}px;
     margin-bottom:${({hei})=>hei*0.0125}px;
@@ -15,6 +15,7 @@ const PopularBox = styled.View`
     padding-bottom:${({hei})=>hei*0.0187}px;
     flex-direction:row;
     background-color: #E3E3E3;
+    align-self: center;
 `;
 
 const PopularBoxLeft = styled.View`
