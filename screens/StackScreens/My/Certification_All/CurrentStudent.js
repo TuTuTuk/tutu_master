@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { Text, View, TouchableOpacity} from "react-native";
 import styled from "styled-components/native";
-import Icon from 'react-native-vector-icons/Ionicons';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import UploadModeModal from "../../../../components/UploadModeModal";
 
 import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
@@ -80,23 +81,81 @@ const StudentIDBox = styled.View`
         font-size: 14px;
         line-height: 17px;
     `;
-    
+const imagePickerOption = {
+	mediaType: "photo",
+	maxWidth: 768,
+	maxHeight: 768,
+	includeBase64: Platform.OS === "android",
+};
+
+
+
 const CurrentStudent = ({navigation:{navigate}}) => {
 
     const [checkImg, setCheckImg] = useState(require('../../../../images/checkX.png'))
     const [studentID, setStudentID] = useState(false);
+    const [enrollment, setEnrollment] = useState(false);
+
+    const [func, setFunc] = useState(false)
+
+    // 선택 사진 또는 촬영된 사진 정보
+    const onPickImage = (res) => { 
+        if (res.didCancel || !res) {
+        return;
+        }
+        console.log("PickImage", res);
+    }
+    
+    // 카메라 촬영
+    const onLaunchCamera = () => {
+        launchCamera(imagePickerOption, onPickImage);
+    };
+    
+    // 갤러리에서 사진 선택
+    const onLaunchImageLibrary = () => {
+        launchImageLibrary(imagePickerOption, onPickImage);
+    };
+
+  // 안드로이드를 위한 모달 visible 상태값
+  const [modalVisible, setModalVisible] = useState(false);
+  
+  
 
     if(studentID==true){ //학생증을 눌렀을 때
         return(
             <>
+            <UploadModeModal 
+                visible={modalVisible} 
+                onClose={() => setModalVisible(false)}
+                onLaunchCamera={onLaunchCamera}
+                onLaunchImageLibrary={onLaunchImageLibrary} 
+            />
             <TopBar title="학교 인증"></TopBar>
             <Choicetitle>재학생 인증</Choicetitle>
             <StudentIDBox>
                 <StudentIDtitle>학생증</StudentIDtitle>
                 <StudentIDContent>실물 학생증 카드,모바일 학생증을 첨부해주세요.</StudentIDContent>
             </StudentIDBox>
-            <BlueButton title="사진 첨부하기" mbottom={10} click={null}></BlueButton>
+            <BlueButton title="사진 첨부하기" mbottom={10} click={setModalVisible}></BlueButton>
             </>
+        )
+    }else if(enrollment==true){ //재학증명서를 눌렀을 때
+        return(
+        <>
+            <UploadModeModal 
+                visible={modalVisible} 
+                onClose={() => setModalVisible(false)}
+                onLaunchCamera={onLaunchCamera}
+                onLaunchImageLibrary={onLaunchImageLibrary} 
+            />
+            <TopBar title="학교 인증"></TopBar>
+            <Choicetitle>재학생 인증</Choicetitle>
+            <StudentIDBox>
+                <StudentIDtitle>재학증명서</StudentIDtitle>
+                <StudentIDContent>실물 학생증 카드,모바일 학생증을 첨부해주세요.</StudentIDContent>
+            </StudentIDBox>
+            <BlueButton title="사진 첨부하기" mbottom={10} click={setModalVisible}></BlueButton>
+        </>
         )
     }else{
         return(
@@ -112,6 +171,16 @@ const CurrentStudent = ({navigation:{navigate}}) => {
                         <MoveIcon source={checkImg}></MoveIcon>
                     </Move>
                 </MoveTextBox>
+                <MoveTextBox onPress={()=>{
+                    setCheckImg(require('../../../../images/check.png'))
+                    setEnrollment(true)
+                }} >
+                <MoveText>재학증명서</MoveText>
+                    <Move>
+                        <MoveIcon source={checkImg}></MoveIcon>
+                    </Move>
+                </MoveTextBox>
+                
             </Container>
         )
     }

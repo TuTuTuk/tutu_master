@@ -60,7 +60,7 @@ const ModalOneOptions = ({visible,setvisible,title,yestext}) => {
                 </ModalBackView>
                 <ModalView>
                     <ModalTitle>{title}</ModalTitle>
-                    <ModalYesPressable onPress={()=>setvisible(false)}>
+                    <ModalYesPressable onPress={()=>{setvisible(false)}}>
                     <LinearGradient style={{
                                 width:"100%",
                                 height:"100%",
