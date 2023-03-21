@@ -15,7 +15,7 @@ const Timetable =()=>{
 
     const [boardTitle,setBoardTitle] = useState("");
     const [boardContents,setBoardContents] = useState("");
-
+    
     const addStore=async()=>{ 
         const save= await firestore().collection("users").doc(auth().currentUser.uid).get();
         setTempSave(save._data);
@@ -106,8 +106,6 @@ const Timetable =()=>{
             <Text>{auth().currentUser.displayName}</Text>
             <Text>{auth().currentUser.uid}</Text>
         <Text>==================firestore에 추가된 유저 정보=====================</Text>
-            <Text>{tempSave.user_department}</Text>
-            <Text>{tempSave.user}</Text>
         <Pressable
             style={{backgroundColor:"teal"}}
             onPress={()=>addImage()}

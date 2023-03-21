@@ -8,12 +8,12 @@ import { Text, View } from "react-native";
 //-----------------------------키워드 검색하는 부분------------------------------
 //-----------------------------------------------------------------------------
 const SearchFilterBox = styled.View`
-    //border : 1px;
-    width: 86%;
-    align-self: center;
-    margin-bottom: 20px;
-    height : 4.8%;
-    flex-direction : row;
+        border : 1px;
+        width: 100%;
+        height : 4.8%;
+        align-self: center;
+        margin-bottom: 20px;
+        flex-direction : row;
     `;   
     const FilterBox = styled.View`
         //border: 1px;
@@ -81,12 +81,12 @@ const SearchFilterBtn = styled.View`
         font-weight: 400;
     `;
 
-const KeywordSearchBox_min = () => {
+const KeywordSearchBox_min = ({tag}) => {
     return(
         <SearchFilterBox>
             <FilterBox>
              <Filter1>
-                 <Filter1Text>디자인공학부</Filter1Text>
+                 <Filter1Text>{tag}</Filter1Text>
                  <TextX1> X</TextX1>
              </Filter1>
              <Filter2>

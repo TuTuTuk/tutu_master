@@ -4,6 +4,8 @@ import { Modal } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import { useNavigation } from '@react-navigation/native';
+
 import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
@@ -274,8 +276,8 @@ const ModalView = styled.View`
             font-size:12px;
         `;
 
-const BoardWriting_min = ({navigation:{navigate}})=>{
-
+const BoardWriting_min = ({navigation:{navigate},route})=>{
+    const navigation = useNavigation();
     const [modalVisible,setModalVisible] = useState(false)
 
     const [boardSave,setBoardSave] = useState("")
@@ -283,75 +285,74 @@ const BoardWriting_min = ({navigation:{navigate}})=>{
     const [contentText,setContentText] = useState("")    
 
     const DoneWrite=async()=>{
-        const tempSave = await firestore().collection("boards").doc("Design").get();
-
+        const tempSave = await firestore().collection("boards").doc(route.params.title).get();
+        const timeNow = new Date();
         if(tempSave._data){
-            if(tempSave._data.arr[0] != ""){ //두번째 이후로 게시물 올릴때
-                firestore().collection("boards").doc("Design").update({
-                    arr:[...tempSave._data.arr,{
+                firestore().collection("boards").doc(route.params.title).update({
+                    arr:[...tempSave._data.arr,{ //기존 정보에 이어 붙혀서 저장
                         title:titleText,
                         contents:contentText,
                         user_uid:auth().currentUser.uid,
                         user_name:auth().currentUser.displayName,
-                        create_time:new Date(),
-                        hits_count:0
+                        create_time:timeNow,
+                        hits_count:0,
+                        boards_uid:auth().currentUser.displayName+"@"+route.params.title+"@"+timeNow,
                     }]
                 })
                 .then(async()=>{
-                    const save1= await firestore().collection("boards").doc(auth().currentUser.uid).get();
-                    setBoardSave(save1._data);
-                    const userTempSave= await firestore().collection("users").doc(auth().currentUser.uid).get();
-                    firestore().collection("users").doc(auth().currentUser.uid).update({
-                        user_boards_count: userTempSave._data.user_boards_count+1
-                    });
+                    const tempIntegratedSave = await firestore().collection("boards").doc("Integrated").get();
+                    await firestore().collection("boards").doc("Integrated").update({ //통합 게시판에도 저장
+                        arr:[...tempIntegratedSave._data.arr,{
+                            title:titleText,
+                            contents:contentText,
+                            user_uid:auth().currentUser.uid,
+                            user_name:auth().currentUser.displayName,
+                            create_time:timeNow,
+                            hits_count:0,
+                            boards_uid:auth().currentUser.displayName+"@"+route.params.title+"@"+timeNow,
+                        }]
+                    })
+                    .then(async()=>{
+                        const save1= await firestore().collection("boards").doc(auth().currentUser.uid).get();
+                        setBoardSave(save1._data);
+                        const userTempSave= await firestore().collection("users").doc(auth().currentUser.uid).get();
+                        firestore().collection("users").doc(auth().currentUser.uid).update({
+                            user_boards_count: userTempSave._data.user_boards_count+1
+                        });
+                        await navigation.reset({routes:[{name:"Designboard_min",params:{title:route.params.title}}]}) //새로고침
+                        navigation.navigate("Stack",{screen:"Designboard_min",params:{title:route.params.title}}) //화면 뒤로 이동
+                    })
+                    .catch((error)=>{
+                        console.log(error)
+                    })
                 })
-                .catch(()=>{
-                    console.log("catch!!")
+                .catch((error)=>{
+                    console.log(error)
                 })
-            }
-            else{ //게시물 처음쓸때
-                firestore().collection("boards").doc("Design").set({
-                    arr:[{
-                        title:titleText,
-                        contents:contentText,
-                        user_uid:auth().currentUser.uid,
-                        user_name:auth().currentUser.displayName,
-                        create_time:new Date(),
-                        hits_count:0
-                    }]
-                })
-                .then(async()=>{
-                    const save2= await firestore().collection("boards").doc(auth().currentUser.uid).get();
-                    setBoardSave(save2._data);
-                })
-                .catch(()=>{
-                    console.log("catch!!!")
-                })
-            }
         }
     }
 
     return(
     <Container>
         <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}>
-                <ModalBackView>
-                </ModalBackView>
-                <ModalView>
-                    <Modalinquire onPress={()=>setModalVisible(false)}>
-                        <MiddleText>
-                            문의하기
-                        </MiddleText>
-                    </Modalinquire>
-                    <Modalinquire onPress={()=>setModalVisible(false)}>
-                        <MiddleText>
-                            새로고침
-                        </MiddleText>
-                    </Modalinquire>
-                </ModalView>
-            </Modal>
+            animationType="fade"
+            transparent={true}
+            visible={modalVisible}>
+            <ModalBackView>
+            </ModalBackView>
+            <ModalView>
+                <Modalinquire onPress={()=>setModalVisible(false)}>
+                    <MiddleText>
+                        문의하기
+                    </MiddleText>
+                </Modalinquire>
+                <Modalinquire onPress={()=>setModalVisible(false)}>
+                    <MiddleText>
+                        새로고침
+                    </MiddleText>
+                </Modalinquire>
+            </ModalView>
+        </Modal>
         <TopBar title="게시판 글쓰기"></TopBar>
         <AllBox>
             <KeyBox>

@@ -244,7 +244,7 @@ const My = ({navigation:{navigate}}) => {
             >
                 <PickText>로그아웃</PickText>
                 <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
+                    <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
             </PopualrBox>
             <PopualrBox>

@@ -9,7 +9,6 @@ const Root =()=>(
     <Nav.Navigator screenOptions = {{presentation:"modal",headerShown:false}}>
         <Nav.Screen name = "Tabs" component ={Tabs}/>
         <Nav.Screen name = "Stack" component ={Stack}/>
-
     </Nav.Navigator>
 )
 

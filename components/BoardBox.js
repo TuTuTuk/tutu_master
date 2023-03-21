@@ -3,8 +3,10 @@ import styled from "styled-components/native";
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Dimensions } from "react-native";
+import auth from "@react-native-firebase/auth"
+import firestore from '@react-native-firebase/firestore';
 
-const PopularBox = styled.View`
+const PopularBox = styled.Pressable`
     width:100%;
     height:${({hei})=>hei*0.125}px;
     border-radius:${({hei})=>hei*0.0125}px;
@@ -68,70 +70,83 @@ const PopularBoxRight = styled.View`
         const GoodImage = styled.Image``;
 
 
-const BoardBox = ({title,contents}) => {
+const BoardBox = ({title,contents,id}) => {
     const navigation = useNavigation();
     const HEIGHT = Dimensions.get('window').height;
-    console.log(HEIGHT);
+    //firestore().collection("users").doc(auth().currentUser.uid).get();
+
+    const addBoardId=async()=>{ //user 정보에 방문한 board id 저장
+        const tempData = await firestore().collection("users").doc(auth().currentUser.uid).get();
+        console.log(tempData._data);
+        firestore().collection("users").doc(auth().currentUser.uid).update({
+            user_watch_board_uid:[...tempData._data.user_watch_board_uid,
+                id
+            ]
+        })
+    }
+
     return(
-        <PopularBox hei={HEIGHT}>
-                    <PopularBoxLeft>
-                        <PopularBoxTitle>{title}</PopularBoxTitle>
-                        <PopularBoxContent>{contents}</PopularBoxContent>
-                        <PopularBoxKeywordBox>
-                            <LinearGradient style={{
-                                width:40,
-                                height:15,
-                                marginRight:5,
-                                borderRadius: 5,
-                                backgroundColor:'#0062FF'
-                            }}
-                                colors={['#0062FF', '#0A7DFF', '#1398FF']}
-                                start={{x:1,y:0}} end={{x:0,y:0}}
-                            >
-                                <PopularBoxKeyword>#키워드</PopularBoxKeyword>                        
-                            </LinearGradient>
-                            <LinearGradient style={{
-                                width:40,
-                                height:15,
-                                marginRight:5,
-                                borderRadius: 5,
-                                backgroundColor:'#0062FF'
-                            }}
-                                colors={['#0062FF', '#0A7DFF', '#1398FF']}
-                                start={{x:1,y:0}} end={{x:0,y:0}}
-                            >
-                                <PopularBoxKeyword>#키워드</PopularBoxKeyword>                        
-                            </LinearGradient>
-                            <LinearGradient style={{
-                                width:40,
-                                height:15,
-                                marginRight:5,
-                                borderRadius: 5,
-                                backgroundColor:'#0062FF'
-                            }}
-                                colors={['#0062FF', '#0A7DFF', '#1398FF']}
-                                start={{x:1,y:0}} end={{x:0,y:0}}
-                            >
-                                <PopularBoxKeyword>#키워드</PopularBoxKeyword>                        
-                            </LinearGradient>
-                        </PopularBoxKeywordBox>
-                    </PopularBoxLeft>
-                    <PopularBoxRight>
-                        <PopularBoxImage
-                            hei={HEIGHT}
-                        />
-                        <PopularBoxComment>
-                            <CommentImage
-                                resizeMode="stretch"
-                                source={require('../images/comment.png')}
-                            />
-                             <CommentImage
-                                resizeMode="stretch"
-                                source={require('../images/good.png')}
-                            />
-                        </PopularBoxComment>
-                    </PopularBoxRight>
-                </PopularBox>
+        <PopularBox 
+            onPress={()=>addBoardId()}
+            hei={HEIGHT}>
+            <PopularBoxLeft>
+                <PopularBoxTitle>{title}</PopularBoxTitle>
+                <PopularBoxContent>{contents}</PopularBoxContent>
+                <PopularBoxKeywordBox>
+                    <LinearGradient style={{
+                        width:40,
+                        height:15,
+                        marginRight:5,
+                        borderRadius: 5,
+                        backgroundColor:'#0062FF'
+                    }}
+                        colors={['#0062FF', '#0A7DFF', '#1398FF']}
+                        start={{x:1,y:0}} end={{x:0,y:0}}
+                    >
+                        <PopularBoxKeyword>#키워드</PopularBoxKeyword>                        
+                    </LinearGradient>
+                    <LinearGradient style={{
+                        width:40,
+                        height:15,
+                        marginRight:5,
+                        borderRadius: 5,
+                        backgroundColor:'#0062FF'
+                    }}
+                        colors={['#0062FF', '#0A7DFF', '#1398FF']}
+                        start={{x:1,y:0}} end={{x:0,y:0}}
+                    >
+                        <PopularBoxKeyword>#키워드</PopularBoxKeyword>                        
+                    </LinearGradient>
+                    <LinearGradient style={{
+                        width:40,
+                        height:15,
+                        marginRight:5,
+                        borderRadius: 5,
+                        backgroundColor:'#0062FF'
+                    }}
+                        colors={['#0062FF', '#0A7DFF', '#1398FF']}
+                        start={{x:1,y:0}} end={{x:0,y:0}}
+                    >
+                        <PopularBoxKeyword>#키워드</PopularBoxKeyword>                        
+                    </LinearGradient>
+                </PopularBoxKeywordBox>
+            </PopularBoxLeft>
+            <PopularBoxRight>
+                <PopularBoxImage
+                    hei={HEIGHT}
+                />
+                <PopularBoxComment>
+                    <CommentImage
+                        resizeMode="stretch"
+                        source={require('../images/comment.png')}
+                    />
+                        <CommentImage
+                        resizeMode="stretch"
+                        source={require('../images/good.png')}
+                    />
+                </PopularBoxComment>
+            </PopularBoxRight>
+        </PopularBox>
     )
 }
 
