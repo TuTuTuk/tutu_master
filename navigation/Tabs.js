@@ -24,19 +24,6 @@ const Tabs=()=>(
         tabBarStyle:{
             borderTopLeftRadius:30,
             borderTopRightRadius:30,
-            backgroundColor:()=>(
-                <LinearGradient style={{
-                    width:"100%",
-                    height:"100%",
-                    borderRadius: 10,
-                    alignItems:"center",
-                    justifyContent:"center"
-                }}
-                    colors={['#0062FF', '#0A7DFF', '#1398FF']}
-                    start={{x:1,y:0}} end={{x:0,y:0}}>
-                    <Text>{title}</Text>
-                </LinearGradient>
-            )
             
         }
     }}>

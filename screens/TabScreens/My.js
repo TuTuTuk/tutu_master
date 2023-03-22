@@ -111,7 +111,12 @@ const My = ({navigation:{navigate}}) => {
     const [tempDepart,setTempDepart] = useState("");
 
     useEffect(() => {
-        GetInfo(); //GetID 함수 한 번만 실행시키기
+        if(auth().currentUser){
+            GetInfo(); //GetID 함수 한 번만 실행시키기
+        }
+        else{
+            null
+        }
       },[]);
 
     const GetInfo= async () => { //사용자 정보 가져오기
@@ -123,140 +128,147 @@ const My = ({navigation:{navigate}}) => {
     }
 
     return(
-    <Container>
-        <TopBar title="내 정보"></TopBar>
-        <InformBtn onPress={()=>navigate("Stack",{screen:"ProfilePage"})}
-                    onPressIn={()=>setClick(true)}    
-                    onLongPress={()=>console.log("onLongPress")}  
-                    onPressOut={()=>setClick(false)} >
-        <ImageBox>
-            <ProfileImage></ProfileImage>
-        </ ImageBox>
-        <InformBox>
-            <IDtext>{tempID}</IDtext>
-            <MajorText>{tempDepart}/18</MajorText>
-            <PointText>1,930p</PointText>
-        </InformBox>
-        </InformBtn>
-        <BGBox>
-            <BGText>정보</BGText>
-            <PopualrBox>
-                <PickText>쪽지 내역</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"NoteHistory_min"})}>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox
-                onPress={()=>navigate("Stack",{screen:"RecentWatch"})}
-            >
-                <PickText>최근에 본 글</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>내가 쓴 댓글</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>내가 쓴 게시물</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>내 질문</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>스크랩</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-        </BGBox>
-        <BGBox>
-            <BGText>계정</BGText>
-            <PopualrBox>
-                <PickText>학교 인증</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"Certification"})}>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>비밀번호 변경</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>이메일 변경</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-        </BGBox>
-        <BGBox>
-            <BGText>앱설정</BGText>
-            <PopualrBox>
-                <PickText>문의하기</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"Inquiry"})}>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>공지사항</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"Announcement"})}>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>서비스 이용약관</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>개인정보 처리 방침</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"PrivacyPolicy"})}>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>오픈소스 라이선스</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-        </BGBox>
-        <BGBox>
-            <BGText>기타</BGText>
-            <PopualrBox
-                onPress={()=>auth().signOut()
-                    .then(()=>{
-                        navigate("Tabs",{screen:"Home"})
-                    })
-                }
-            >
-                <PickText>로그아웃</PickText>
-                <GoIcon>
-                    <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>회원 탈퇴</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"Withdrawal"})}>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-        </BGBox>
-        </Container>
-)
-    }
+        <>
+            {auth().currentUser?
+                <Container>
+                    <TopBar title="내 정보"></TopBar>
+                    <InformBtn onPress={()=>navigate("Stack",{screen:"ProfilePage"})}
+                                onPressIn={()=>setClick(true)}    
+                                onLongPress={()=>console.log("onLongPress")}  
+                                onPressOut={()=>setClick(false)} 
+                    >
+                        <ImageBox>
+                            <ProfileImage></ProfileImage>
+                        </ ImageBox>
+                        <InformBox>
+                            <IDtext>{tempID}</IDtext>
+                            <MajorText>{tempDepart}/18</MajorText>
+                            <PointText>1,930p</PointText>
+                        </InformBox>
+                    </InformBtn>
+                    <BGBox>
+                        <BGText>정보</BGText>
+                        <PopualrBox>
+                            <PickText>쪽지 내역</PickText>
+                            <GoIcon onPress={()=>navigate("Stack",{screen:"NoteHistory_min"})}>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                        <PopualrBox
+                            onPress={()=>navigate("Stack",{screen:"RecentWatch"})}
+                        >
+                            <PickText>최근에 본 글</PickText>
+                            <GoIcon>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                        <PopualrBox>
+                            <PickText>내가 쓴 댓글</PickText>
+                            <GoIcon>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                        <PopualrBox>
+                            <PickText>내가 쓴 게시물</PickText>
+                            <GoIcon>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                        <PopualrBox>
+                            <PickText>내 질문</PickText>
+                            <GoIcon>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                        <PopualrBox>
+                            <PickText>스크랩</PickText>
+                            <GoIcon>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                    </BGBox>
+                    <BGBox>
+                        <BGText>계정</BGText>
+                        <PopualrBox>
+                            <PickText>학교 인증</PickText>
+                            <GoIcon onPress={()=>navigate("Stack",{screen:"Certification"})}>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                        <PopualrBox>
+                            <PickText>비밀번호 변경</PickText>
+                            <GoIcon>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                        <PopualrBox>
+                            <PickText>이메일 변경</PickText>
+                            <GoIcon>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                    </BGBox>
+                    <BGBox>
+                        <BGText>앱설정</BGText>
+                        <PopualrBox>
+                            <PickText>문의하기</PickText>
+                            <GoIcon onPress={()=>navigate("Stack",{screen:"Inquiry"})}>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                        <PopualrBox>
+                            <PickText>공지사항</PickText>
+                            <GoIcon onPress={()=>navigate("Stack",{screen:"Announcement"})}>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                        <PopualrBox>
+                            <PickText>서비스 이용약관</PickText>
+                            <GoIcon>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                        <PopualrBox>
+                            <PickText>개인정보 처리 방침</PickText>
+                            <GoIcon onPress={()=>navigate("Stack",{screen:"PrivacyPolicy"})}>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                        <PopualrBox>
+                            <PickText>오픈소스 라이선스</PickText>
+                            <GoIcon>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                    </BGBox>
+                    <BGBox>
+                        <BGText>기타</BGText>
+                        <PopualrBox
+                            onPress={()=>auth().signOut()
+                                .then(()=>{
+                                    navigate("Tabs",{screen:"Home"})
+                                })
+                            }
+                        >
+                            <PickText>로그아웃</PickText>
+                            <GoIcon>
+                                <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                        <PopualrBox>
+                            <PickText>회원 탈퇴</PickText>
+                            <GoIcon onPress={()=>navigate("Stack",{screen:"Withdrawal"})}>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                    </BGBox>
+                </Container>
+            :
+                <Text>로그인하세요</Text>
+            }
+        </>
+    )
+}
 
 
 export default My;

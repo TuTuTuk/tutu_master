@@ -4,7 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from "@react-navigation/native";
 
 const Pressable = styled.Pressable`
-    width:86%;
+    width:100%;
     height:40px;
     border-radius: 10px;
     background-color:#0062FF;
@@ -26,28 +26,10 @@ const BlueButton = ({title,click,mbottom,move})=>{
 
     const navigation = useNavigation();
 
-    if(click != null){
-    return(
-    <Pressable 
-        onPressOut={()=>click(true)} 
-        mbottom={mbottom}
-        onPress={()=>navigation.navigate("Stack",{screen:`${move}`})}
-    >
-        <LinearGradient style={{
-            width:"100%",
-            height:"100%",
-            borderRadius: 10,
-            alignItems:"center",
-            justifyContent:"center"
-        }}
-            colors={['#0062FF', '#0A7DFF', '#1398FF']}
-            start={{x:1,y:0}} end={{x:0,y:0}}>
-            <Text>{title}</Text>
-        </LinearGradient>
-    </Pressable>
-    )}else {
+
         return(
             <Pressable 
+                onPressOut={()=>click==null?null:click(true)} 
                 mbottom={mbottom}
                 onPress={()=>navigation.navigate("Stack",{screen:`${move}`})}
             >
@@ -63,8 +45,8 @@ const BlueButton = ({title,click,mbottom,move})=>{
                     <Text>{title}</Text>
                 </LinearGradient>
             </Pressable>
-            )
-    }
+        )
+       
 }
 
 export default BlueButton;

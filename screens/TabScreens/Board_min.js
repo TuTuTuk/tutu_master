@@ -11,6 +11,8 @@ const Container = styled.ScrollView.attrs(()=>({
         showVerticalScrollIndicator:false,
     }
 }))`
+     width:86.11%;
+     align-self:center;
     flex:1;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -34,10 +36,9 @@ const Container = styled.ScrollView.attrs(()=>({
     `;
 
 const AllMajorBox = styled.View`
-    //border: 1px;
     height: auto;
     align-self: center;
-    width:77.77%;
+    width:86.11%;
 `; 
     const Major1 = styled.View`
         //border:1px;

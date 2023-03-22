@@ -18,7 +18,7 @@ const Container = styled.ScrollView.attrs(()=>({
 const HeaderBox = styled.View`
     //border: 1px;
     flex:1;
-    width: 86%;
+    width: 100%;
     height: 5.4%;
     align-self: center;
     flex-direction:row;
