@@ -10,7 +10,7 @@ const HotBoardBox = styled.View`
     //border: 1px;
     border-radius: 15px;
     height:140px; 
-    width: 86%;
+    width: 100%;
     align-self: center;
 `;
     const HotTextBox = styled.View`
