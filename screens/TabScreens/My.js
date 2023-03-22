@@ -196,17 +196,17 @@ const My = ({navigation:{navigate}}) => {
                             </GoIcon>
                         </PopualrBox>
                         <PopualrBox>
-                        <PickText>비밀번호 변경</PickText>
-                        <GoIcon onPress={()=>navigate("Stack",{screen:"ChangePW"})}>
-                        <Icon name="chevron-forward-outline" size={25}/>
-                        </GoIcon>
-                    </PopualrBox>
-                    <PopualrBox>
-                        <PickText>이메일 변경</PickText>
-                        <GoIcon onPress={()=>navigate("Stack",{screen:"ChangeEmail"})}>
-                        <Icon name="chevron-forward-outline" size={25}/>
-                        </GoIcon>
-                    </PopualrBox>
+                            <PickText>비밀번호 변경</PickText>
+                            <GoIcon onPress={()=>navigate("Stack",{screen:"ChangePW"})}>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
+                        <PopualrBox>
+                            <PickText>이메일 변경</PickText>
+                            <GoIcon onPress={()=>navigate("Stack",{screen:"ChangeEmail"})}>
+                            <Icon name="chevron-forward-outline" size={25}/>
+                            </GoIcon>
+                        </PopualrBox>
                     </BGBox>
                     <BGBox>
                         <BGText>앱설정</BGText>
