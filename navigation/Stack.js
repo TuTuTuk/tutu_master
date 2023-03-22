@@ -10,6 +10,8 @@ import IdSearchPage from "../screens/StackScreens/Login/IdSearchPage";
 import PopularBoard from "../screens/StackScreens/PopularBoard";
 import ProfilePage from "../screens/StackScreens/My/ProfilePage";
 import Contributor from "../screens/StackScreens/Contributor";
+//마이페이지(준범)
+import RecentWatch from "../screens/StackScreens/My/RecentWatch_jun";
 
 //게시판(민정)
 import Designboard_min from "../screens/StackScreens/Board/Designboard_min";
@@ -20,6 +22,7 @@ import BoardWriting_min from "../screens/StackScreens/Board/BoardWriting_min";
 import BoardWriting_min2 from "../screens/StackScreens/Board/BoardWriting_min2";
 import Writing_self_min from "../screens/StackScreens/Board/Writing_self_min";
 import ViewMyBoard from "../screens/StackScreens/Board/ViewMyBoard";
+
 //마이페이지(민정)
 import NoteHistory_min from "../screens/StackScreens/My/NoteHistory_min";
 import Question_min from "../screens/StackScreens/My/Question_min";
@@ -30,8 +33,6 @@ import PrivacyPolicy from "../screens/StackScreens/My/PrivacyPolicy";
 import Certification from "../screens/StackScreens/My/Certification_All/Certification";
 import CurrentStudent from "../screens/StackScreens/My/Certification_All/CurrentStudent";
 
-//마이페이지(준범)
-import RecentWatch from "../screens/StackScreens/My/RecentWatch_jun";
 
 //매칭(민정)
 import Registration from "../screens/StackScreens/Matching/Registration";

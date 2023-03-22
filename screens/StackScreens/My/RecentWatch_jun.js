@@ -26,7 +26,7 @@ const TestView = styled.View`
 const RecentWatch = ()=>{
 
     const [list,setList] = useState(null);
-    const [modalVisible,setModalVisible] = useState(false)
+    const [modalVisible,setModalVisible] = useState(false);
 
     const UpdateData=async()=>{
         const tempUserSave = await firestore().collection("users").doc(auth().currentUser.uid).get(); //const는 읽기 전용
@@ -36,7 +36,7 @@ const RecentWatch = ()=>{
         BoardSave = BoardSave._data.arr.filter((item)=> tempUserSave._data.user_watch_board_uid.includes(item.boards_uid))
         setList(BoardSave)
         //console.log(list)
-
+        
     }
 
     const DeleteData=async()=>{
