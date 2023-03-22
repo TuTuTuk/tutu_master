@@ -107,8 +107,8 @@ const BGBox = styled.View`
 const My = ({navigation:{navigate}}) => {
     const [click,setClick] = useState(false);
     const [id, setID] = useState("")
-    const [tempID,setTempID] =useState("");
-    const [tempDepart,setTempDepart] = useState("");
+    const [tempID,setTempID] =useState("d");
+    const [tempDepart,setTempDepart] = useState("4");
 
     useEffect(() => {
         if(auth().currentUser){
@@ -121,10 +121,10 @@ const My = ({navigation:{navigate}}) => {
 
     const GetInfo= async () => { //사용자 정보 가져오기
         const save= await firestore().collection("users").doc(auth().currentUser.uid).get();
-        setTempID(save._data.user_name);
-        setTempDepart(save._data.user_department);
-        console.log(tempID);
-        console.log(tempDepart);
+        //setTempID(save._data.user_name);
+        //setTempDepart(save._data.user_department);
+        //console.log(tempID);
+        //console.log(tempDepart);
     }
 
     return(
@@ -196,17 +196,17 @@ const My = ({navigation:{navigate}}) => {
                             </GoIcon>
                         </PopualrBox>
                         <PopualrBox>
-                            <PickText>비밀번호 변경</PickText>
-                            <GoIcon>
-                            <Icon name="chevron-forward-outline" size={25}/>
-                            </GoIcon>
-                        </PopualrBox>
-                        <PopualrBox>
-                            <PickText>이메일 변경</PickText>
-                            <GoIcon>
-                            <Icon name="chevron-forward-outline" size={25}/>
-                            </GoIcon>
-                        </PopualrBox>
+                        <PickText>비밀번호 변경</PickText>
+                        <GoIcon onPress={()=>navigate("Stack",{screen:"ChangePW"})}>
+                        <Icon name="chevron-forward-outline" size={25}/>
+                        </GoIcon>
+                    </PopualrBox>
+                    <PopualrBox>
+                        <PickText>이메일 변경</PickText>
+                        <GoIcon onPress={()=>navigate("Stack",{screen:"ChangeEmail"})}>
+                        <Icon name="chevron-forward-outline" size={25}/>
+                        </GoIcon>
+                    </PopualrBox>
                     </BGBox>
                     <BGBox>
                         <BGText>앱설정</BGText>

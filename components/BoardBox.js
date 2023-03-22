@@ -6,7 +6,7 @@ import { Dimensions } from "react-native";
 import auth from "@react-native-firebase/auth"
 import firestore from '@react-native-firebase/firestore';
 
-const PopularBox = styled.Pressable`
+const PopularBox = styled.View`
     width:100%;
     height:${({hei})=>hei*0.125}px;
     border-radius:${({hei})=>hei*0.0125}px;
@@ -17,6 +17,7 @@ const PopularBox = styled.Pressable`
     padding-bottom:${({hei})=>hei*0.0187}px;
     flex-direction:row;
     background-color: #E3E3E3;
+    align-self: center;
 `;
 
 const PopularBoxLeft = styled.View`
