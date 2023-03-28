@@ -155,7 +155,6 @@ const JoinPage =({navigation:{navigate,reset}})=>{
     console.log(height);
     //input
     const [nameText,setNameText] = useState("");
-    const [idText,setIdText] = useState("");
     const [pwText,setPwText] = useState("");
     const [pwCheckText,setPwCheckText] = useState("");
     const [emailText,setEmailText] = useState("");
@@ -165,10 +164,8 @@ const JoinPage =({navigation:{navigate,reset}})=>{
     const [chooseRadio,setChooseRadio] = useState("");
     
     //modal
-    const [dpartmentModal,setDepartModal] = useState("");
+    const [dpartmentModal,setDepartModal] = useState(""); 
 
-    const [finish,setFinish] = useState(false);
-    
     //에러 메세지
     const [nameError,setNameError] = useState("");
     const [pwError,setPwError] = useState("");
@@ -294,21 +291,12 @@ const JoinPage =({navigation:{navigate,reset}})=>{
             <InputBox>
                 <Input title="이름" changeText={setNameText} mbottom="10"/>
                 {nameError==""?null:<ErrorMessage>{nameError}</ErrorMessage>}
-                <IDView>
-                    <IDText>ID</IDText>
-                    <IDTextButtonView>
-                        <IDTextInput height={height} placeholder="ID를 입력하세요"/>
-                        <OverlapPressable height={height}>
-                            <OverlapText>중복확인</OverlapText>
-                        </OverlapPressable>
-                    </IDTextButtonView>
-                </IDView>
+                <Input title="E-mail" changeText={setEmailText} mbottom="10"/>
+                {emailError==""?null:<ErrorMessage>{emailError}</ErrorMessage>}
                 <Input title="P/W" changeText={setPwText} mbottom="10"/>
                 {pwError==""?null:<ErrorMessage>{pwError}</ErrorMessage>}
                 <Input title="P/W 확인" changeText={setPwCheckText} mbottom="10"/>
                 {pwCheckError==""?null:<ErrorMessage>{pwCheckError}</ErrorMessage>}
-                <Input title="E-mail" changeText={setEmailText} mbottom="10"/>
-                {emailError==""?null:<ErrorMessage>{emailError}</ErrorMessage>}
                 <Input title="학번" changeText={setNumText} mbottom="10"/>
                 {numError==""?null:<ErrorMessage>{numError}</ErrorMessage>}
                 <DepartmentBox>

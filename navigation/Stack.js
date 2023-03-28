@@ -7,6 +7,7 @@ import JoinPage from "../screens/StackScreens/Login/JoinPage";
 import IdentificationPage from "../screens/StackScreens/Login/IdentificationPage";
 import IdentifySMSPage from "../screens/StackScreens/Login/IdentifySMSPage";
 import IdSearchPage from "../screens/StackScreens/Login/IdSearchPage";
+import PwSearchPage from "../screens/StackScreens/Login/PwSearchPage";
 import PopularBoard from "../screens/StackScreens/PopularBoard";
 import ProfilePage from "../screens/StackScreens/My/ProfilePage";
 import Contributor from "../screens/StackScreens/Contributor";
@@ -34,8 +35,6 @@ import Certification from "../screens/StackScreens/My/Certification_All/Certific
 import CurrentStudent from "../screens/StackScreens/My/Certification_All/CurrentStudent";
 import ChangePW from "../screens/StackScreens/My/ChangePW"
 import ChangeEmail from "../screens/StackScreens/My/ChangeEmail";
-//마이페이지(준범)
-import RecentWatch from "../screens/StackScreens/My/RecentWatch_jun";
 
 //매칭(민정)
 import Registration from "../screens/StackScreens/Matching/Registration";
@@ -58,6 +57,7 @@ const Stack =()=>(
         <NativeStack.Screen name="LoginPage" component={LoginPage}/>
         <NativeStack.Screen name="LogoutPage" component={LogoutPage}/>
         <NativeStack.Screen name="IdSearchPage" component={IdSearchPage}/>
+        <NativeStack.Screen name="PwSearchPage" component={PwSearchPage}/>
         <NativeStack.Screen name="JoinPage" component={JoinPage}/>
         <NativeStack.Screen name="IdentificationPage" component={IdentificationPage}/>
         <NativeStack.Screen name="IdentifySMSPage" component={IdentifySMSPage}/>
