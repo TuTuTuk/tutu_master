@@ -35,8 +35,7 @@ import CurrentStudent from "../screens/StackScreens/My/Certification_All/Current
 import ChangeEmail from "../screens/StackScreens/My/Account/ChangeEmail/ChangeEmail";
 import IdentifyVerification_email from "../screens/StackScreens/My/Account/ChangeEmail/IdentityVerification_email"
 import ChangePW from "../screens/StackScreens/My/Account/ChangePW";
-//마이페이지(준범)
-import RecentWatch from "../screens/StackScreens/My/RecentWatch_jun";
+
 
 //매칭(민정)
 import Registration from "../screens/StackScreens/Matching/Registration";
