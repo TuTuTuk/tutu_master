@@ -79,7 +79,7 @@ const SearchHistory = ({visible}) => {
     
     const [modalVisible,setModalVisible] = useState(false);
 
-    if(visible == true){
+    
     return(
         <Container>
         <ModalTwoOptions
@@ -140,5 +140,5 @@ const SearchHistory = ({visible}) => {
             </AllDelect>
         </Container>
     )
-}else{null}}
+}
 export default SearchHistory;

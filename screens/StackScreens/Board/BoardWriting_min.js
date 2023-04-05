@@ -26,49 +26,6 @@ const Container = styled.ScrollView.attrs(()=>({
     margin-bottom: 10px;
 `;
 
-const HeaderBox = styled.View`
-    //border: 1px;
-    flex:1;
-    width: 89.7%;
-    height: 5.4%;
-    align-self: center;
-    margin-bottom: 35px;
-    margin-left: 7px;
-    margin-right: 7px;
-
-    flex-direction:row;
-    justify-content: space-between;
-    align-items: center;
-`;
-    const BackView = styled.View`
-        width:10%;
-    `;
-        const BackBtn = styled.TouchableOpacity`
-            //border : 1px;
-            width  : 100%;
-            height : 40px;
-            justify-content: center;
-        `;
-    const BoardTextBox = styled.View`
-        //border : 1px;
-        border-color: black;
-        border-radius: 3px;
-        width : 76%;
-        height: 100%;
-        justify-content: center;
-    `;
-        const BoardText = styled.Text`
-            font-size: 16px;
-            font-weight: 600;
-            text-align: center;
-            margin-right: 5%;
-        `;
-    const PlusBtn = styled.TouchableOpacity`
-        border-color: orange;
-        width:5%;
-        height: 100%;
-        justify-content: center;
-    `;
 const AllBox = styled.View`
     border: 1px;
     border-color: #1398FF;
@@ -158,7 +115,29 @@ const AllBox = styled.View`
             color: white;
             text-align: center;
         `;
-const ViewMoreIcon = styled.View`
+    //HashTagBox
+const HashTagBox = styled.View`
+    border: 1px;
+    border-color: #1398FF;
+    border-radius: 10px;
+    width: 86%;
+    align-self: center;
+    padding: 4.17%;
+    padding-bottom: 5px;
+`;
+    const Hashtag = styled.View`
+        border: 1px;
+        border-radius: 5px;
+        border-color: #0062FF;
+        padding-left: 2%;
+        padding-right: 2%;
+        margin-right: 5px;
+    `;
+        const HashtagText = styled.Text`
+            color: #0062FF;
+            text-align: center;
+        `;
+const ViewMoreIcon = styled.Pressable`
     align-self: center;
 `;
 
@@ -182,6 +161,7 @@ const WritingBox = styled.View`
             //border: 1px;
             justify-content: center;
             flex-direction: row;
+            height: 24px;
         `;
             const InformTextBox = styled.View`
                 //border: 1px;
@@ -193,13 +173,16 @@ const WritingBox = styled.View`
                 color: #0062FF;
                 margin-right: 4px;
             `;
-            const RemoveBtn = styled.View`
+            const RemoveBtn = styled.Pressable`
                 //border: 1px; 
-                background-color: #818181;
-                justify-items: center;
+                margin-top: 2px;
                 width: 20px;
                 height: 20px;
             `;
+                const IconImage = styled.Image`
+                    width: 100%;
+                    height: 100%;
+                `;    
     const WritingContentBox = styled.TextInput`
         //border: 1px;
         width: 100%;
@@ -233,20 +216,6 @@ const AddKeywordBox = styled.View`
         height: 40px;
         background-color: #E3E3E3;
         border-radius: 10px;
-    `;
-const CompleteBtn = styled.TouchableOpacity`
-    //border: 1px;
-    border-radius: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 40px;
-    height: 40px;
-`;
-    const CompleteBtnText = styled.Text`
-        font-weight: 600;
-        font-size: 16px;
-        color: white;
-        align-self: center;
     `;
 
 //-------------Modal-----------------
@@ -282,7 +251,10 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
 
     const [boardSave,setBoardSave] = useState("")
     const [titleText,setTitleText] = useState("")
-    const [contentText,setContentText] = useState("")    
+    const [contentText,setContentText] = useState("") 
+    
+    const [hide, setHide] = useState(false)
+    const [check, setCheck] = useState(false)
 
     const DoneWrite=async()=>{
         const tempSave = await firestore().collection("boards").doc(route.params.title).get();
@@ -354,7 +326,9 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
             </ModalView>
         </Modal>
         <TopBar title="게시판 글쓰기"></TopBar>
-        <AllBox>
+        {
+            hide==false?
+            <AllBox>
             <KeyBox>
                 <TitleBox>
                     <Title>학과</Title>
@@ -409,10 +383,24 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                     </Row>
                 </KeywordBox>
             </KeyBox>
-            <ViewMoreIcon>
+            <ViewMoreIcon onPress={()=>setHide(true)}>
                 <Icon name="caret-down-outline" size={20} color = '#FF3D00'/>
             </ViewMoreIcon>
-        </AllBox>
+            </AllBox>
+            :
+            <HashTagBox>
+                <KeyBox>
+                    <KeywordBox>
+                        <Row>
+                            <Hashtag><HashtagText>전체학과</HashtagText></Hashtag>
+                            <Hashtag><HashtagText>교양</HashtagText></Hashtag>
+                            <Hashtag><HashtagText>직접작성</HashtagText></Hashtag>
+                        </Row>
+                    </KeywordBox>
+                </KeyBox>
+                <ViewMoreIcon onPress={()=>setHide(false)}><Icon name="caret-up" size={20} color = '#00E676'/></ViewMoreIcon>
+            </HashTagBox>
+        }
         <WritingBox>
             <WritingTitleBox>
                 <WritingTitleText
@@ -421,7 +409,16 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                 />
                 <WritingTitlePlus>
                     <InformTextBox><InformText>정보글</InformText></InformTextBox>
-                    <RemoveBtn><Icon name="remove-outline" size={20} color = 'white'/></RemoveBtn>
+                    {
+                        check == false?
+                        <RemoveBtn onPress={()=>setCheck(true)}>
+                            <IconImage source={require('../../../images/체크X.png')}></IconImage>
+                        </RemoveBtn>
+                        :
+                        <RemoveBtn onPress={()=>setCheck(false)}>
+                            <IconImage source={require('../../../images/체크.png')}></IconImage>
+                        </RemoveBtn>
+                    }
                 </WritingTitlePlus>
             </WritingTitleBox>
             <WritingContentBox

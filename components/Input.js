@@ -23,14 +23,29 @@ const Box = styled.View`
     `;
 
 
-const Input = ({title,changeText,mbottom})=>(
-    <Box mbottom={mbottom}>
-        <Text>{title}</Text>
-        <TextInput 
-            placeholder={`${title}을 입력하세요`}
-            onChangeText={(text)=>changeText(text)}
-        />
-    </Box>
-)
+const Input = ({title,content,changeText,mbottom})=>{
+
+    if(content == null){
+        return(
+        <Box mbottom={mbottom}>
+            <Text>{title}</Text>
+            <TextInput 
+                placeholder={`${title}을 입력하세요`}
+                onChangeText={(text)=>changeText(text)}
+            />
+        </Box>
+        )
+    }else{
+        return(
+            <Box mbottom={mbottom}>
+            <Text>{title}</Text>
+            <TextInput 
+                placeholder={`${content}을 입력하세요`}
+                onChangeText={(text)=>changeText(text)}
+            />
+        </Box>
+        )
+    }
+}
 
 export default Input;

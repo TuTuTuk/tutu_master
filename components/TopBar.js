@@ -31,7 +31,7 @@ const PlusIcon = styled.Image`
     height: 100%;
 `;
 //--------------------------------
-const Arrow = styled.View``;
+
 
 const TitleText = styled.Text`
     font-weight: 600;

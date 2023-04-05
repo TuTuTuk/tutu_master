@@ -106,6 +106,11 @@ const Timetable =()=>{
             <Text>{auth().currentUser.displayName}</Text>
             <Text>{auth().currentUser.uid}</Text>
         <Text>==================firestore에 추가된 유저 정보=====================</Text>
+<<<<<<< HEAD
+            <Text></Text>
+            <Text>{tempSave.user}</Text>
+=======
+>>>>>>> main
         <Pressable
             style={{backgroundColor:"teal"}}
             onPress={()=>addImage()}
