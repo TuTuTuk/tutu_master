@@ -195,7 +195,7 @@ const My = ({navigation:{navigate}}) => {
             </PopualrBox>
             <PopualrBox>
                 <PickText>이메일 변경</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"ChangeEmail"})}>
+                <GoIcon onPress={()=>navigate("Stack",{screen:"IdentifyVerification_email"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
             </PopualrBox>

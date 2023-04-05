@@ -4,7 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from "@react-navigation/native";
 
 const Pressable = styled.Pressable`
-    width:86%;
+    width:100%;
     height:40px;
     border-radius: 10px;
     background-color:#0062FF;

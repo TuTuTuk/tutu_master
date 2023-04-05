@@ -9,7 +9,7 @@ const Container = styled.View`
     justify-content: center;
 `;
 const Box = styled.View`
-    width:86.11%;
+    width:100%;
     height:40px;
     margin-top:9px;
     margin-bottom:20px;
@@ -31,7 +31,7 @@ const PlusIcon = styled.Image`
     height: 100%;
 `;
 //--------------------------------
-const Arrow = styled.View``;
+
 
 const TitleText = styled.Text`
     font-weight: 600;

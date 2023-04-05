@@ -25,8 +25,7 @@ const Container = styled.View`
 //----------------------------------검색box------------------------------------
 //----------------------------------------------------------------------------
 const AllBoardBox = styled.View`
-    border: 1px;
-    
+    border: 1px; 
 `;
 
 const WritingBtn = styled.TouchableOpacity`

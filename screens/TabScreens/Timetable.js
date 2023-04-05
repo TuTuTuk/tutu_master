@@ -106,7 +106,7 @@ const Timetable =()=>{
             <Text>{auth().currentUser.displayName}</Text>
             <Text>{auth().currentUser.uid}</Text>
         <Text>==================firestore에 추가된 유저 정보=====================</Text>
-            <Text>{tempSave.user_department}</Text>
+            <Text></Text>
             <Text>{tempSave.user}</Text>
         <Pressable
             style={{backgroundColor:"teal"}}

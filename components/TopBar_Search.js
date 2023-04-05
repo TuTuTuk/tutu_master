@@ -41,7 +41,8 @@ const HeaderBox = styled.View`
                 width: 100%;
                 height: 100%;
             `;
-    const BoardTextBox = styled.View`
+    const BoardTextBox = styled.Pressable`
+        //border: 1px;
         border-color: black;
         border-radius: 3px;
         background-color: #E3E3E3;
@@ -133,7 +134,7 @@ const TopBar_Search=({title})=>{
                     <BackIcon source={require('../images/Back.png')}></BackIcon>
                 </BackBtn>
             </BackView>
-            <BoardTextBox>
+            <BoardTextBox onPress={()=>navigation.navigate("Stack",{screen:"Board_research_min"})}>
                 <BoardText>{title}</BoardText>   
                 <SearchBtn
                     onPress={()=>navigation.navigate("Stack",{screen:"Board_research_min"})}>
