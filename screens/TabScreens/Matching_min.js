@@ -13,6 +13,8 @@ const Container = styled.ScrollView.attrs(()=>({
     }
 }))`
     flex:1;
+    width:86.11%;
+    align-self: center;
     margin-top: 10px;
     margin-bottom: 10px;
 `;

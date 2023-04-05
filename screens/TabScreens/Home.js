@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Text, TouchableOpacity, View,Modal } from "react-native";
+import { Text, TouchableOpacity, View,Modal, Image } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons'
+
 import BoardBox from "../../components/BoardBox";
 import ModalTwoOptions from "../../components/ModalTwoOptions";
 import auth from "@react-native-firebase/auth";
@@ -125,7 +126,7 @@ const ImageBox = styled.View`
         justify-content: center;
         align-items: center;
     `;
-        const Image = styled.Image`
+        const Image1 = styled.Image`
             border:1px;
             border-color:black;
             border-radius:40px;
@@ -133,48 +134,6 @@ const ImageBox = styled.View`
             height:80px;
         `;
         const ImageTextBox = styled.Text`
-            width:100%;
-            height:14px;
-            font-weight: 600;
-            font-size: 12px;
-            text-align: center;
-        `;
-    const Image2Box = styled.View`
-        height:140px;
-        width:103px;
-        flex-direction:column;
-        justify-content: center;
-        align-items: center;
-    `;
-        const Image2 = styled.Image`
-        border:1px;
-        border-color:black;
-        border-radius:40px;
-        width:80px;
-        height:80px;
-        `;
-        const Image2TextBox = styled.Text`
-            width:100%;
-            height:14px;
-            font-weight: 600;
-            font-size: 12px;
-            text-align: center;
-        `;
-    const Image3Box = styled.View`
-        height:140px;
-        width:103px;
-        flex-direction:column;
-        justify-content: center;
-        align-items: center;
-    `;
-        const Image3 = styled.Image`
-        border:1px;
-        border-color:black;
-        border-radius:40px;
-        width:80px;
-        height:80px;
-        `;
-        const Image3TextBox = styled.Text`
             width:100%;
             height:14px;
             font-weight: 600;
@@ -257,17 +216,26 @@ const Home =({navigation:{navigate}})=>{
             </SignBoardBox>
             <ImageBox>
                 <Image1Box>
-                    <Image></Image>
+                    <Image1
+                        resizeMode="stretch"
+                        source={require('../../images/tutu-logo.png')}
+                    />
                     <ImageTextBox>마이페이지</ImageTextBox>
                 </Image1Box>
-                <Image2Box>
-                    <Image2></Image2>
-                    <Image2TextBox>게시판</Image2TextBox>
-                </Image2Box>
-                <Image3Box>
-                    <Image3></Image3>
-                    <Image3TextBox>선후배 매칭</Image3TextBox>
-                </Image3Box>
+                <Image1Box>
+                    <Image1
+                        resizeMode="stretch"
+                        source={require('../../images/tutu-logo.png')}
+                    />
+                    <ImageTextBox>게시판</ImageTextBox>
+                </Image1Box>
+                <Image1Box>
+                    <Image1
+                        resizeMode="stretch"
+                        source={require('../../images/tutu-logo.png')}
+                    />
+                    <ImageTextBox>선후배 매칭</ImageTextBox>
+                </Image1Box>
             </ImageBox>
             <PopularBoardBox>
                 <TouchableOpacity onPress={()=>navigate("Stack",{screen:"PopularBoard"})}>

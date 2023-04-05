@@ -84,7 +84,7 @@ const ModalView = styled.View`
             `;
 
 
-const ModalTwoOptions = ({visible,setvisible,title,contents,yestext,visibleyes, setvisibleyes}) => {
+const ModalTwoOptions = ({visible,setvisible,actOn,title,contents,yestext,visibleyes, setvisibleyes}) => {
 
     if(visibleyes != null){
     return(
@@ -100,15 +100,21 @@ const ModalTwoOptions = ({visible,setvisible,title,contents,yestext,visibleyes, 
                     <ModalTitle>{title}</ModalTitle>
                     <ModalContents>{contents}</ModalContents>
                     <ModalPressableBox>
-                        <ModalNoPressable onPress={()=>setvisible(false)}>
+                        <ModalNoPressable 
+                            onPress={()=>setvisible(false)}
+                        >
                             <ModalNoText>
                                 취소
                             </ModalNoText>
                         </ModalNoPressable>
                         <ModalYesPressable 
                             onPress={()=> {
+                                console.log("!!!!actON")
+                                actOn();
                                 setvisible(false);
-                                setvisibleyes(true)}}
+                                setvisibleyes(true);
+                            }
+                            }
                             >
                             <LinearGradient style={{
                                 width:"100%",
@@ -127,7 +133,8 @@ const ModalTwoOptions = ({visible,setvisible,title,contents,yestext,visibleyes, 
                     </ModalPressableBox>
                 </ModalView>
             </Modal>
-    )}else{
+    )}
+    else{
         return(
             <Modal
                 animationType="fade"
@@ -146,8 +153,12 @@ const ModalTwoOptions = ({visible,setvisible,title,contents,yestext,visibleyes, 
                                 </ModalNoText>
                             </ModalNoPressable>
                             <ModalYesPressable 
-                                onPress={()=> {setvisible(false);}}
-                                >
+                                onPress={()=> {
+                                    console.log("!!!!actON")
+                                    actOn();
+                                    setvisible(false);
+                                }}
+                            >
                                 <LinearGradient style={{
                                     width:"100%",
                                     height:"100%",

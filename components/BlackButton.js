@@ -24,7 +24,7 @@ const BlackButton = ({title,mbottom,click,move}) => {
     const navigation = useNavigation();
     return(
         <Pressable
-            onPressOut={()=>click}  
+            onPressOut={()=>click==null?null:click()}  
             mbottom={mbottom} 
             onPress={()=>navigation.navigate("Stack",{screen:`${move}`})}
         >

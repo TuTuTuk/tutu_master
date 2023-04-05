@@ -89,7 +89,7 @@ const LoginPage =({navigation:{navigate,reset}})=>{
     const [pwErrorMessage,setPwErrorMessage] = useState("");
 
     const LoginDone = async ()=>{
-        await reset({routes:[{name:"Home"}]})
+        await reset({routes:[{name:"Home"}]}) //새로고침
         navigate("Tabs",{screen:"Home"})
     }
 
