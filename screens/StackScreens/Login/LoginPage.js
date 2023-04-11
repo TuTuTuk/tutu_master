@@ -154,7 +154,7 @@ const LoginPage =({navigation:{navigate,reset}})=>{
             <JoinSearchView>
                 <BlackButton title="회원가입" mbottom="30" click={null} move="JoinPage"/>
                 <BlackButton title="아이디 찾기" mbottom="10" click={null} move="IdSearchPage"/>
-                <BlackButton title="비밀번호 찾기" mbottom="45" click={null} move=""/>
+                <BlackButton title="비밀번호 찾기" mbottom="45" click={null} move="PwSearchPage"/>
             </JoinSearchView>
             <HelpView>
                 <HelpTextPressable>

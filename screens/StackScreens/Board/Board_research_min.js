@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from "react";
+import { FlatList } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
@@ -6,24 +7,24 @@ import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 
+import BoardBox from "../../../components/BoardBox";
 import TopBar_Search from "../../../components/TopBar_Search";
 import ModalTwoOptions from "../../../components/ModalTwoOptions";
 import SearchHistory from "../../../components/SearchHistory";
 
-const Container = styled.ScrollView.attrs(()=>({
-        contentContainerStyle:{
-            showVerticalScrollIndicator:false,
-        }
-    }))`
-    flex:1;
-    margin:10px;
+const Container = styled.View`
+    //border:1px;
+    width:86%;
+    height:100%;
+    margin-left: 7%;
+    margin-right: 7%;
+    margin-top: 10px;
 `;
 //------------------------------------------------------
 //---------------------헤더부분--------------------------
 const HeaderBox = styled.View`
     //border: 1px;
-    flex:1;
-    width: 86%;
+    width: 100%;
     height: 45px;
     align-self: center;
     flex-direction:row;
@@ -93,7 +94,7 @@ const SelectBox = styled.View`
     margin-top: 5.5%;
     //border : 1px;
     height: 45px;
-    width: 86%;
+    width: 100%;
     margin-bottom: 15px;
     flex-direction:row;
     justify-content: space-between;
@@ -110,10 +111,13 @@ const SelectBox = styled.View`
         `;
 //-------------------------------------------------------------------
 //----------------------------검색 기록-------------------------------
+const BigView = styled.View`
+
+`;
 const SeachHistoryBox = styled.View`
     //border  : 1px;
     margin-top: 1.37%;
-    width : 86%;
+    width : 100%;
     height : 30px;
     flex-direction: row;
     justify-content: space-between;
@@ -153,7 +157,7 @@ const SeachHistoryBox = styled.View`
 //--------------------------기록 전체 삭제----------------------------
 const AllDelect = styled.TouchableOpacity`
     margin-top: 40px;
-    width: 86%;
+    width: 100%;
     height : 30px;
     justify-content: center;
     border-radius: 10px;
@@ -178,7 +182,7 @@ const AllBox = styled.View`
 const HotKeywordBox = styled.View`
     //border  : 1px;
     margin-top: 1.37%;
-    width : 86%;
+    width : 100%;
     height : 30px;
     flex-direction: row;
     border-radius: 10px;
@@ -236,10 +240,6 @@ const HotKeywordBox = styled.View`
         height: 100%;
     `;
 
-
-
-
-
 const Board_research_min = ({navigation:{navigate}})=>{
     
     const [click,setClick] = useState(false);
@@ -269,9 +269,12 @@ const Board_research_min = ({navigation:{navigate}})=>{
     //---------------------------인기검색어 부분------------------------
     const [HotKwd,setHotKwd] = useState([])
     const [saveCnt, setSaveCnt] = useState([])
+    //---------------------------최근검색어 부분------------------------
+    const [recentSave,setRecentSave] = useState([]);
 
     useEffect(()=>{
         GetValue();
+        UpdateData();
     },[])
 
     const GetValue = async() =>{
@@ -285,6 +288,13 @@ const Board_research_min = ({navigation:{navigate}})=>{
             }
             setHotKwd(prev => [rweetObject, ...prev]); 
         })
+    }
+    const UpdateData=async()=>{
+        const tempSave = await firestore().collection("users").doc(auth().currentUser.uid).collection("recent_searches").doc("arr").get();
+        setRecentSave(tempSave._data);
+    }
+    const onRemove=() => {
+        firestore().collection("users").doc(auth().currentUser.uid).collection("recent_searches").doc("arr").delete();
     }
     //-------------------------------------------------------------------
     //----------------------------검색 완료 시-----------------------------
@@ -306,7 +316,7 @@ const Board_research_min = ({navigation:{navigate}})=>{
             })
         }
         //최근 검색어에 넣기
-        const tempSave = await firestore().collection("users").doc(auth().currentUser.uid).collection("recent_searches").doc("arr").get();
+        const tempSave = await firestore().collection("users").doc(auth().currentUser.uid).collection("recent_searches").doc("arr").get()
         firestore().collection("users").doc(auth().currentUser.uid).collection("recent_searches").doc("arr").update({
                     arr:[...tempSave._data.arr,{
                         keyword : searchText,
@@ -342,15 +352,17 @@ const Board_research_min = ({navigation:{navigate}})=>{
     const [searchText,setSearchText] = useState("");
     
     return(
-        <Container>
-            <ModalTwoOptions
+        <>
+        <ModalTwoOptions
                 transparent={true}
                 visible={modalVisible}
                 setvisible={setModalVisible}
                 title = "전체 삭제"
                 contents="최근 검색 기록을 전체 삭제 하시겠습니까?"
                 yestext="삭제하기"
-            />
+                actOn={onRemove}
+        />
+        <Container>
             <HeaderBox>
                 <BackView>
                     <BackBtn 
@@ -405,7 +417,33 @@ const Board_research_min = ({navigation:{navigate}})=>{
             </SelectBox>
             {
                 recentVisible == true?
-                <SearchHistory visible={true}/>
+                    recentSave != null?
+                    <BigView>
+                        <FlatList
+                            showsVerticalScrollIndicator={false} //scroll바 가리기
+                            keyExtractor={(item)=>`${item.keyword}`}//고유 키값 부여
+                            data={recentSave.arr}
+                            renderItem= {({item})=>
+                                <SeachHistoryBox>
+                                    <SearchHistoryTextBox>
+                                        <SearchHistoryText>{item.keyword}</SearchHistoryText>
+                                    </SearchHistoryTextBox>
+                                    <DelectHistoryBox>
+                                        <DelectHistoryIcon source={require('../../../images/X.png')}></DelectHistoryIcon>
+                                    </DelectHistoryBox>
+                                </SeachHistoryBox>
+                            }
+                        />
+                        <AllDelect onPress={()=>setModalVisible(true)}>
+                            <AllDelectText>검색기록 전체삭제</AllDelectText>
+                        </AllDelect>
+                    </BigView>
+                    :
+                    <BigView>
+                        <AllDelect onPress={()=>setModalVisible(true)}>
+                            <AllDelectText>검색기록 전체삭제</AllDelectText>
+                        </AllDelect>
+                    </BigView>
                 :
                 hotVisible == true?
                 <AllBox>
@@ -502,7 +540,7 @@ const Board_research_min = ({navigation:{navigate}})=>{
                 </AllBox>
                 :null
             }
-            
         </Container>
+    </>
 )}
 export default Board_research_min;
