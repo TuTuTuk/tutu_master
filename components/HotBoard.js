@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from "@react-navigation/native";
+
 //------------------------------------------------------------------------------
 //-------------------------------핫 게시판---------------------------------------
 //------------------------------------------------------------------------------
