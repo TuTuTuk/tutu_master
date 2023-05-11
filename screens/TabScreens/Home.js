@@ -6,6 +6,15 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import BoardBox from "../../components/BoardBox";
 import ModalTwoOptions from "../../components/ModalTwoOptions";
 import auth from "@react-native-firebase/auth";
+import { Pressable } from "react-native";
+
+// components 폴더에 있음
+import GetPoint from "../../components/GetPoint";
+import UsePoint from "../../components/UsePoint";
+import Notice from "../../components/Notice";
+import MyPage from "../../components/Mypage";
+import Message from "../../components/Message";
+import Date from "../../components/Date";
 
 
 //scrollView 
@@ -167,23 +176,19 @@ const Home =({navigation:{navigate}})=>{
     const [click,setClick] = useState(false);
     const [modalVisible,setModalVisible] = useState(false)
     const [alarmVisible, setAlarmVisible] = useState(true)
-    const oPress =  () => {
-        setAlarmVisible(!alarmVisible)
-    }
     return(
-        <Container>
-            <View style={{position:"absolute", display: alarmVisible ? "flex" : "none", width:"100%", height:"100%", backgroundColor:"rgba(1,1,1,0.5)", zIndex:10, alignItems:"center"}}>
-                <View style={{alignItems:"center", backgroundColor:"white", width:"90%",height:"40%", position:"absolute", marginTop:"13%", zIndex:20, borderRadius:10 }}>
+        <Container scrollEnabled={!alarmVisible}>
+            <Pressable className="modal" style={{position:"absolute", display: alarmVisible ? "flex" : "none", width:"100%", height:"100%", backgroundColor:"rgba(1,1,1,0.5)", zIndex:10, alignItems:"center"}} onPress={()=>setAlarmVisible(!alarmVisible)}>
+                <View style={{alignItems:"center", backgroundColor:"white", width:"90%",height:"40%", position:"absolute", marginTop:"13%", zIndex:11, borderRadius:10 }}>
                     <Text style={{margin:16, fontSize:16, fontWeight:"700"}}>알림</Text>
-                    <View style={{ width:"100%", height:40, flexDirection:"row", alignItems:"center",}}>
-                        <View style={{width:10, height:10, backgroundColor:"#F5B909", borderRadius:5, marginLeft:15,marginRight:10}}></View>
-                        <View style={{flexDirection:"row",  alignItems:"center", width:"85%", justifyContent:"space-between"}}>
-                            <Text style={{fontSize:14, fontWeight:"400"}}>[포인트] 댓글/덧글 작성으로 +30P</Text>
-                            <Text style={{fontSize:8, fontWeight:"400"}}>1,930 P</Text>
-                        </View>
-                    </View>
+                    <Date/>
+                    <GetPoint/>
+                    <UsePoint/>
+                    <Notice/>
+                    <MyPage/>
+                    <Message/>
                 </View>
-            </View>
+            </Pressable>
             <ModalTwoOptions 
                 visible={modalVisible} 
                 setvisible={setModalVisible}
@@ -203,7 +208,7 @@ const Home =({navigation:{navigate}})=>{
                 </LoginBtn>
                 <ConfigureAlarm>
                     {auth().currentUser ? 
-                        <AlarmButton onPress={()=>oPress()}>
+                        <AlarmButton onPress={()=>setAlarmVisible(!alarmVisible)}>
                             <AlarmImage
                                 resizeMode="stretch"
                                 source={require('../../images/alarm.png')}
