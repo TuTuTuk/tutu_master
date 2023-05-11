@@ -175,7 +175,7 @@ const PopularBoardBox = styled.View`
 const Home =({navigation:{navigate}})=>{
     const [click,setClick] = useState(false);
     const [modalVisible,setModalVisible] = useState(false)
-    const [alarmVisible, setAlarmVisible] = useState(true)
+    const [alarmVisible, setAlarmVisible] = useState(false)
     return(
         <Container scrollEnabled={!alarmVisible}>
             <Pressable className="modal" style={{position:"absolute", display: alarmVisible ? "flex" : "none", width:"100%", height:"100%", backgroundColor:"rgba(1,1,1,0.5)", zIndex:10, alignItems:"center"}} onPress={()=>setAlarmVisible(!alarmVisible)}>
