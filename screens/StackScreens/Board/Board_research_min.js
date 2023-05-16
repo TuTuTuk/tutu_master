@@ -95,15 +95,15 @@ const SelectBox = styled.View`
     justify-content: space-between;
     align-self: center;
 `;
-        const SearchText = styled.Text`
-            color : white;
-            font-family: 'Pretendard';
-            font-style: normal;
-            font-weight: 600;
-            font-size: 16px;
-            line-height: 19px;
-            text-align: center;
-        `;
+    const SearchText = styled.Text`
+        color : white;
+        font-family: 'Pretendard';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 19px;
+        text-align: center;
+    `;
 //-------------------------------------------------------------------
 //--------------------------최근 검색어-------------------------------
 //-------------------------------------------------------------------
@@ -118,7 +118,7 @@ const SeachHistoryBox = styled.View`
     justify-content: space-between;
     border-radius: 10px;
     padding-left: 8px;
-    background-color: #E3E3E3 ;
+    background-color: #E3E3E3;
     align-self: center;
 `; 
     const SearchHistoryTextBox = styled.Pressable`
@@ -166,7 +166,7 @@ const AllDelect = styled.TouchableOpacity`
         line-height: 19px;
         align-self: center;
         color: white;
-`;
+    `;
 
 //---------------------------------------------------------------
 //-------------------------인기 키워드----------------------------
@@ -214,7 +214,7 @@ const HotKeywordBox = styled.View`
         height: 30px;
         //border: 1px;
         justify-content: center;
-        width : 80%
+        width : 80%;
     `;
         const KeywordText = styled.Text`
             font-family: 'Pretendard';
@@ -320,7 +320,7 @@ const FilterPartBox = styled.View`
                     margin-right: 5px;
                 `;
     const PressFieldFilter = styled.Pressable`
-        border:0.5px;
+        border:0.7px;
         border-radius: 5px;
         height: 22px;
         margin-right: 5px;
@@ -345,21 +345,45 @@ const FilterPartBox = styled.View`
         margin-right: 5px;
         background-color: #FFAB40;
     `;
-    const HotFilterPressable = styled.Pressable`
+    const NotPressHotFilter = styled.Pressable`
         //border:1px;
         border-radius: 5px;
         height: 22px;
         background-color: #AACD06;
         margin-right: 5px;
     `;
+    const PressHotFilter = styled.Pressable`
+        border:0.7px;
+        border-radius: 5px;
+        height: 22px;
+        border-color: #AACD06;
+        margin-right: 5px;
+        flex-direction: row;
+    `;
+        const PressHotText = styled.Text`
+            font-family: 'Pretendard';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 22px;
+            letter-spacing: -0.408px;
+            color: #AACD06;
+            margin-left: 5px;
+            margin-right: 5px;
+        `;
     const AddKeywordBox = styled.View`
-        border-radius: 10px;
-        background: #E3E3E3;
         height: 40px;
         justify-content: center;
-        padding-left: 10px;
-        padding-right: 10px;
+
     `;
+        const AddKwdInputBox = styled.TextInput`
+            border-radius: 10px;
+            background: #E3E3E3;
+            height: 40px;
+            justify-content: center;
+            padding-left: 10px;
+            padding-right: 10px;
+        `;
         const AddFilterPressable = styled.Pressable`
             //border:1px;
             border-radius: 5px;
@@ -495,6 +519,7 @@ const Board_research_min = ({navigation:{navigate}})=>{
     const [Keywords, setKeywords] = useState([])
     const [pressMajor, setPressMajor] = useState([false,false,false,false,false,false,false,false,false,false,false,false])
     const [fieldFilter, setFieldFilter] = useState([false,false,false,false,false,false,false])
+    const [hotFilter, setHotFilter] = useState([false,false,false,false,false,false,false,false,false,false,])
     const [viewFilter, setViewFilter] = useState(false)
 
     //키워드 값 삭제하기
@@ -512,6 +537,87 @@ const Board_research_min = ({navigation:{navigate}})=>{
         setKeywords(keywordd)
         console.log(Keywords)
     }
+    //특정 키워드 색깔 돌려놓기 (전공)
+    const ResetMajor=(major)=>{
+        const save = [...pressMajor];
+        switch (major){
+            case "컴퓨터공학부" : 
+                return save[0] = false, setPressMajor(save);
+            case "게임공학과" : 
+                return save[1] = false, setPressMajor(save);
+            case "인공지능학과" : 
+                return save[2] = false, setPressMajor(save);
+            case "기계설계공학과" : 
+                return save[3] = false, setPressMajor(save);
+            case "메카트로닉스공학부" : 
+                return save[4] = false, setPressMajor(save);
+            case "전자공학부" : 
+                return save[5] = false, setPressMajor(save);
+            case "신소재공학과" : 
+                return save[6] = false, setPressMajor(save);
+            case "생명화학공학과" : 
+                return save[7] = false, setPressMajor(save);
+            case "나노반도체공학과" : 
+                return save[8] = false, setPressMajor(save);
+            case "에너지,전기공학과" : 
+                return save[9] = false, setPressMajor(save);
+            case "경영학부" : 
+                return save[10] = false, setPressMajor(save);
+            case "디자인공학부" : 
+                return save[11] = false, setPressMajor(save);
+        }
+    }
+    //특정 키워드 색깔 돌려놓기 (분야)
+    const ResetField=(field)=>{
+        const save1 = [...fieldFilter];
+        switch (field){
+            case "전공" : 
+                return save1[0] = false, setFieldFilter(save1);
+            case "교양" : 
+                return save1[1] = false, setFieldFilter(save1);
+            case "비교과" : 
+                return save1[2] = false, setFieldFilter(save1);
+            case "대외활동" : 
+                return save1[3] = false, setFieldFilter(save1);
+            case "장학금" : 
+                return save1[4] = false, setFieldFilter(save1);
+            case "핫플" : 
+                return save1[5] = false, setFieldFilter(save1);
+            case "취업진로" : 
+                return save1[6] = false, setFieldFilter(save1);
+        }
+    }
+    //특정 키워드 색깔 돌려놓기 (인기)
+    const ResetHot=(hot)=>{
+        const save2 = [...hotFilter];
+        
+        switch (hot){
+            case HotKwd[0].id : 
+                return save2[0] = false, setHotFilter(save2);
+            case HotKwd[1].id : 
+                return save2[1] = false, setHotFilter(save2);
+            case HotKwd[2].id : 
+                return save2[2] = false, setHotFilter(save2);
+            case HotKwd[3].id : 
+                return save2[3] = false, setHotFilter(save2);
+            case HotKwd[4].id : 
+                return save2[4] = false, setHotFilter(save2);
+            case HotKwd[5].id : 
+                return save2[5] = false, setHotFilter(save2);
+            case HotKwd[6].id : 
+                return save2[6] = false, setHotFilter(save2);
+            case HotKwd[7].id : 
+                return save2[7] = false, setHotFilter(save2);
+            case HotKwd[8].id : 
+                return save2[8] = false, setHotFilter(save2);
+            case HotKwd[9].id : 
+                return save2[9] = false, setHotFilter(save2);
+            default: null
+        }
+    }   
+
+    const [keywordsView , setKeywordsView] = useState(false);
+    const [addKeyword, setAddKeyword] = useState("");
 
     const [recentVisible, setRecentVisible] = useState(false);
     const [hotVisible, setHotVisible] = useState(false);
@@ -556,6 +662,7 @@ const Board_research_min = ({navigation:{navigate}})=>{
                     <PlusImage source={require('../../../images/ViewMore.png')}></PlusImage>
                 </PlusBtn>
             </HeaderBox>
+
             {
                 Keywords[0] != null?
                 <ViewFilterBox
@@ -570,18 +677,36 @@ const Board_research_min = ({navigation:{navigate}})=>{
                     <PressFieldFilter>
                         <PressFieldText>{keyword}</PressFieldText>
                         <AddFilterDelete onPress={()=>{
-                            DelKwd(keyword);
+                            DelKwd(keyword)
+                            ResetField(keyword)
                         }}>
                             <DeleteIcon source={require('../././../../images/X.png')}></DeleteIcon>
                         </AddFilterDelete>
                     </PressFieldFilter>
                     :   
+                    keyword == "컴퓨터공학부"||keyword == "게임공학과"||keyword == "인공지능학과"||keyword == "기계설계공학과"||
+                    keyword == "메카트로닉스공학부"||keyword == "전자공학부"||keyword == "신소재공학부"||keyword == "생명화학공학과"||
+                    keyword == "나노반도체공학과"||keyword == "에너지,전기공학과"||keyword == "경영학부"||keyword == "디자인공학부"?
                     <PressMajorFilter>
                         <PressMajorText>{keyword}</PressMajorText>
-                        <AddFilterDelete onPress={()=>DelKwd(keyword)}>
+                        <AddFilterDelete onPress={()=>{
+                            DelKwd(keyword)
+                            ResetMajor(keyword);
+                        }}>
                             <DeleteIcon source={require('../././../../images/X.png')}></DeleteIcon>
                         </AddFilterDelete>
                     </PressMajorFilter>
+                    :
+                    <PressHotFilter>
+                        <PressHotText>{keyword}</PressHotText>
+                        <AddFilterDelete onPress={()=>{
+                            DelKwd(keyword)
+                            ResetHot(keyword)
+                            
+                        }}>
+                            <DeleteIcon source={require('../././../../images/X.png')}></DeleteIcon>
+                        </AddFilterDelete>
+                    </PressHotFilter>
                     )
         })
                 }
@@ -739,6 +864,8 @@ const Board_research_min = ({navigation:{navigate}})=>{
                         <UpDownBox><UpDownIcon source={require('../../../images/UpArrow.png')}></UpDownIcon></UpDownBox>
                     </HotKeywordBox>
                 </AllBox>
+                //===========================================
+                //검색필터 구현
                 :
                 filterVisible == true?
                 <>
@@ -747,7 +874,23 @@ const Board_research_min = ({navigation:{navigate}})=>{
                             <FilterTitleBox>
                                 <FilterTitleText>학과</FilterTitleText>
                             </FilterTitleBox>
-                            <DeselectBox>
+                            <DeselectBox onPress={()=>{
+                                setPressMajor([false,false,false,false,false,false,false,false,false,false,false,false])
+                                const keywordd = [...Keywords];
+                                let filtered1 = keywordd.filter((element) => element != "컴퓨터공학부");
+                                let filtered2 = filtered1.filter((element) => element != "게임공학과");
+                                let filtered3 = filtered2.filter((element) => element != "인공지능학과");
+                                let filtered4 = filtered3.filter((element) => element != "기계설계공학과");
+                                let filtered5 = filtered4.filter((element) => element != "생명화학공학과");
+                                let filtered6 = filtered5.filter((element) => element != "나노반도체공학과");
+                                let filtered7 = filtered6.filter((element) => element != "에너지,전기공학과");
+                                let filtered8 = filtered7.filter((element) => element != "경영학부");
+                                let filtered9 = filtered8.filter((element) => element != "디자인공학부");
+                                let filtered10 = filtered9.filter((element) => element != "전자공학부");
+                                let filtered11 = filtered10.filter((element) => element != "메카트로닉스공학부");
+                                let filtered12 = filtered11.filter((element) => element != "신소재공학과");
+                                setKeywords(filtered12)
+                            }}>
                                 <DeselctText>선택해제</DeselctText>
                             </DeselectBox>
                         </FilterMainTitleBox>
@@ -756,9 +899,7 @@ const Board_research_min = ({navigation:{navigate}})=>{
                             {
                                 pressMajor[0] == true?
                                 <FilterPressable onPress={()=>{
-                                    const save = [...pressMajor];
-                                    save[0] = false;
-                                    setPressMajor(save);
+                                    ResetMajor("컴퓨터공학부")
                                     DelKwd("컴퓨터공학부")
 
                                 }}>
@@ -1128,7 +1269,19 @@ const Board_research_min = ({navigation:{navigate}})=>{
                             <FilterTitleBox>
                                 <FilterTitleText>분야</FilterTitleText>
                             </FilterTitleBox>
-                            <DeselectBox>
+                            <DeselectBox onPress={()=>{
+                                setFieldFilter([false,false,false,false,false,false,false])
+                                const keywordd = [...Keywords];
+                                let filtered1 = keywordd.filter((element) => element != "전공");
+                                let filtered2 = filtered1.filter((element) => element != "교양");
+                                let filtered3 = filtered2.filter((element) => element != "비교과");
+                                let filtered4 = filtered3.filter((element) => element != "대외활동");
+                                let filtered5 = filtered4.filter((element) => element != "장학금");
+                                let filtered6 = filtered5.filter((element) => element != "핫플");
+                                let filtered7 = filtered6.filter((element) => element != "취업진로");
+
+                                setKeywords(filtered7)
+                            }}>
                                 <DeselctText>선택해제</DeselctText>
                             </DeselectBox>
                         </FilterMainTitleBox>
@@ -1284,157 +1437,269 @@ const Board_research_min = ({navigation:{navigate}})=>{
                             <FilterTitleBox>
                                 <FilterTitleText>인기</FilterTitleText>
                             </FilterTitleBox>
-                            <DeselectBox>
+                            <DeselectBox onPress={()=>{
+                                setHotFilter([false,false,false,false,false,false,false,false,false,false,false,false])
+                                const hotkeyword = [...Keywords];
+                                let filtered1 = hotkeyword.filter((element) => element != HotKwd[0].id);
+                                let filtered2 = filtered1.filter((element) => element != HotKwd[1].id);
+                                let filtered3 = filtered2.filter((element) => element != HotKwd[2].id);
+                                let filtered4 = filtered3.filter((element) => element != HotKwd[3].id);
+                                let filtered5 = filtered4.filter((element) => element != HotKwd[4].id);
+                                let filtered6 = filtered5.filter((element) => element != HotKwd[5].id);
+                                let filtered7 = filtered6.filter((element) => element != HotKwd[6].id);
+                                let filtered8 = filtered7.filter((element) => element != HotKwd[7].id);
+                                let filtered9 = filtered8.filter((element) => element != HotKwd[8].id);
+                                let filtered10 = filtered9.filter((element) => element != HotKwd[9].id);
+                                setKeywords(filtered10)
+                            }}>
                                 <DeselctText>선택해제</DeselctText>
                             </DeselectBox>
                         </FilterMainTitleBox>
                         <FilterRowColBox>
                             <FilterRowBox>
                             {
-                                HotKwd[0] == null?
-                                <HotFilterPressable onPress={()=>{
-                                    DelKwd(HotKwd[0].id)
-                                }}>
-                                    <FilterDetailText></FilterDetailText>
-                                </HotFilterPressable>
-                                :
-                                <HotFilterPressable onPress={()=>{
-                                    AddKwd(HotKwd[0].id)
-                                }}>
-                                    <FilterDetailText>{HotKwd[0].id}</FilterDetailText>
-                                </HotFilterPressable>
+                                HotKwd[0] == null? //키워드 값을 얻기 전 null값일 때
+                                <NotPressHotFilter><FilterDetailText></FilterDetailText></NotPressHotFilter>
+                                : // 인기 키워드 값 가져옴
+                                hotFilter[0] == true? //특정 키워드 값을 눌렀을 때
+                                    <PressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[0] = false
+                                        setHotFilter(save)
+                                        DelKwd(HotKwd[0].id)
+                                        setHotFilter
+                                    }}>
+                                        <PressHotText>{HotKwd[0].id}</PressHotText>
+                                    </PressHotFilter>
+                                    : // 누른 키워드 값을 다시 눌렀을 때
+                                    <NotPressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[0] = true
+                                        setHotFilter(save)
+                                        AddKwd(HotKwd[0].id)
+                                    }}>
+                                        <FilterDetailText>{HotKwd[0].id}</FilterDetailText>
+                                    </NotPressHotFilter>
                             }
                             {
-                                HotKwd[1] == null?
-                                <HotFilterPressable onPress={()=>{
-                                    DelKwd(HotKwd[1].id)
-                                }}>
-                                    <FilterDetailText></FilterDetailText>
-                                </HotFilterPressable>
-                                :
-                                <HotFilterPressable onPress={()=>{
-                                    AddKwd(HotKwd[1].id)
-                                }}>
-                                    <FilterDetailText>{HotKwd[1].id}</FilterDetailText>
-                                </HotFilterPressable>
+                                HotKwd[1] == null? //키워드 값을 얻기 전 null값일 때
+                                <NotPressHotFilter><FilterDetailText></FilterDetailText></NotPressHotFilter>
+                                : // 인기 키워드 값 가져옴
+                                hotFilter[1] == true? //특정 키워드 값을 눌렀을 때
+                                    <PressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[1] = false
+                                        setHotFilter(save)
+                                        DelKwd(HotKwd[1].id)
+                                    }}>
+                                        <PressHotText>{HotKwd[1].id}</PressHotText>
+                                    </PressHotFilter>
+                                    : // 누른 키워드 값을 다시 눌렀을 때
+                                    <NotPressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[1] = true
+                                        setHotFilter(save)
+                                        AddKwd(HotKwd[1].id)
+                                    }}>
+                                        <FilterDetailText>{HotKwd[1].id}</FilterDetailText>
+                                    </NotPressHotFilter>
                             }
                             {
-                                HotKwd[2] == null?
-                                <HotFilterPressable onPress={()=>{
-                                    DelKwd(HotKwd[2].id)
-                                }}>
-                                    <FilterDetailText></FilterDetailText>
-                                </HotFilterPressable>
-                                :
-                                <HotFilterPressable onPress={()=>{
-                                    AddKwd(HotKwd[2].id)
-                                }}>
-                                    <FilterDetailText>{HotKwd[2].id}</FilterDetailText>
-                                </HotFilterPressable>
-                            }
-                            </FilterRowBox>
-                            <FilterRowBox>
-                            {
-                                HotKwd[3] == null?
-                                <HotFilterPressable onPress={()=>{
-                                    DelKwd(HotKwd[3].id)
-                                }}>
-                                    <FilterDetailText></FilterDetailText>
-                                </HotFilterPressable>
-                                :
-                                <HotFilterPressable onPress={()=>{
-                                    AddKwd(HotKwd[3].id)
-                                }}>
-                                    <FilterDetailText>{HotKwd[3].id}</FilterDetailText>
-                                </HotFilterPressable>
-                            }
-                            {
-                                HotKwd[4] == null?
-                                <HotFilterPressable onPress={()=>{
-                                    DelKwd(HotKwd[4].id)
-                                }}>
-                                    <FilterDetailText></FilterDetailText>
-                                </HotFilterPressable>
-                                :
-                                <HotFilterPressable onPress={()=>{
-                                    AddKwd(HotKwd[4].id)
-                                }}>
-                                    <FilterDetailText>{HotKwd[4].id}</FilterDetailText>
-                                </HotFilterPressable>
-                            }
-                            {
-                                HotKwd[5] == null?
-                                <HotFilterPressable onPress={()=>{
-                                    DelKwd(HotKwd[5].id)
-                                }}>
-                                    <FilterDetailText></FilterDetailText>
-                                </HotFilterPressable>
-                                :
-                                <HotFilterPressable onPress={()=>{
-                                    AddKwd(HotKwd[5].id)
-                                }}>
-                                    <FilterDetailText>{HotKwd[5].id}</FilterDetailText>
-                                </HotFilterPressable>
+                                HotKwd[2] == null? //키워드 값을 얻기 전 null값일 때
+                                <NotPressHotFilter><FilterDetailText></FilterDetailText></NotPressHotFilter>
+                                : // 인기 키워드 값 가져옴
+                                hotFilter[2] == true? //특정 키워드 값을 눌렀을 때
+                                    <PressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[2] = false
+                                        setHotFilter(save)
+                                        DelKwd(HotKwd[2].id)
+                                        setHotFilter
+                                    }}>
+                                        <PressHotText>{HotKwd[1].id}</PressHotText>
+                                    </PressHotFilter>
+                                    : // 누른 키워드 값을 다시 눌렀을 때
+                                    <NotPressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[2] = true
+                                        setHotFilter(save)
+                                        AddKwd(HotKwd[2].id)
+                                    }}>
+                                        <FilterDetailText>{HotKwd[2].id}</FilterDetailText>
+                                    </NotPressHotFilter>
                             }
                             </FilterRowBox>
                             <FilterRowBox>
                             {
-                                HotKwd[6] == null?
-                                <HotFilterPressable onPress={()=>{
-                                    DelKwd(HotKwd[6].id)
-                                }}>
-                                    <FilterDetailText></FilterDetailText>
-                                </HotFilterPressable>
-                                :
-                                <HotFilterPressable onPress={()=>{
-                                    AddKwd(HotKwd[6].id)
-                                }}>
-                                    <FilterDetailText>{HotKwd[6].id}</FilterDetailText>
-                                </HotFilterPressable>
+                                HotKwd[3] == null? //키워드 값을 얻기 전 null값일 때
+                                <NotPressHotFilter><FilterDetailText></FilterDetailText></NotPressHotFilter>
+                                : // 인기 키워드 값 가져옴
+                                hotFilter[3] == true? //특정 키워드 값을 눌렀을 때
+                                    <PressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[3] = false
+                                        setHotFilter(save)
+                                        DelKwd(HotKwd[3].id)
+                                        setHotFilter
+                                    }}>
+                                        <PressHotText>{HotKwd[3].id}</PressHotText>
+                                    </PressHotFilter>
+                                    : // 누른 키워드 값을 다시 눌렀을 때
+                                    <NotPressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[3] = true
+                                        setHotFilter(save)
+                                        AddKwd(HotKwd[3].id)
+                                    }}>
+                                        <FilterDetailText>{HotKwd[3].id}</FilterDetailText>
+                                    </NotPressHotFilter>
                             }
                             {
-                                HotKwd[7] == null?
-                                <HotFilterPressable onPress={()=>{
-                                    DelKwd(HotKwd[7].id)
-                                }}>
-                                    <FilterDetailText></FilterDetailText>
-                                </HotFilterPressable>
-                                :
-                                <HotFilterPressable onPress={()=>{
-                                    AddKwd(HotKwd[7].id)
-                                }}>
-                                    <FilterDetailText>{HotKwd[7].id}</FilterDetailText>
-                                </HotFilterPressable>
+                                HotKwd[4] == null? //키워드 값을 얻기 전 null값일 때
+                                <NotPressHotFilter><FilterDetailText></FilterDetailText></NotPressHotFilter>
+                                : // 인기 키워드 값 가져옴
+                                hotFilter[4] == true? //특정 키워드 값을 눌렀을 때
+                                    <PressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[4] = false
+                                        setHotFilter(save)
+                                        DelKwd(HotKwd[4].id)
+                                        setHotFilter
+                                    }}>
+                                        <PressHotText>{HotKwd[4].id}</PressHotText>
+                                    </PressHotFilter>
+                                    : // 누른 키워드 값을 다시 눌렀을 때
+                                    <NotPressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[4] = true
+                                        setHotFilter(save)
+                                        AddKwd(HotKwd[4].id)
+                                    }}>
+                                        <FilterDetailText>{HotKwd[4].id}</FilterDetailText>
+                                    </NotPressHotFilter>
                             }
                             {
-                                HotKwd[8] == null?
-                                <HotFilterPressable onPress={()=>{
-                                    DelKwd(HotKwd[8].id)
-                                }}>
-                                    <FilterDetailText></FilterDetailText>
-                                </HotFilterPressable>
-                                :
-                                <HotFilterPressable onPress={()=>{
-                                    AddKwd(HotKwd[8].id)
-                                }}>
-                                    <FilterDetailText>{HotKwd[8].id}</FilterDetailText>
-                                </HotFilterPressable>
+                                HotKwd[5] == null? //키워드 값을 얻기 전 null값일 때
+                                <NotPressHotFilter><FilterDetailText></FilterDetailText></NotPressHotFilter>
+                                : // 인기 키워드 값 가져옴
+                                hotFilter[5] == true? //특정 키워드 값을 눌렀을 때
+                                    <PressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[5] = false
+                                        setHotFilter(save)
+                                        DelKwd(HotKwd[5].id)
+                                        setHotFilter
+                                    }}>
+                                        <PressHotText>{HotKwd[5].id}</PressHotText>
+                                    </PressHotFilter>
+                                    : // 누른 키워드 값을 다시 눌렀을 때
+                                    <NotPressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[5] = true
+                                        setHotFilter(save)
+                                        AddKwd(HotKwd[5].id)
+                                    }}>
+                                        <FilterDetailText>{HotKwd[5].id}</FilterDetailText>
+                                    </NotPressHotFilter>
                             }
                             </FilterRowBox>
                             <FilterRowBox>
                             {
-                                HotKwd[9] == null?
-                                <HotFilterPressable onPress={()=>{
-                                    DelKwd(HotKwd[9].id)
-                                }}>
-                                    <FilterDetailText></FilterDetailText>
-                                </HotFilterPressable>
-                                :
-                                <HotFilterPressable onPress={()=>{
-                                    AddKwd(HotKwd[9].id)
-                                }}>
-                                    <FilterDetailText>{HotKwd[9].id}</FilterDetailText>
-                                </HotFilterPressable>
+                                HotKwd[6] == null? //키워드 값을 얻기 전 null값일 때
+                                <NotPressHotFilter><FilterDetailText></FilterDetailText></NotPressHotFilter>
+                                : // 인기 키워드 값 가져옴
+                                hotFilter[6] == true? //특정 키워드 값을 눌렀을 때
+                                    <PressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[6] = false
+                                        setHotFilter(save)
+                                        DelKwd(HotKwd[6].id)
+                                        setHotFilter
+                                    }}>
+                                        <PressHotText>{HotKwd[6].id}</PressHotText>
+                                    </PressHotFilter>
+                                    : // 누른 키워드 값을 다시 눌렀을 때
+                                    <NotPressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[6] = true
+                                        setHotFilter(save)
+                                        AddKwd(HotKwd[6].id)
+                                    }}>
+                                        <FilterDetailText>{HotKwd[6].id}</FilterDetailText>
+                                    </NotPressHotFilter>
+                            }
+                            {
+                                HotKwd[7] == null? //키워드 값을 얻기 전 null값일 때
+                                <NotPressHotFilter><FilterDetailText></FilterDetailText></NotPressHotFilter>
+                                : // 인기 키워드 값 가져옴
+                                hotFilter[7] == true? //특정 키워드 값을 눌렀을 때
+                                    <PressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[7] = false
+                                        setHotFilter(save)
+                                        DelKwd(HotKwd[7].id)
+                                        setHotFilter
+                                    }}>
+                                        <PressHotText>{HotKwd[7].id}</PressHotText>
+                                    </PressHotFilter>
+                                    : // 누른 키워드 값을 다시 눌렀을 때
+                                    <NotPressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[7] = true
+                                        setHotFilter(save)
+                                        AddKwd(HotKwd[7].id)
+                                    }}>
+                                        <FilterDetailText>{HotKwd[7].id}</FilterDetailText>
+                                    </NotPressHotFilter>
+                            }
+                            {
+                                HotKwd[8] == null? //키워드 값을 얻기 전 null값일 때
+                                <NotPressHotFilter><FilterDetailText></FilterDetailText></NotPressHotFilter>
+                                : // 인기 키워드 값 가져옴
+                                hotFilter[8] == true? //특정 키워드 값을 눌렀을 때
+                                    <PressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[8] = false
+                                        setHotFilter(save)
+                                        DelKwd(HotKwd[8].id)
+                                        setHotFilter
+                                    }}>
+                                        <PressHotText>{HotKwd[8].id}</PressHotText>
+                                    </PressHotFilter>
+                                    : // 누른 키워드 값을 다시 눌렀을 때
+                                    <NotPressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[8] = true
+                                        setHotFilter(save)
+                                        AddKwd(HotKwd[8].id)
+                                    }}>
+                                        <FilterDetailText>{HotKwd[8].id}</FilterDetailText>
+                                    </NotPressHotFilter>
+                            }
+                            </FilterRowBox>
+                            <FilterRowBox>
+                            {
+                                HotKwd[9] == null? //키워드 값을 얻기 전 null값일 때
+                                <NotPressHotFilter><FilterDetailText></FilterDetailText></NotPressHotFilter>
+                                : // 인기 키워드 값 가져옴
+                                hotFilter[9] == true? //특정 키워드 값을 눌렀을 때
+                                    <PressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[9] = false
+                                        setHotFilter(save)
+                                        DelKwd(HotKwd[9].id)
+                                    }}>
+                                        <PressHotText>{HotKwd[9].id}</PressHotText>
+                                    </PressHotFilter>
+                                    : // 누른 키워드 값을 다시 눌렀을 때
+                                    <NotPressHotFilter onPress={()=>{
+                                        const save = [...hotFilter]
+                                        save[9] = true
+                                        setHotFilter(save)
+                                        AddKwd(HotKwd[9].id)
+                                    }}>
+                                        <FilterDetailText>{HotKwd[9].id}</FilterDetailText>
+                                    </NotPressHotFilter>
                             }
                             </FilterRowBox>
                         </FilterRowColBox>
@@ -1447,12 +1712,28 @@ const Board_research_min = ({navigation:{navigate}})=>{
                     </FilterMainTitleBox>
                     <FilterRowColBox>
                         <AddKeywordBox>
-                            <AddFilterPressable>
-                                <FilterDetailText>#직접작성</FilterDetailText>
-                                <AddFilterDelete>
-                                    <DeleteIcon source={require('../././../../images/X.png')}></DeleteIcon>
-                                </AddFilterDelete>
-                            </AddFilterPressable>
+                            {
+                                keywordsView == false?
+                                <AddKwdInputBox
+                                    placeholder={"이곳을 눌러 키워드를 입력하세요."}
+                                    onChangeText={(text)=>{
+                                        setAddKeyword(text)
+                                    }}
+                                ></AddKwdInputBox>
+                                :
+                                <AddKwdInputBox>
+                                    <NotPressHotFilter>
+                                        {
+                                            addKeyword == null?
+                                            <FilterDetailText>없음</FilterDetailText>
+                                            :
+                                            <FilterDetailText>{addKeyword}</FilterDetailText>    
+                                        }
+                                    </NotPressHotFilter>
+
+                                </AddKwdInputBox>
+
+                            }
                         </AddKeywordBox>
                     </FilterRowColBox>
                 </FilterPartBox>
