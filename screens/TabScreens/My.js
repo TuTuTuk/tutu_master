@@ -210,7 +210,7 @@ const My = ({navigation:{navigate}}) => {
             </PopualrBox>
             <PopualrBox>
                 <PickText>내가 쓴 댓글</PickText>
-                <GoIcon>
+                <GoIcon onPress={()=>navigate("Stack",{screen:"MyComments"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
             </PopualrBox>

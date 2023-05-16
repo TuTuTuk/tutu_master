@@ -1,53 +1,26 @@
-import React, { useState } from "react";
-import { Modal } from "react-native";
+import React, { useState , useEffect } from "react";
+import { Modal , FlatList } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
+import moment from "moment"
 
 import AllBoardBox_min from "../../../components/AllBoardBox_min";
 import CommentBox_min from "../../../components/CommentBox_min";
 import ModalOneOptions from "../../../components/ModalOneOptions";
 import TopBar from "../../../components/TopBar";
 
-const Container = styled.ScrollView.attrs(()=>({
-    contentContainerStyle:{
-        showVerticalScrollIndicator:false,
-    }
-}))`
-flex:1;
+import auth from "@react-native-firebase/auth";
+import firestore from '@react-native-firebase/firestore';
+import BoardBox_min from "../../../components/BoardBox_min";
+
+const Container = styled.View`
+    flex:1;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-left: 7%;
+    margin-right: 7%;
 `;
 
-//-------------Modal-----------------
-const ModalBackView=styled.View`
-    position:absolute;
-    width:100%;
-    height:100%; 
-`;
-const ModalView = styled.View`
-    background-color: #BBBBBB;
-    width:95px;
-    height:87px;
-    border-radius: 5px;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-right: 6.5%;
-    align-self: flex-end;
-    top:15%;
-    padding-left:10px;
-    padding-right:10px;
-    padding-top:5px;
-`;
-    const Modalinquire = styled.Pressable`
-        height:25%;
-    `;
-        const MiddleText = styled.Text`
-            font-size:12px;
-        `;
-
-
-const InputWindow = styled.TouchableOpacity`
-    margin-top: 6%;
+const InputWindow = styled.View`
     background-color: gray;
     border-radius: 10px;
     width: 86%;
@@ -55,7 +28,18 @@ const InputWindow = styled.TouchableOpacity`
     align-self: center;
     justify-content: space-between;
     flex-direction: row;
+    position: absolute;
+    bottom: 8px;
+    padding-left: 4.16%;
+    padding-right: 2.78%;
 `;      
+    const InputBox = styled.TextInput`
+        border-radius: 10px;
+        width: 80%;
+        height: 100%;
+        justify-content: center;
+    `;
+
     const InputText = styled.Text`
         font-size: 12px;
         font-weight: 500;
@@ -63,52 +47,95 @@ const InputWindow = styled.TouchableOpacity`
         margin-left: 4.8%;
         margin-top: 3.2%;
     `;
-    const InputIcon = styled.View`
+    
+    const InputBtn = styled.Pressable`
         width: 25px;
         height: 25px;
-        border: 1px;
-        margin-top: 2%;
-        margin-right: 1.75%;
+        //border: 1px;
+        margin-top: 8px;
     `;
+        const InputIcon = styled.Image`
+            width: 100%;
+            height: 100%;
+        `;
 
 const HotBoard_min = ({navigation:{navigate}})=>{
-    const [click,setClick] = useState(false);
+
     const [modalVisible,setModalVisible] = useState(false)
+    const [content, setContent] = useState("")
+
+    const [commentSave,setCommentSave] = useState([]);
+
+    const UpdateData=async()=>{
+        setCommentSave([])
+        const tempSave = await firestore().collection("users").doc(auth().currentUser.uid).collection('Comments').orderBy("create_time","desc").get();
+        if(tempSave.empty){
+            console.log('empty');
+            return;
+        }
+        tempSave.forEach(document => {
+            const recentSave = {
+                id: document.id,
+                ...document.data()
+            }
+            setCommentSave(prev => [recentSave, ...prev])
+        })
+        console.log(commentSave)
+    }
+
+    useEffect(()=>{
+        UpdateData()
+    },[])
+
+    const DoneComment=async()=>{
+        const timeNow = new Date();
+
+        const nowTime = moment().format('MM/DD HH:mm');
+        
+        
+        firestore().collection("users").doc(auth().currentUser.uid).collection("Comments").doc(content).set({
+            contents:content,
+            create_time:timeNow, 
+            time : nowTime
+
+        }).catch((error)=>{
+            console.log(error)
+        })
+    }
 
     return(
+        <>
         <Container>
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-            >
-                <ModalBackView>
-                </ModalBackView>
-                <ModalView>
-                    <Modalinquire onPress={()=>setModalVisible(false)}>
-                        <MiddleText>문의하기</MiddleText>
-                    </Modalinquire>
-                    <Modalinquire onPress={()=>setModalVisible(false)}>
-                        <MiddleText>신고하기</MiddleText>
-                    </Modalinquire>
-                    <Modalinquire onPress={()=>setModalVisible(false)}>
-                        <MiddleText>새로고침</MiddleText>
-                    </Modalinquire>
-                    <Modalinquire onPress={()=>setModalVisible(false)}>
-                        <MiddleText>URL 복사</MiddleText>
-                    </Modalinquire>
-                </ModalView>
-            </Modal>
-            <TopBar/>
-            <AllBoardBox_min/>
-            <CommentBox_min></CommentBox_min>
-            <CommentBox_min></CommentBox_min>
-            <CommentBox_min></CommentBox_min>
+                <TopBar/>
+                <BoardBox_min></BoardBox_min>
+                <FlatList style={
+                    {marginBottom : 50}
+                }
+                    nestedScrollEnabled = {true}
+                    ListHeaderComponent={Container}
+                    showsVerticalScrollIndicator={true} //scroll바 가리기
+                    keyExtractor={(item)=>`${item.create_time}`}//고유 키값 부여
+                    data={commentSave}
+                    renderItem={({item})=>
+                        <CommentBox_min content={item.contents} time={item.time}/>
+                    }
+                />
+            </Container>
             <InputWindow>
-                <InputText>입력창</InputText>
-                <InputIcon></InputIcon>
+                <InputBox
+                    onChangeText={(text)=>setContent(text)}
+                >
+                    <InputText>입력창</InputText>
+                </InputBox>
+                <InputBtn onPress={() => {
+                    DoneComment()
+                    UpdateData();
+                }} >
+                    <InputIcon source={require('../../../images/input.png')}></InputIcon>
+                </InputBtn>
             </InputWindow>
-        </Container>
+            
+        </>
     )
 }
 export default HotBoard_min;
