@@ -4,18 +4,14 @@ import  Icon  from "react-native-vector-icons/Ionicons";
 import { useNavigation } from '@react-navigation/native';
 
 const Container = styled.View`
-    width:100%;
-    align-items: center;
-    justify-content: center;
-`;
-const Box = styled.View`
+    //border:1px;
     width:100%;
     height:40px;
     margin-top:9px;
     margin-bottom:20px;
     flex-direction:row;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 `;
 
 const PressableBox = styled.Pressable`
@@ -44,15 +40,13 @@ const TopBar=({title})=>{
     const navigation = useNavigation();
     return(
         <Container>
-            <Box>
-                <PressableBox
-                    onPressOut={()=>navigation.goBack()}
-                >
-                    <BackIcon source={require('../images/Back.png')}></BackIcon>
-                </PressableBox>
-                <TitleText>{title}</TitleText>
-                <PlusIcon source={require('../images/ViewMore.png')}/>
-            </Box>
+            <PressableBox
+                onPressOut={()=>navigation.goBack()}
+            >
+                <BackIcon source={require('../images/Back.png')}></BackIcon>
+            </PressableBox>
+            <TitleText>{title}</TitleText>
+            <PlusIcon source={require('../images/ViewMore.png')}/>
         </Container>
     )
 }

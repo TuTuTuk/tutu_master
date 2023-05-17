@@ -75,14 +75,18 @@ const Designboard_min = ({navigation:{navigate},route})=>{
     return(
         <>
             <Container>
-                <TopBar_Search title="검색 키워드"/>
-                <KeywordSearchBox_min tag={route.params.title}/>
                 <FlatList
+                    ListHeaderComponent={
+                        <>
+                            <TopBar_Search title="검색 키워드"/>
+                            <KeywordSearchBox_min tag={route.params.title}/>
+                        </>
+                    }
                     showsVerticalScrollIndicator={false} //scroll바 가리기
                     keyExtractor={(item)=>`${item.create_time}`}//고유 키값 부여
                     data={boardSave.arr}
                     renderItem={({item})=>
-                        <BoardBox title={item.title} contents={item.contents} id={item.boards_uid}/>
+                        <BoardBox info={item}/>
                     }
                 />
             </Container>

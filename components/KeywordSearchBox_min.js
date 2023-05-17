@@ -10,7 +10,8 @@ import { Text, View } from "react-native";
 const SearchFilterBox = styled.View`
         border : 1px;
         width: 100%;
-        height : 4.8%;
+        height : 40px;
+        //4.8%
         align-self: center;
         margin-bottom: 20px;
         flex-direction : row;

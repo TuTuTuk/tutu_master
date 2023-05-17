@@ -1,35 +1,26 @@
 import React from "react";
 import styled from "styled-components/native";
-import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from "react";
 import { Modal } from "react-native";
 
-const Container = styled.ScrollView.attrs(()=>({
-    contentContainerStyle:{
-        showVerticalScrollIndicator:false,
-    }
-}))`
-    flex:1;
+const Container = styled.View`
+    //border:1px;
+    width:100%;
     margin-top: 10px;
     margin-bottom: 10px;
-`;
-
-const HeaderBox = styled.View`
-    //border: 1px;
-    flex:1;
-    width: 100%;
-    height: 5.4%;
+    height:40px;
     align-self: center;
     flex-direction:row;
     justify-content: space-between;
     align-items: center;
 `;
+
     const BackView = styled.View`
+        //border: 1px;
         border-color: orange;
         width:30px;
         height : 40px;
-        //border: 1px;
     `;
         const BackBtn = styled.TouchableOpacity`
             //border : 1px;
@@ -113,39 +104,36 @@ const TopBar_Search=({title})=>{
 
     return(
         <>
-        <Modal
-            animationType="fade"
-            transparent={true}
-            visible = {modal}
-        >
-            <ModalBox>
-                <TextBox onPress={()=>{
-                    setModal(false)
-                    navigation.navigate("Stack", {screen:"Inquiry"})}}
-                ><ModalText>문의하기</ModalText></TextBox>
-                <TextBox onPress={()=>setModal(false)}><ModalText>새로고침</ModalText></TextBox>
-            </ModalBox>
-        </Modal>
-        <Container>
-            <HeaderBox>
-            <BackView>
-                <BackBtn 
-                    onPressOut={()=>navigation.goBack()}>
-                    <BackIcon source={require('../images/Back.png')}></BackIcon>
-                </BackBtn>
-            </BackView>
-            <BoardTextBox onPress={()=>navigation.navigate("Stack",{screen:"Board_research_min"})}>
-                <BoardText>{title}</BoardText>   
-                <SearchBtn
-                    onPress={()=>navigation.navigate("Stack",{screen:"Board_research_min"})}>
-                    <SearchImage source={require('../images/Search.png')}></SearchImage>
-                </SearchBtn>
-            </BoardTextBox>
-            <PlusBtn onPress={()=> setModal(true)}> 
-                <PlusImage source={require('../images/ViewMore.png')}></PlusImage>
-            </PlusBtn>
-        </HeaderBox>
-        </Container>
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible = {modal}
+            >
+                <ModalBox>
+                    <TextBox onPress={()=>{
+                        setModal(false)
+                        navigation.navigate("Stack", {screen:"Inquiry"})}}
+                    ><ModalText>문의하기</ModalText></TextBox>
+                    <TextBox onPress={()=>setModal(false)}><ModalText>새로고침</ModalText></TextBox>
+                </ModalBox>
+            </Modal>
+            <Container>
+                <BackView>
+                    <BackBtn onPressOut={()=>navigation.goBack()}>
+                        <BackIcon source={require('../images/Back.png')}></BackIcon>
+                    </BackBtn>
+                </BackView>
+                <BoardTextBox onPress={()=>navigation.navigate("Stack",{screen:"Board_research_min"})}>
+                    <BoardText>{title}</BoardText>   
+                    <SearchBtn
+                        onPress={()=>navigation.navigate("Stack",{screen:"Board_research_min"})}>
+                        <SearchImage source={require('../images/Search.png')}></SearchImage>
+                    </SearchBtn>
+                </BoardTextBox>
+                <PlusBtn onPress={()=> setModal(true)}> 
+                    <PlusImage source={require('../images/ViewMore.png')}></PlusImage>
+                </PlusBtn>
+            </Container>
         </>
     )
 }

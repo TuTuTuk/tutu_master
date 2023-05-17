@@ -23,6 +23,10 @@ import BoardWriting_min2 from "../screens/StackScreens/Board/BoardWriting_min2";
 import Writing_self_min from "../screens/StackScreens/Board/Writing_self_min";
 import ViewMyBoard from "../screens/StackScreens/Board/ViewMyBoard";
 
+//게시판(준범)
+import BoardDetail_jun from "../screens/StackScreens/Board/BoardDetail_jun";
+
+
 //마이페이지(민정)
 import NoteHistory_min from "../screens/StackScreens/My/NoteHistory_min";
 import Question_min from "../screens/StackScreens/My/Question_min";
@@ -69,6 +73,7 @@ const Stack =()=>(
 
         <NativeStack.Screen name="Designboard_min" component={Designboard_min}/>
         <NativeStack.Screen name="Board_research_min" component={Board_research_min}/>
+        <NativeStack.Screen name="BoardDetail_jun" component={BoardDetail_jun}/>
         <NativeStack.Screen name="HotBoard_min" component={HotBoard_min}/>
         <NativeStack.Screen name="Integrated_Board_min" component={Integrated_Board_min}/>
         <NativeStack.Screen name="BoardWriting_min" component={BoardWriting_min}/>

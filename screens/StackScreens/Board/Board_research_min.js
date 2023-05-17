@@ -82,9 +82,11 @@ const HeaderBox = styled.View`
             width: 100%;
             height: 100%;
         `;
+        
 //----------------------------------------------------------------
 //---------------------------선택 버튼-----------------------------
 //----------------------------------------------------------------
+
 const SelectBox = styled.View`
     margin-top: 5.5%;
     //border : 1px;
@@ -95,6 +97,7 @@ const SelectBox = styled.View`
     justify-content: space-between;
     align-self: center;
 `;
+
         const SearchText = styled.Text`
             color : white;
             font-family: 'Pretendard';
@@ -104,6 +107,7 @@ const SelectBox = styled.View`
             line-height: 19px;
             text-align: center;
         `;
+
 //-------------------------------------------------------------------
 //--------------------------최근 검색어-------------------------------
 //-------------------------------------------------------------------
@@ -166,14 +170,16 @@ const AllDelect = styled.TouchableOpacity`
         line-height: 19px;
         align-self: center;
         color: white;
-`;
+    `;
 
 //---------------------------------------------------------------
 //-------------------------인기 키워드----------------------------
 //---------------------------------------------------------------
+
 const AllBox = styled.View`
     //border: 1px;
 `;
+
 const HotKeywordBox = styled.View`
     //border  : 1px;
     margin-top: 1.37%;
@@ -496,7 +502,7 @@ const Board_research_min = ({navigation:{navigate}})=>{
     const [pressMajor, setPressMajor] = useState([false,false,false,false,false,false,false,false,false,false,false,false])
     const [fieldFilter, setFieldFilter] = useState([false,false,false,false,false,false,false])
     const [viewFilter, setViewFilter] = useState(false)
-
+    
     //키워드 값 삭제하기
     const DelKwd=(KWD)=>{
         const keywordd = [...Keywords];
