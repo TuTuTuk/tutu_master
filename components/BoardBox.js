@@ -1,4 +1,4 @@
-import react from "react";
+import react,{useEffect} from "react";
 import styled from "styled-components/native";
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -6,7 +6,7 @@ import { Dimensions } from "react-native";
 import auth from "@react-native-firebase/auth"
 import firestore from '@react-native-firebase/firestore';
 
-const PopularBox = styled.View`
+const PopularBox = styled.Pressable`
     width:100%;
     height:${({hei})=>hei*0.125}px;
     border-radius:${({hei})=>hei*0.0125}px;
@@ -71,17 +71,23 @@ const PopularBoxRight = styled.View`
         const GoodImage = styled.Image``;
 
 
-const BoardBox = ({title,contents,id}) => {
+const BoardBox = ({info}) => {
     const navigation = useNavigation();
     const HEIGHT = Dimensions.get('window').height;
     //firestore().collection("users").doc(auth().currentUser.uid).get();
+    
 
+    useEffect(()=>{
+    },[])
+    
     const addBoardId=async()=>{ //user 정보에 방문한 board id 저장
+        //console.log(info)
+        
         const tempData = await firestore().collection("users").doc(auth().currentUser.uid).get();
         console.log(tempData._data);
         firestore().collection("users").doc(auth().currentUser.uid).update({
             user_watch_board_uid:[...tempData._data.user_watch_board_uid,
-                id
+                info.boards_uid
             ]
         })
     }
@@ -89,10 +95,11 @@ const BoardBox = ({title,contents,id}) => {
     return(
         <PopularBox 
             onPress={()=>addBoardId()}
+            onPressOut={()=>navigation.navigate("Stack",{screen:"BoardDetail_jun",params:{info}})}
             hei={HEIGHT}>
             <PopularBoxLeft>
-                <PopularBoxTitle>{title}</PopularBoxTitle>
-                <PopularBoxContent>{contents}</PopularBoxContent>
+                <PopularBoxTitle></PopularBoxTitle>
+                <PopularBoxContent></PopularBoxContent>
                 <PopularBoxKeywordBox>
                     <LinearGradient style={{
                         width:40,
