@@ -6,6 +6,15 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import BoardBox from "../../components/BoardBox";
 import ModalTwoOptions from "../../components/ModalTwoOptions";
 import auth from "@react-native-firebase/auth";
+import { Pressable } from "react-native";
+
+// components 폴더에 있음
+import GetPoint from "../../components/GetPoint";
+import UsePoint from "../../components/UsePoint";
+import Notice from "../../components/Notice";
+import MyPage from "../../components/Mypage";
+import Message from "../../components/Message";
+import Date from "../../components/Date";
 
 
 //scrollView 
@@ -166,9 +175,20 @@ const PopularBoardBox = styled.View`
 const Home =({navigation:{navigate}})=>{
     const [click,setClick] = useState(false);
     const [modalVisible,setModalVisible] = useState(false)
-
+    const [alarmVisible, setAlarmVisible] = useState(false)
     return(
-        <Container>
+        <Container scrollEnabled={!alarmVisible}>
+            <Pressable className="modal" style={{position:"absolute", display: alarmVisible ? "flex" : "none", width:"100%", height:"100%", backgroundColor:"rgba(1,1,1,0.5)", zIndex:10, alignItems:"center"}} onPress={()=>setAlarmVisible(!alarmVisible)}>
+                <View style={{alignItems:"center", backgroundColor:"white", width:"90%",height:"40%", position:"absolute", marginTop:"13%", zIndex:11, borderRadius:10 }}>
+                    <Text style={{margin:16, fontSize:16, fontWeight:"700"}}>알림</Text>
+                    <Date/>
+                    <GetPoint/>
+                    <UsePoint/>
+                    <Notice/>
+                    <MyPage/>
+                    <Message/>
+                </View>
+            </Pressable>
             <ModalTwoOptions 
                 visible={modalVisible} 
                 setvisible={setModalVisible}
@@ -188,7 +208,7 @@ const Home =({navigation:{navigate}})=>{
                 </LoginBtn>
                 <ConfigureAlarm>
                     {auth().currentUser ? 
-                        <AlarmButton>
+                        <AlarmButton onPress={()=>setAlarmVisible(!alarmVisible)}>
                             <AlarmImage
                                 resizeMode="stretch"
                                 source={require('../../images/alarm.png')}
