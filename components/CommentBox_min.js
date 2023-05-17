@@ -5,13 +5,14 @@ import styled from "styled-components/native";
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+
 //댓글 Box
 
 const CommentBox = styled.View`
     border-radius: 10px;
     background-color: #E3E3E3;
     //border: 1px;
-    width: 86%;
+    width: 100%;
     height: 102px;
     align-self: center;
     margin-bottom: 10px;
@@ -78,6 +79,8 @@ const CommentBox = styled.View`
         font-size: 12px;
         font-weight: 400;
         align-self: center;
+        width: 93.5%;
+        text-align: left;
     `;
     const DataAndGoodBox = styled.View`
         //border: 1px;
@@ -128,8 +131,10 @@ const ModalView = styled.View`
         const MiddleText = styled.Text`
             font-size:12px;
         `;
-const CommentBox_min = () => {
+const CommentBox_min = ({content, time}) => {
     const [modalVisible,setModalVisible] = useState(false)
+
+
     return(
         <CommentBox>
             <Modal
@@ -168,9 +173,9 @@ const CommentBox_min = () => {
                         </CommentPlusIcon>
                     </CommentMenuBox>
                 </CommentProfileBox>
-                <CommentContent>내용을 입력하세요 내용을 입력하세요 내용을 입력하세요 내용을 입력하세요</CommentContent>
+                <CommentContent>{content}</CommentContent>
                 <DataAndGoodBox>
-                    <CommentDate>09/26 16:00</CommentDate>
+                    <CommentDate>{time}</CommentDate>
                     <CommentGood source={require('../images/good.png')}></CommentGood>
                     <CommetGoodCnt>18</CommetGoodCnt>
                 </DataAndGoodBox>

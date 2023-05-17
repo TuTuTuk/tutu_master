@@ -39,6 +39,7 @@ import CurrentStudent from "../screens/StackScreens/My/Certification_All/Current
 import ChangeEmail from "../screens/StackScreens/My/Account/ChangeEmail/ChangeEmail";
 import IdentifyVerification_email from "../screens/StackScreens/My/Account/ChangeEmail/IdentityVerification_email"
 import ChangePW from "../screens/StackScreens/My/Account/ChangePW";
+import MyComments from "../screens/StackScreens/My/Imformation/MyComments";
 
 
 //매칭(민정)
@@ -94,6 +95,7 @@ const Stack =()=>(
         <NativeStack.Screen name="ChangePW"component={ChangePW}/>
         <NativeStack.Screen name="ChangeEmail"component={ChangeEmail}/>
         <NativeStack.Screen name="IdentifyVerification_email" component={IdentifyVerification_email}/>
+        <NativeStack.Screen name="MyComments" component={MyComments}/>
 
         <NativeStack.Screen name="Matching_junseo" component={Matching_junseo}/>
     </NativeStack.Navigator>
