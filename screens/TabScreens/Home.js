@@ -12,7 +12,7 @@ import { Pressable } from "react-native";
 import GetPoint from "../../components/GetPoint";
 import UsePoint from "../../components/UsePoint";
 import Notice from "../../components/Notice";
-import MyPage from "../../components/Mypage";
+import MyPage from "../../components/MyPage";
 import Message from "../../components/Message";
 import Date from "../../components/Date";
 
