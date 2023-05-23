@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Modal } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
+import moment from "moment"
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -307,6 +308,19 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                     console.log(error)
                 })
         }
+
+        //내가 쓴 게시물에 저장
+        firestore().collection("users").doc(auth().currentUser.uid).collection("Boards").doc(titleText).set({
+            title : titleText,
+            contents:contentText,
+            create_time:timeNow, 
+            user_name:auth().currentUser.displayName,
+            good_cound : 0,
+
+        }).catch((error)=>{
+            console.log(error)
+        })
+
     }
 
     return(
