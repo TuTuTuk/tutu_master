@@ -11,7 +11,7 @@ const ModalBackView=styled.View`
     height:100%;
 `;
 const ModalView = styled.View`
-    width:320px;
+    width:86%;
     background-color: #FFFFFF;
     border-radius: 10px;
     padding-top:15px;
@@ -38,6 +38,9 @@ const ModalView = styled.View`
         line-height: 17px;
         margin-bottom:14px;
         color:#1D1D1D;
+        padding-left: 22px;
+        padding-right: 22px;
+        align-self: center;
     `;
 
     const ModalPressableBox = styled.View`

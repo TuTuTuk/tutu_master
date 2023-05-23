@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import auth from "@react-native-firebase/auth";
+import firestore from '@react-native-firebase/firestore';
 import styled from "styled-components/native";
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ModalTwoOptions from "./ModalTwoOptions";
+
+import moment from "moment"
 
 //게시글 누르면 전체 글이 나오는 Box
 
@@ -205,9 +209,29 @@ const BoardBox = styled.View`
                         align-self: center;
                     `;
 
-const AllBoardBox_min = ({title, content, date, time}) => {
+const AllBoardBox_min = ({title, content, time, goodCount, CommentCountt}) => {
     const [modalVisible,setModalVisible] = useState(false)
     
+    const DoScrap = () =>{
+        const timeNow = new Date();
+        const nowTime = moment().format('YYYY/MM/DD HH:mm');
+
+        firestore().collection("users").doc(auth().currentUser.uid).collection("Scrap").doc(title).set({
+            title : title,
+            contents:content,
+            date : date,
+            time : time,
+            scrap_time : timeNow,
+            modified_time : nowTime,
+            good_count : 18,
+            comment_count : 5
+        }).catch((error)=>{
+            console.log(error)
+        })
+
+    }
+
+
     return(
         <BoardBox>
             <ModalTwoOptions 
@@ -215,11 +239,12 @@ const AllBoardBox_min = ({title, content, date, time}) => {
                 setvisible={setModalVisible}
                 title="해당 게시물을 스크랩 하시겠습니까?"
                 yestext="스크랩하기"
+                actOn={DoScrap}
             />
                 <WriterProfileBox><WriterPicture></WriterPicture>
                     <PostinforBox>
                         <WriterName>익명</WriterName>
-                        <PostDate>{date} {time}</PostDate>
+                        <PostDate>{time}</PostDate>
                     </PostinforBox>
                     <ShareIcon><Icons source={require('../images/share.png')}/></ShareIcon>
                     <SaveIcon ConfigureBtn onPress={()=>setModalVisible(true)}>
@@ -251,12 +276,12 @@ const AllBoardBox_min = ({title, content, date, time}) => {
                             <CommentCount>
                                 <CommentIcon source={require('../images/comment.png')}>
                                 </CommentIcon>
-                                <CommentText>18</CommentText>
+                                <CommentText>{CommentCountt}</CommentText>
                             </CommentCount>
                             <GoodCount>
                                 <GoodIcon source={require('../images/good.png')}>
                                 </GoodIcon>
-                                <GoodText>18</GoodText>
+                                <GoodText>{goodCount}</GoodText>
                             </GoodCount>
                         </WriterCommentBox>
                     </OtherBox>

@@ -89,7 +89,6 @@ const HotBoard_min = ({navigation:{navigate}})=>{
 
     const DoneComment=async()=>{
         const timeNow = new Date();
-
         const nowTime = moment().format('MM/DD HH:mm');
         
         
@@ -107,7 +106,7 @@ const HotBoard_min = ({navigation:{navigate}})=>{
         <>
         <Container>
                 <TopBar/>
-                <BoardBox_min></BoardBox_min>
+                <AllBoardBox_min title="hot-title" content="hot-content" time="2023/05/22 10:26" goodCount="20" CommentCountt="5" ></AllBoardBox_min>
                 <FlatList style={
                     {marginBottom : 50}
                 }
@@ -117,7 +116,7 @@ const HotBoard_min = ({navigation:{navigate}})=>{
                     keyExtractor={(item)=>`${item.create_time}`}//고유 키값 부여
                     data={commentSave}
                     renderItem={({item})=>
-                        <CommentBox_min content={item.contents} time={item.time}/>
+                        <CommentBox_min title={item.title} content={item.contents} id={item.user_name}/>
                     }
                 />
             </Container>

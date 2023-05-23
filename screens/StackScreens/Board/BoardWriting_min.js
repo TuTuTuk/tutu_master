@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Modal } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
+import moment from "moment"
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -259,6 +260,8 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
     const DoneWrite=async()=>{
         const tempSave = await firestore().collection("boards").doc(route.params.title).get();
         const timeNow = new Date();
+        const modifiedTime = moment().format('MM/DD HH:mm');
+
         if(tempSave._data){
                 firestore().collection("boards").doc(route.params.title).update({
                     arr:[...tempSave._data.arr,{ //기존 정보에 이어 붙혀서 저장
@@ -269,6 +272,7 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                         create_time:timeNow,
                         hits_count:0,
                         boards_uid:auth().currentUser.displayName+"@"+route.params.title+"@"+timeNow,
+                        modified_time : modifiedTime
                     }]
                 })
                 .then(async()=>{
@@ -302,6 +306,20 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                     console.log(error)
                 })
         }
+
+        //내가 쓴 게시물에 저장
+        firestore().collection("users").doc(auth().currentUser.uid).collection("Boards").doc(titleText).set({
+            title : titleText,
+            contents:contentText,
+            create_time:timeNow, 
+            modified_time : modifiedTime,
+            user_name:auth().currentUser.displayName,
+            good_cound : 0,
+
+        }).catch((error)=>{
+            console.log(error)
+        })
+
     }
 
     return(

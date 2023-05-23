@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 
 import TopBar from "../../../../components/TopBar";
 import CommentBox_min from "../../../../components/CommentBox_min";
+import BoardBox from "../../../../components/BoardBox";
 
 import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
@@ -18,13 +19,13 @@ const Container = styled.View`
 `;
 
 
-const MyComments = ({navigation:{navigate}})=>{
+const MyScrap = ({navigation:{navigate}})=>{
 
     const [commentSave,setCommentSave] = useState([]);
 
     const UpdateData=async()=>{
         setCommentSave([])
-        const tempSave = await firestore().collection("users").doc(auth().currentUser.uid).collection('Comments').orderBy("create_time","desc").get();
+        const tempSave = await firestore().collection("users").doc(auth().currentUser.uid).collection('Scrap').orderBy("scrap_time","desc").get();
         if(tempSave.empty){
             console.log('empty');
             return;
@@ -45,7 +46,7 @@ const MyComments = ({navigation:{navigate}})=>{
     return(
         <>
         <Container>
-            <TopBar title="내가 쓴 댓글"/>
+            <TopBar title="스크랩"/>
             {
                 <FlatList
                 ListHeaderComponent={Container}
@@ -53,7 +54,7 @@ const MyComments = ({navigation:{navigate}})=>{
                     keyExtractor={(item)=>`${item.create_time}`}//고유 키값 부여
                     data={commentSave}
                     renderItem={({item})=>
-                        <CommentBox_min content={item.contents} time={item.time}/>
+                        <BoardBox title={item.title} contents={item.contents} time={item.time}/>
                     }
                 />
             }
@@ -61,4 +62,4 @@ const MyComments = ({navigation:{navigate}})=>{
     </>
     )
 }
-export default MyComments;
+export default MyScrap;
