@@ -85,8 +85,8 @@ const Designboard_min = ({navigation:{navigate},route})=>{
                     showsVerticalScrollIndicator={false} //scroll바 가리기
                     keyExtractor={(item)=>`${item.create_time}`}//고유 키값 부여
                     data={boardSave.arr}
-                    renderItem={({item})=>
-                        <BoardBox info={item}/>
+                    renderItem={({item,index})=>
+                        <BoardBox info={item} kind={route.params.title} index={index}/>
                     }
                 />
             </Container>

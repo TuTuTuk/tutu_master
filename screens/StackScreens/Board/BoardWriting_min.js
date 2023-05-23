@@ -274,6 +274,7 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                         create_time:timeYear+'/'+timeMonth+'/'+timeDate,
                         hits_count:0,
                         boards_uid:auth().currentUser.displayName+"@"+route.params.title+"@"+timeNow,
+                        comments:[]
                     }]
                 })
                 .then(async()=>{
@@ -284,9 +285,10 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                             contents:contentText,
                             user_uid:auth().currentUser.uid,
                             user_name:auth().currentUser.displayName,
-                            create_time:timeNow,
+                            create_time:timeYear+'/'+timeMonth+'/'+timeDate,
                             hits_count:0,
                             boards_uid:auth().currentUser.displayName+"@"+route.params.title+"@"+timeNow,
+                            comments:[]
                         }]
                     })
                     .then(async()=>{

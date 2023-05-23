@@ -71,7 +71,7 @@ const PopularBoxRight = styled.View`
         const GoodImage = styled.Image``;
 
 
-const BoardBox = ({info}) => {
+const BoardBox = ({info,kind,index}) => {
     const navigation = useNavigation();
     const HEIGHT = Dimensions.get('window').height;
     //firestore().collection("users").doc(auth().currentUser.uid).get();
@@ -95,7 +95,7 @@ const BoardBox = ({info}) => {
     return(
         <PopularBox 
             onPress={()=>addBoardId()}
-            onPressOut={()=>navigation.navigate("Stack",{screen:"BoardDetail_jun",params:{info}})}
+            onPressOut={()=>navigation.navigate("Stack",{screen:"BoardDetail_jun",params:{info,kind,index}})}
             hei={HEIGHT}>
             <PopularBoxLeft>
                 <PopularBoxTitle></PopularBoxTitle>

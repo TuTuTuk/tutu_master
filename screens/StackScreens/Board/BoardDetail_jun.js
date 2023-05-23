@@ -99,20 +99,62 @@ const MainDetail = styled.View`
             margin-left: 25px;
             color: #1D1D1D;
         `;
+    
+    const ChatBox = styled.View`
+        //border:1px;
+        border-radius:10px;
+        width:86.11%;
+        height:40px;
+        bottom:8px;
+        padding-left:15px;
+        padding-right:15px;
+        flex-direction: row;
+        align-self:center;
+        justify-self: start;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #818181;
+        position:absolute;        
+    `;
+        const ChatInput = styled.TextInput`
+            border:1px;
+            border-radius:10px;
+            width:80%;
+            height:100%;
+        `;
+            const SendBtn = styled.Pressable`
+                border:1px;      
+                width:25px;
+                height:25px;
+            `;
+                const ImageBtn = styled.Image`
+                
+                `;
 
 const BoardDetail_jun =({route})=>{
-    console.log(route)
+    //console.log(route)
 
     const [userData,setUserData] = useState(null);
+    const [comment,setComment] = useState("");
 
     const UpdateData=async()=>{ //게시물을 쓴 사용자 정보 가져오기
         const tempData = await firestore().collection("users").doc(route.params.info.user_uid).get();
-        console.log(tempData._data)
+        //console.log(tempData._data)
         setUserData(tempData._data)
     }
+
     useEffect(()=>{
         UpdateData()
     },[])
+
+    const SendComment = async()=>{
+        const tempSave =await firestore().collection("boards").doc(route.params.kind).get()
+        const saveComment = [...tempSave._data.arr[route.params.index].comments,comment]
+        /* await firestore().collection("boards").doc(route.params.kind).update({
+            arr:[route.params.index].comments:[...saveComment,comment]
+        }); */
+        console.log(tempSave._data)
+    }
 
     return(
         <>
@@ -141,7 +183,15 @@ const BoardDetail_jun =({route})=>{
                 <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
                 <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
                 <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
+                <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
+                <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
             </Container>
+            <ChatBox>
+                <ChatInput placeholder="입력창" onChangeText={(text)=>setComment(text)}/>
+                <SendBtn onPress={()=>SendComment()}>
+                    <ImageBtn resizeMode="stretch" source={require('../../../images/sendBtn.png')}/>
+                </SendBtn>
+            </ChatBox>
         </>
     )
 }
