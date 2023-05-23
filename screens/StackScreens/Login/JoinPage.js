@@ -7,6 +7,7 @@ import BlackButton from "../../../components/BlackButton";
 
 import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 import TopBar from "../../../components/TopBar";
 import { Dimensions } from "react-native";
@@ -254,6 +255,7 @@ const JoinPage =({navigation:{navigate,reset}})=>{
 
         auth().createUserWithEmailAndPassword(emailText,pwText)
             .then(async()=>{ //회원가입 성공 시
+                const profileURL = await storage().ref('basic/personImage.jpg').getDownloadURL()
                 await auth().currentUser.updateProfile({displayName:nameText,photoURL:"false"})
                 await firestore().collection("users").doc(auth().currentUser.uid).set({ //유저 정보 추가 저장
                     user_uid:auth().currentUser.uid,
@@ -264,8 +266,9 @@ const JoinPage =({navigation:{navigate,reset}})=>{
                     user_comment_count:0,
                     user_reported_count:0,
                     user_createTime:new Date(),
-                    user_watch_board_uid:[]
-                }).then(()=>{
+                    user_watch_board_uid:[],
+                    user_profile:profileURL
+                }).then(async()=>{
                     console.log("join!!");
                     console.log(auth().currentUser.photoURL);
                     reset({routes:[{name:"Home"}]}) //새로고침

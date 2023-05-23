@@ -261,6 +261,10 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
         const tempSave = await firestore().collection("boards").doc(route.params.title).get();
         const timeNow = new Date();
 
+        const timeDate = timeNow.getDate()
+        const timeMonth = timeNow.getMonth()+1
+        const timeYear = timeNow.getFullYear()
+
         if(tempSave._data){
                 firestore().collection("boards").doc(route.params.title).update({
                     arr:[...tempSave._data.arr,{ //기존 정보에 이어 붙혀서 저장
@@ -268,7 +272,7 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                         contents:contentText,
                         user_uid:auth().currentUser.uid,
                         user_name:auth().currentUser.displayName,
-                        create_time:timeNow,
+                        create_time:timeYear+'/'+timeMonth+'/'+timeDate,
                         hits_count:0,
                         boards_uid:auth().currentUser.displayName+"@"+route.params.title+"@"+timeNow,
                     }]
