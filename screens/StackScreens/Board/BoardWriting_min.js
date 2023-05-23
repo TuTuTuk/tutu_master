@@ -260,7 +260,6 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
     const DoneWrite=async()=>{
         const tempSave = await firestore().collection("boards").doc(route.params.title).get();
         const timeNow = new Date();
-        const modifiedTime = moment().format('MM/DD HH:mm');
 
         if(tempSave._data){
                 firestore().collection("boards").doc(route.params.title).update({
@@ -272,7 +271,6 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                         create_time:timeNow,
                         hits_count:0,
                         boards_uid:auth().currentUser.displayName+"@"+route.params.title+"@"+timeNow,
-                        modified_time : modifiedTime
                     }]
                 })
                 .then(async()=>{
@@ -312,7 +310,6 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
             title : titleText,
             contents:contentText,
             create_time:timeNow, 
-            modified_time : modifiedTime,
             user_name:auth().currentUser.displayName,
             good_cound : 0,
 
