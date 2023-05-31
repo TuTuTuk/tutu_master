@@ -172,6 +172,18 @@ const PopularBoardBox = styled.View`
 //onPressOut : 뗐을때
 //console.log() 터미널에 ()안의 값 출력(잘 돌아가나 확인할때 사용)
 
+const Menus = ({name}) => {
+    return(
+        <Image1Box>
+            <Image1
+            resizeMode="stretch"
+            source={require('../../images/tutu-logo.png')}
+            />
+            <ImageTextBox>{name}</ImageTextBox>
+        </Image1Box>
+    )
+}
+
 const Home =({navigation:{navigate}})=>{
     const [click,setClick] = useState(false);
     const [modalVisible,setModalVisible] = useState(false)
@@ -235,7 +247,10 @@ const Home =({navigation:{navigate}})=>{
                 <MainTextBox2>한국공대 학생들을 위한 소통공간</MainTextBox2>
             </SignBoardBox>
             <ImageBox>
-                <Image1Box>
+                <Menus name={"마이페이지"}/>
+                <Menus name={"게시판"}/>
+                <Menus name={"선후배 매칭"}/>
+                {/* <Image1Box>
                     <Image1
                         resizeMode="stretch"
                         source={require('../../images/tutu-logo.png')}
@@ -255,7 +270,7 @@ const Home =({navigation:{navigate}})=>{
                         source={require('../../images/tutu-logo.png')}
                     />
                     <ImageTextBox>선후배 매칭</ImageTextBox>
-                </Image1Box>
+                </Image1Box> */}
             </ImageBox>
             <PopularBoardBox>
                 <TouchableOpacity onPress={()=>navigate("Stack",{screen:"PopularBoard"})}>

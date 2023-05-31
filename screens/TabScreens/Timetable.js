@@ -87,6 +87,8 @@ const Contents = () => {
     )
 }
 
+// 1. 추후 백엔드와 연동하여 다시 만들어야함
+// 2. 임시로 Timetable에 만든거라 해당 페이지 생기면 옮겨야함
 const Timetable =()=>{
     const [more, setMore] = useState(false)
     const onPress = () => {
