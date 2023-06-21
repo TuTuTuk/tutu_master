@@ -27,7 +27,7 @@ const MainDetail = styled.View`
     const ProfileBox = styled.View`
         width:100%;
         margin-top:10px;
-    margin-bottom:10px;
+        margin-bottom:10px;
         flex-direction: row;
         justify-content: space-between;
     `;
@@ -128,7 +128,6 @@ const MainDetail = styled.View`
                 height:25px;
             `;
                 const ImageBtn = styled.Image`
-                
                 `;
 
 const BoardDetail_jun =({route})=>{
@@ -141,6 +140,7 @@ const BoardDetail_jun =({route})=>{
         const tempData = await firestore().collection("users").doc(route.params.info.user_uid).get();
         //console.log(tempData._data)
         setUserData(tempData._data)
+        console.log("route"+route.params)
     }
 
     useEffect(()=>{
@@ -148,11 +148,9 @@ const BoardDetail_jun =({route})=>{
     },[])
 
     const SendComment = async()=>{
-        const tempSave =await firestore().collection("boards").doc(route.params.kind).get()
-        const saveComment = [...tempSave._data.arr[route.params.index].comments,comment]
-        /* await firestore().collection("boards").doc(route.params.kind).update({
-            arr:[route.params.index].comments:[...saveComment,comment]
-        }); */
+        /* await firestore().collection("Comments").doc(auth().currentUser.uid).set({ //유저 정보 추가 저장
+                    
+        }) */
         console.log(tempSave._data)
     }
 

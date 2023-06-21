@@ -71,18 +71,16 @@ const PopularBoxRight = styled.View`
         const GoodImage = styled.Image``;
 
 
-const BoardBox = ({info,kind,index}) => {
+const BoardBox = ({info,title,contents,kind}) => {
     const navigation = useNavigation();
     const HEIGHT = Dimensions.get('window').height;
     //firestore().collection("users").doc(auth().currentUser.uid).get();
-    
 
     useEffect(()=>{
     },[])
     
     const addBoardId=async()=>{ //user 정보에 방문한 board id 저장
-        //console.log(info)
-        
+        console.log("@@@"+{title}+"####"+contents)
         const tempData = await firestore().collection("users").doc(auth().currentUser.uid).get();
         console.log(tempData._data);
         firestore().collection("users").doc(auth().currentUser.uid).update({
@@ -95,11 +93,11 @@ const BoardBox = ({info,kind,index}) => {
     return(
         <PopularBox 
             onPress={()=>addBoardId()}
-            onPressOut={()=>navigation.navigate("Stack",{screen:"BoardDetail_jun",params:{info,kind,index}})}
+            onPressOut={()=>navigation.navigate("Stack",{screen:"BoardDetail_jun",params:{info,title,contents,kind}})}
             hei={HEIGHT}>
             <PopularBoxLeft>
-                <PopularBoxTitle></PopularBoxTitle>
-                <PopularBoxContent></PopularBoxContent>
+                <PopularBoxTitle>{title}</PopularBoxTitle>
+                <PopularBoxContent>{contents}</PopularBoxContent>
                 <PopularBoxKeywordBox>
                     <LinearGradient style={{
                         width:40,

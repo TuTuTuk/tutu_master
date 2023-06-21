@@ -257,15 +257,21 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
     const [check, setCheck] = useState(false)
 
     const DoneWrite=async()=>{
-        const tempSave = await firestore().collection("boards").doc(route.params.title).get();
+        const tempSave = await firestore().collection("boards").doc(route.params.kind).get();
         const timeNow = new Date();
 
+        const timeMili = timeNow.getMilliseconds()
+        const timeSec = timeNow.getSeconds()
+        const timeMin = timeNow.getMinutes()
+        const timeHour = (timeNow.getHours()+9)%24
         const timeDate = timeNow.getDate()
         const timeMonth = timeNow.getMonth()+1
         const timeYear = timeNow.getFullYear()
 
+        const timeStr = timeYear+"/"+timeMonth+"/"+timeDate+"-"+timeHour+":"+timeMin+":"+timeSec+"."+timeMili
+
         if(tempSave._data){
-                firestore().collection("boards").doc(route.params.title).update({
+                firestore().collection("boards").doc(route.params.kind).update({
                     arr:[...tempSave._data.arr,{ //기존 정보에 이어 붙혀서 저장
                         title:titleText,
                         contents:contentText,
@@ -273,8 +279,7 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                         user_name:auth().currentUser.displayName,
                         create_time:timeYear+'/'+timeMonth+'/'+timeDate,
                         hits_count:0,
-                        boards_uid:auth().currentUser.displayName+"@"+route.params.title+"@"+timeNow,
-                        comments:[]
+                        boards_uid:auth().currentUser.displayName+"@"+route.params.kind+"@"+timeStr
                     }]
                 })
                 .then(async()=>{
@@ -287,8 +292,7 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                             user_name:auth().currentUser.displayName,
                             create_time:timeYear+'/'+timeMonth+'/'+timeDate,
                             hits_count:0,
-                            boards_uid:auth().currentUser.displayName+"@"+route.params.title+"@"+timeNow,
-                            comments:[]
+                            boards_uid:auth().currentUser.displayName+"@"+route.params.kind+"@"+timeStr
                         }]
                     })
                     .then(async()=>{
@@ -298,8 +302,8 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                         firestore().collection("users").doc(auth().currentUser.uid).update({
                             user_boards_count: userTempSave._data.user_boards_count+1
                         });
-                        await navigation.reset({routes:[{name:"Designboard_min",params:{title:route.params.title}}]}) //새로고침
-                        navigation.navigate("Stack",{screen:"Designboard_min",params:{title:route.params.title}}) //화면 뒤로 이동
+                        await navigation.reset({routes:[{name:"Designboard_min",params:{kind:route.params.kind}}]}) //새로고침
+                        navigation.navigate("Stack",{screen:"Designboard_min",params:{kind:route.params.kind}}) //화면 뒤로 이동
                     })
                     .catch((error)=>{
                         console.log(error)
