@@ -210,13 +210,13 @@ const My = ({navigation:{navigate}}) => {
             </PopualrBox>
             <PopualrBox>
                 <PickText>내가 쓴 댓글</PickText>
-                <GoIcon>
+                <GoIcon onPress={()=>navigate("Stack",{screen:"MyComments"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
             </PopualrBox>
             <PopualrBox>
                 <PickText>내가 쓴 게시물</PickText>
-                <GoIcon>
+                <GoIcon onPress={()=>navigate("Stack",{screen:"MyBoards"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
             </PopualrBox>
@@ -228,7 +228,7 @@ const My = ({navigation:{navigate}}) => {
             </PopualrBox>
             <PopualrBox>
                 <PickText>스크랩</PickText>
-                <GoIcon>
+                <GoIcon onPress={()=>navigate("Stack",{screen:"MyScrap"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
             </PopualrBox>
@@ -237,7 +237,7 @@ const My = ({navigation:{navigate}}) => {
             <BGText>계정</BGText>
             <PopualrBox>
                 <PickText>학교 인증</PickText>
-                <GoIcon>
+                <GoIcon onPress={()=>navigate("Stack",{screen:"Certification"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
             </PopualrBox>
@@ -264,7 +264,7 @@ const My = ({navigation:{navigate}}) => {
             </PopualrBox>
             <PopualrBox>
                 <PickText>공지사항</PickText>
-                <GoIcon>
+                <GoIcon onPress={()=>navigate("Stack",{screen:"Announcement"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
             </PopualrBox>
@@ -303,7 +303,7 @@ const My = ({navigation:{navigate}}) => {
             </PopualrBox>
             <PopualrBox>
                 <PickText>회원 탈퇴</PickText>
-                <GoIcon>
+                <GoIcon onPress={()=>navigate("Stack",{screen:"Withdrawal"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
             </PopualrBox>

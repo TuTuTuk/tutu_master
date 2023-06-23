@@ -95,6 +95,7 @@ const SelectBox = styled.View`
     justify-content: space-between;
     align-self: center;
 `;
+
     const SearchText = styled.Text`
         color : white;
         font-family: 'Pretendard';

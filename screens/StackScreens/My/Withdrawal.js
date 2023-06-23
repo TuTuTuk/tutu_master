@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import { Text, View, Modal} from "react-native";
 import styled from "styled-components/native";
+import auth from "@react-native-firebase/auth";
+import firestore from '@react-native-firebase/firestore';
 
 import TopBar from "../../../components/TopBar";
 import BlueButton from "../../../components/BlueButton";
@@ -13,13 +15,12 @@ const Container = styled.ScrollView.attrs(() => ({
     }
 }))`
     flex:1;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px;
 `;
 
 const PWInputBox = styled.View`
     //border: 1px;
-    width: 86%;
+    width: 100%;
     align-self: center;
 `;
     const Text1 = styled.Text`
@@ -41,7 +42,7 @@ const PWInputBox = styled.View`
     `;
 const CautionBox = styled.View`
     //border: 1px;
-    width: 86%;
+    width: 100%;
     align-self: center;
     margin-bottom: 16px;
 `;
@@ -55,10 +56,18 @@ const CautionBox = styled.View`
         color: #545454;
     `;
 
-const Withdrawal = ({navigation:{navigate}}) => {
+const Withdrawal = ({navigation:{navigate,reset}}) => {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
+
+    const Delete = () =>{
+        let user = auth().currentUser
+        user?.delete()
+        firestore().collection("users").doc(auth().currentUser.uid).delete();
+        reset({routes:[{name:"Home"}]})
+        navigate("Tabs",{screen:"Home"})
+    }
 
     return(
     <Container>
@@ -66,10 +75,11 @@ const Withdrawal = ({navigation:{navigate}}) => {
         visible={modalVisible}
         setvisible = {setModalVisible}
         title = "정말 탈퇴하시겠습니까?"
-        contents = "탈퇴 시 모든 계정 정보가 삭제되며 삭제된 정보는 복구할 수 없습니다."
+        contents = "탈퇴 시 모든 계정 정보가 삭제되며, 삭제된 정보는 복구할 수 없습니다."
         yestext = "탈퇴하기"
         visibleyes={modalVisible2}
         setvisibleyes = {setModalVisible2}
+        actOn={Delete}
 
     ></ModalTwoOption>
     <ModalOneOption

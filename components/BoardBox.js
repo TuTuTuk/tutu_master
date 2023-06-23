@@ -90,6 +90,8 @@ const BoardBox = ({info,title,contents,kind}) => {
         })
     }
 
+    
+
     return(
         <PopularBox 
             onPress={()=>addBoardId()}
