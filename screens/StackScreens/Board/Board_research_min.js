@@ -82,11 +82,9 @@ const HeaderBox = styled.View`
             width: 100%;
             height: 100%;
         `;
-        
 //----------------------------------------------------------------
 //---------------------------선택 버튼-----------------------------
 //----------------------------------------------------------------
-
 const SelectBox = styled.View`
     margin-top: 5.5%;
     //border : 1px;
@@ -174,11 +172,9 @@ const AllDelect = styled.TouchableOpacity`
 //---------------------------------------------------------------
 //-------------------------인기 키워드----------------------------
 //---------------------------------------------------------------
-
 const AllBox = styled.View`
     //border: 1px;
 `;
-
 const HotKeywordBox = styled.View`
     //border  : 1px;
     margin-top: 1.37%;
@@ -526,7 +522,7 @@ const Board_research_min = ({navigation:{navigate}})=>{
     const [fieldFilter, setFieldFilter] = useState([false,false,false,false,false,false,false])
     const [hotFilter, setHotFilter] = useState([false,false,false,false,false,false,false,false,false,false,])
     const [viewFilter, setViewFilter] = useState(false)
-    
+
     //키워드 값 삭제하기
     const DelKwd=(KWD)=>{
         const keywordd = [...Keywords];

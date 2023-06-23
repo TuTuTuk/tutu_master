@@ -91,19 +91,19 @@ const Board_min = ({navigation:{navigate}})=>{
                <AllMajorBox>
                     <Major1>
                          <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Design"}})}
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Design"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Design.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>디자인</Image11Text></TextBox11>
                          </Major11>
                          <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Computer"}})}
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Computer"}})}
                          >    
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Computer.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>컴퓨터</Image11Text></TextBox11>
                          </Major11>
                          <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Game"}})}
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Game"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Game.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>게임</Image11Text></TextBox11>
@@ -111,19 +111,19 @@ const Board_min = ({navigation:{navigate}})=>{
                     </Major1>
                     <Major1>
                          <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Ai"}})}
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Ai"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_AI.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>인공지능</Image11Text></TextBox11>
                          </Major11>
                          <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Machine"}})}
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Machine"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Machine.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>기계</Image11Text></TextBox11>
                          </Major11>
                          <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"MachineDesign"}})}
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"MachineDesign"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_MechineDesing.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>기계설계</Image11Text></TextBox11>
@@ -131,19 +131,19 @@ const Board_min = ({navigation:{navigate}})=>{
                     </Major1>
                     <Major1>
                          <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Mechatronics"}})}
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Mechatronics"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Mecha.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>메카트로닉스</Image11Text></TextBox11>
                          </Major11>
                          <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Electron"}})}
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Electron"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Electon.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>전자</Image11Text></TextBox11>
                          </Major11>
                          <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"NewMaterial"}})}
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"NewMaterial"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_NewMaterial.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>신소재</Image11Text></TextBox11>
@@ -151,19 +151,19 @@ const Board_min = ({navigation:{navigate}})=>{
                     </Major1>
                     <Major1>
                          <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Chemistry"}})}
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Chemistry"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_LifeChemistry.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>생명화학</Image11Text></TextBox11>
                          </Major11>
                          <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Nano"}})}
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Nano"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Nano.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>나노반도체</Image11Text></TextBox11>
                          </Major11>
                          <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Energy"}})}
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Energy"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Energy.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>에너지-전기</Image11Text></TextBox11>
@@ -171,7 +171,7 @@ const Board_min = ({navigation:{navigate}})=>{
                     </Major1>
                     <Major1>
                          <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Management"}})}
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Management"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_NewMaterial.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>경영</Image11Text></TextBox11>
