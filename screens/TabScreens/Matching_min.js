@@ -90,8 +90,12 @@ const MeneBtnBox= styled.View`
 const Menus = ({name}) => {
     return(
         <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
-            <Image><MajorIcon source={require(`../../images/${name}.png`)}></MajorIcon></Image>
-            <TextBox><ImageText>{name}</ImageText></TextBox>
+            <Image>
+                <MajorIcon source={{uri : `../../images/${name}.png`}}></MajorIcon>
+            </Image>
+            <TextBox>
+                <ImageText>{name}</ImageText>
+            </TextBox>
         </MenuBtn>
     )
 }

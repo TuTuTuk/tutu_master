@@ -84,14 +84,17 @@ const MajorIcon = styled.Image`
 const MajorContainer = ({title, name}) => {
      return(
           <Major11 onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:title}})}>
-               <Image11><MajorIcon source={require(`../../images/Major_Icon/Major_${title}.png`)}></MajorIcon></Image11>
-               <TextBox11><Image11Text>{name}</Image11Text></TextBox11>
+               <Image11>
+                    <MajorIcon source={{uri : `../../images/Major_Icon/Major_${title}.png`}}></MajorIcon>
+               </Image11>
+               <TextBox11>
+                    <Image11Text>{name}</Image11Text>
+               </TextBox11>
           </Major11>
      )  
 }
 
 const Board_min = ({navigation:{navigate}})=>{
-
      return(
           <Container>
                <TopBar_Search title="게시판"></TopBar_Search>
