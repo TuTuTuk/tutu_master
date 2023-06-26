@@ -269,7 +269,8 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
         const timeMonth = timeNow.getMonth()+1
         const timeYear = timeNow.getFullYear()
 
-        const timeStr = timeYear+"/"+timeMonth+"/"+timeDate+"-"+timeHour+":"+timeMin+":"+timeSec+"."+timeMili
+        const timeStr = timeYear+"-"+timeMonth+"-"+timeDate+"-"+timeHour+":"+timeMin+":"+timeSec+"."+timeMili
+        const boardsUid = auth().currentUser.displayName+"@"+route.params.kind+"@"+timeStr
 
         if(tempSave._data){
                 firestore().collection("boards").doc(route.params.kind).update({
@@ -280,7 +281,7 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                         user_name:auth().currentUser.displayName,
                         create_time:timeYear+'/'+timeMonth+'/'+timeDate,
                         hits_count:0,
-                        boards_uid:auth().currentUser.displayName+"@"+route.params.kind+"@"+timeStr
+                        boards_uid:boardsUid
                     }]
                 })
                 .then(async()=>{
@@ -293,16 +294,21 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                             user_name:auth().currentUser.displayName,
                             create_time:timeYear+'/'+timeMonth+'/'+timeDate,
                             hits_count:0,
-                            boards_uid:auth().currentUser.displayName+"@"+route.params.kind+"@"+timeStr
+                            boards_uid:boardsUid
                         }]
                     })
                     .then(async()=>{
-                        const save1= await firestore().collection("boards").doc(auth().currentUser.uid).get();
-                        setBoardSave(save1._data);
+                        //댓글 저장소 생성
+                        await firestore().collection("Comments").doc(boardsUid).set({
+                            arr:[]
+                        });
+                        
+                        //유저 정보 업데이트
                         const userTempSave= await firestore().collection("users").doc(auth().currentUser.uid).get();
                         firestore().collection("users").doc(auth().currentUser.uid).update({
                             user_boards_count: userTempSave._data.user_boards_count+1
                         });
+
                         await navigation.reset({routes:[{name:"Designboard_min",params:{kind:route.params.kind}}]}) //새로고침
                         navigation.navigate("Stack",{screen:"Designboard_min",params:{kind:route.params.kind}}) //화면 뒤로 이동
                     })
