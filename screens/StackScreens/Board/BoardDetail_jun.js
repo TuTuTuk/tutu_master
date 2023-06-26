@@ -1,28 +1,28 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text ,FlatList} from "react-native";
 import TopBar from "../../../components/TopBar";
 import styled from "styled-components/native";
 import { useEffect } from "react";
+
+import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
+
 import { useState } from "react";
 import CommentBox from "../../../components/CommentBox_jun";
 
-const Container = styled.ScrollView.attrs(()=>({
-    contentContainerStyle:{
-        showVerticalScrollIndicator:false,
-        alignItems:"center"
-    }
-}))`
-    //border:1px;
-    margin-bottom: 10px;
+const Container = styled.View`
+    //border:2px;
     width:100%;
+    height:100%;
+    align-items:center;
+    justify-content: center;
 `;
 
 const MainDetail = styled.View`
-    //border:1px;
+    //border:2px;
     background-color: #E3E3F3;
     border-radius: 10px;
-    width:100%;
+    width: 86.11%;
     `;
     const ProfileBox = styled.View`
         width:100%;
@@ -117,13 +117,13 @@ const MainDetail = styled.View`
         position:absolute;        
     `;
         const ChatInput = styled.TextInput`
-            border:1px;
+            //border:1px;
             border-radius:10px;
             width:80%;
             height:100%;
         `;
             const SendBtn = styled.Pressable`
-                border:1px;      
+                //border:1px;      
                 width:25px;
                 height:25px;
             `;
@@ -134,63 +134,80 @@ const BoardDetail_jun =({route})=>{
     //console.log(route)
 
     const [userData,setUserData] = useState(null);
+    const [commentData,setCommentData] = useState(null);
     const [comment,setComment] = useState("");
 
-    const UpdateData=async()=>{ //게시물을 쓴 사용자 정보 가져오기
+    const UpdateData=async()=>{ //게시물을 쓴 사용자 정보,댓글 정보 가져오기
         const tempData = await firestore().collection("users").doc(route.params.info.user_uid).get();
-        //console.log(tempData._data)
+        const tempCommentsData = await firestore().collection("Comments").doc(route.params.info.boards_uid).get()
+        
+        setCommentData(tempCommentsData._data)
         setUserData(tempData._data)
-        console.log("route"+route.params)
+
+       // console.log("route"+route.params)
+       console.log(commentData)
     }
 
     useEffect(()=>{
         UpdateData()
     },[])
 
+    //댓글달기
     const SendComment = async()=>{
-        /* await firestore().collection("Comments").doc(auth().currentUser.uid).set({ //유저 정보 추가 저장
-                    
-        }) */
+        const tempSave = await firestore().collection("Comments").doc(route.params.info.boards_uid).get();
+
+        await firestore().collection("Comments").doc(route.params.info.boards_uid).update({
+            arr:[...tempSave._data.arr,{
+                user_name:auth().currentUser.displayName,
+                user_uid: auth().currentUser.uid,
+                comment: comment
+            }]
+        })
         console.log(tempSave._data)
     }
 
     return(
-        <>
-            <TopBar title=""/>
-            <Container>
-                <MainDetail>
-                    <ProfileBox>
-                            <ProfileInfo>
-                                <ProfileImage source={{uri:userData?userData.user_profile:null}}/>
-                                <ProfileText>
-                                    <UserName>{route.params.info.user_name}</UserName>
-                                    <Date>{route.params.info.create_time}</Date>
-                                </ProfileText>
-                            </ProfileInfo>
-                        <FunctionBox>
-                            <FunctionImage></FunctionImage>
-                            <FunctionImage></FunctionImage>
-                            <FunctionImage></FunctionImage>
-                        </FunctionBox>
-                    </ProfileBox>
-                    <MainContain>
-                        <MainTitle>{route.params.info.title}</MainTitle>
-                        <MainContents>{route.params.info.contents}</MainContents>
-                    </MainContain>
-                </MainDetail>
-                <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
-                <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
-                <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
-                <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
-                <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
-            </Container>
-            <ChatBox>
-                <ChatInput placeholder="입력창" onChangeText={(text)=>setComment(text)}/>
-                <SendBtn onPress={()=>SendComment()}>
-                    <ImageBtn resizeMode="stretch" source={require('../../../images/sendBtn.png')}/>
-                </SendBtn>
-            </ChatBox>
-        </>
+        <Container>
+                <TopBar title=""/>
+                {commentData==null? <Text>Loading</Text> :
+                    <FlatList
+                        ListHeaderComponent={
+                            <MainDetail>
+                                <ProfileBox>
+                                        <ProfileInfo>
+                                            <ProfileImage source={{uri:userData?userData.user_profile:null}}/>
+                                            <ProfileText>
+                                                <UserName>{route.params.info.user_name}</UserName>
+                                                <Date>{route.params.info.create_time}</Date>
+                                            </ProfileText>
+                                        </ProfileInfo>
+                                    <FunctionBox>
+                                        <FunctionImage></FunctionImage>
+                                        <FunctionImage></FunctionImage>
+                                        <FunctionImage></FunctionImage>
+                                    </FunctionBox>
+                                </ProfileBox>
+                                <MainContain>
+                                    <MainTitle>{route.params.info.title}</MainTitle>
+                                    <MainContents>{route.params.info.contents}</MainContents>
+                                </MainContain>
+                            </MainDetail>
+                        }
+                        showsVerticalScrollIndicator={false} //scroll바 가리기
+                        keyExtractor={(item)=>`${item.comment}`}//고유 키값 부여
+                        data={commentData.arr}
+                        renderItem={({item})=>
+                            <CommentBox name={item.user_name} content={item.comment}/>
+                        }
+                    />
+                }
+                <ChatBox>
+                    <ChatInput placeholder="입력창" onChangeText={(text)=>setComment(text)}/>
+                    <SendBtn onPress={()=>SendComment()}>
+                        <ImageBtn resizeMode="stretch" source={require('../../../images/sendBtn.png')}/>
+                    </SendBtn>
+                </ChatBox>
+        </Container>
     )
 }
 

@@ -3,7 +3,7 @@ import { Text } from "react-native";
 import styled from "styled-components/native";
 
 const Container = styled.View`
-    //border:1px;
+    border:1px;
     border-radius:10px;
     background-color: #E3E3E3;
     width:310px;
