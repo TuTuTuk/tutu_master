@@ -29,7 +29,6 @@ import BoardDetail_jun from "../screens/StackScreens/Board/BoardDetail_jun";
 
 //마이페이지(민정)
 import NoteHistory_min from "../screens/StackScreens/My/NoteHistory_min";
-import Question_min from "../screens/StackScreens/My/Question_min";
 import Withdrawal from "../screens/StackScreens/My/Withdrawal";
 import Inquiry from "../screens/StackScreens/My/Inquiry";
 import Announcement from "../screens/StackScreens/My/Announcement";
@@ -82,7 +81,6 @@ const Stack =()=>(
         <NativeStack.Screen name="BoardWriting_min2" component={BoardWriting_min2}/>
         <NativeStack.Screen name="Writing_self_min" component={Writing_self_min}/>
         <NativeStack.Screen name="NoteHistory_min" component={NoteHistory_min}/>
-        <NativeStack.Screen name="Question_min" component={Question_min}/>
         <NativeStack.Screen name="ViewMyBoard" component={ViewMyBoard}/>
         <NativeStack.Screen name= "Withdrawal" component={Withdrawal}/>
         <NativeStack.Screen name= "Inquiry" component={Inquiry}/>

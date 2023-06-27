@@ -258,7 +258,7 @@ const My = ({navigation:{navigate}}) => {
             <BGText>앱설정</BGText>
             <PopualrBox>
                 <PickText>문의하기</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"Question_min"})}>
+                <GoIcon onPress={()=>navigate("Stack",{screen:"Inquiry"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
             </PopualrBox>

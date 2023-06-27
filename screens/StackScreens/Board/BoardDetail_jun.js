@@ -80,7 +80,7 @@ const MainDetail = styled.View`
         //border:1px;
         background-color: #C3C3C3;
         width:100%;
-        height:172;
+        height:172px;
         border-radius: 10px;
     `;
         const MainTitle = styled.Text`

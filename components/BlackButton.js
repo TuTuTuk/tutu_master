@@ -20,13 +20,16 @@ const Text = styled.Text`
 `;
 
 
-const BlackButton = ({title,mbottom,click,move}) => {
+const BlackButton = ({title,mbottom,click,move,actOn}) => {
     const navigation = useNavigation();
     return(
         <Pressable
             onPressOut={()=>click==null?null:click()}  
             mbottom={mbottom} 
-            onPress={()=>navigation.navigate("Stack",{screen:`${move}`})}
+            onPress={()=>{
+                navigation.navigate("Stack",{screen:`${move}`})
+                actOn==null?null:actOn();
+            }}
         >
             <Text>{title}</Text>
         </Pressable>
