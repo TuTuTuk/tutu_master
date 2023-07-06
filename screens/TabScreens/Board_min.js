@@ -102,11 +102,11 @@ const Board_min = ({navigation:{navigate}})=>{
                <BlueButton title="통합 게시판" click={null} mbottom={30} move="Integrated_Board_min"/>
                <AllMajorBox>
                     <Major1>
-                         <MajorContainer title={"Design"} name={"디자인"}/>
-                         <MajorContainer title={"Computer"} name={"컴퓨터"}/>
-                         <MajorContainer title={"Game"} name={"게임"}/>
-                         {/* <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Design"}})}
+                         {/*<MajorContainer title={"Design"} name={"디자인"}/>
+                         // <MajorContainer title={"Computer"} name={"컴퓨터"}/>
+                         // <MajorContainer title={"Game"} name={"게임"}/>*/}
+                         <Major11
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Design"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Design.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>디자인</Image11Text></TextBox11>
@@ -122,14 +122,14 @@ const Board_min = ({navigation:{navigate}})=>{
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Game.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>게임</Image11Text></TextBox11>
-                         </Major11> */}
+                         </Major11> 
                     </Major1>
                     <Major1>
-                         <MajorContainer title={"AI"} name={"인공지능"}/>
-                         <MajorContainer title={"Machine"} name={"기계"}/>
-                         <MajorContainer title={"MachineDesign"} name={"기계설계"}/>
-                         {/* <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"AI"}})}
+                          {/*<MajorContainer title={"AI"} name={"인공지능"}/>
+                         // <MajorContainer title={"Machine"} name={"기계"}/>
+                         // <MajorContainer title={"MachineDesign"} name={"기계설계"}/>*/}
+                         <Major11
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"AI"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_AI.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>인공지능</Image11Text></TextBox11>
@@ -145,14 +145,14 @@ const Board_min = ({navigation:{navigate}})=>{
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_MechineDesign.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>기계설계</Image11Text></TextBox11>
-                         </Major11> */}
+                         </Major11>
                     </Major1>
                     <Major1>
-                         <MajorContainer title={"Mechatronics"} name={"메카트로닉스"}/>
-                         <MajorContainer title={"Electron"} name={"전자"}/>
-                         <MajorContainer title={"NewMaterial"} name={"신소재"}/>
-                         {/* <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Mechatronics"}})}
+                          {/*<MajorContainer title={"Mechatronics"} name={"메카트로닉스"}/>
+                         // <MajorContainer title={"Electron"} name={"전자"}/>
+                         // <MajorContainer title={"NewMaterial"} name={"신소재"}/>*/}
+                         <Major11
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Mechatronics"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Mechatronics.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>메카트로닉스</Image11Text></TextBox11>
@@ -168,14 +168,14 @@ const Board_min = ({navigation:{navigate}})=>{
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_NewMaterial.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>신소재</Image11Text></TextBox11>
-                         </Major11> */}
+                         </Major11>
                     </Major1>
                     <Major1>
-                         <MajorContainer title={"LifeChemistry"} name={"생명화학"}/>
-                         <MajorContainer title={"Nano"} name={"나노반도체"}/>
-                         <MajorContainer title={"Energy"} name={"에너지-전기"}/>
-                         {/* <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"LifeChemistry"}})}
+                         {/*<MajorContainer title={"LifeChemistry"} name={"생명화학"}/>
+                         // <MajorContainer title={"Nano"} name={"나노반도체"}/>
+                         // <MajorContainer title={"Energy"} name={"에너지-전기"}/>*/}
+                        <Major11
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"LifeChemistry"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_LifeChemistry.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>생명화학</Image11Text></TextBox11>
@@ -191,16 +191,16 @@ const Board_min = ({navigation:{navigate}})=>{
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Energy.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>에너지-전기</Image11Text></TextBox11>
-                         </Major11> */}
+                         </Major11>
                     </Major1>
                     <Major1>
-                         <MajorContainer title={"Management"} name={"경영"}/>
-                         {/* <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:"Management"}})}
+                         {/*<MajorContainer title={"Management"} name={"경영"}/>*/}
+                         <Major11
+                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Management"}})}
                          >
                               <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Management.png')}></MajorIcon></Image11>
                               <TextBox11><Image11Text>경영</Image11Text></TextBox11>
-                         </Major11> */}
+                         </Major11>
                     </Major1>
                </AllMajorBox>
           </Container>
