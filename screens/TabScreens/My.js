@@ -161,6 +161,17 @@ const ServiceText = styled.Text`
         font-size:10px;
     `;
 
+const Menus = ({contents, nav}) => {
+    return(
+        <PopualrBox>
+            <PickText>{contents}</PickText>
+            <GoIcon onPress={()=>!!nav ? navigate("Stack",{screen:`${nav}`}) : alert("이동할 페이지 없음")}>
+            <Icon name="chevron-forward-outline" size={25}/>
+            </GoIcon>
+        </PopualrBox>
+    )
+}
+    
 const My = ({navigation:{navigate}}) => {
     const [click,setClick] = useState(false);
 
@@ -196,7 +207,13 @@ const My = ({navigation:{navigate}}) => {
         </InformBtn>
         <BGBox>
             <BGText>정보</BGText>
-            <PopualrBox>
+            <Menus contents={"쪽지 내역"} nav={"NoteHistory_min"}/>
+            <Menus contents={"최근에 본 댓글"} nav={""}/>
+            <Menus contents={"내가 쓴 댓글"} nav={"MyComments"}/>
+            <Menus contents={"내가 쓴 게시물"} nav={"MyBoards"}/>
+            <Menus contents={"내 질문"} nav={""}/>
+            <Menus contents={"스크랩"} nav={"MyScrap"}/>
+            {/* <PopualrBox>
                 <PickText>쪽지 내역</PickText>
                 <GoIcon onPress={()=>navigate("Stack",{screen:"NoteHistory_min"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
@@ -231,11 +248,14 @@ const My = ({navigation:{navigate}}) => {
                 <GoIcon onPress={()=>navigate("Stack",{screen:"MyScrap"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
-            </PopualrBox>
+            </PopualrBox> */}
         </BGBox>
         <BGBox>
             <BGText>계정</BGText>
-            <PopualrBox>
+            <Menus contents={"학교 인증"} nav={"Certification"}/>
+            <Menus contents={"비밀번호 변경"} nav={""}/>
+            <Menus contents={"이메일 변경"} nav={""}/>
+            {/* <PopualrBox>
                 <PickText>학교 인증</PickText>
                 <GoIcon onPress={()=>navigate("Stack",{screen:"Certification"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
@@ -252,11 +272,16 @@ const My = ({navigation:{navigate}}) => {
                 <GoIcon>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
-            </PopualrBox>
+            </PopualrBox> */}
         </BGBox>
         <BGBox>
             <BGText>앱설정</BGText>
-            <PopualrBox>
+            <Menus contents={"문의하기"} nav={"Question_min"}/>
+            <Menus contents={"공지사항"} nav={"Announcement"}/>
+            <Menus contents={"서비스 이용약관"} nav={""}/>
+            <Menus contents={"개인정보 처리 방침"} nav={""}/>
+            <Menus contents={"오픈소스 라이선스"} nav={""}/>
+            {/* <PopualrBox>
                 <PickText>문의하기</PickText>
                 <GoIcon onPress={()=>navigate("Stack",{screen:"Inquiry"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
@@ -285,7 +310,7 @@ const My = ({navigation:{navigate}}) => {
                 <GoIcon>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
-            </PopualrBox>
+            </PopualrBox> */}
         </BGBox>
         <BGBox>
             <BGText>기타</BGText>
@@ -301,12 +326,13 @@ const My = ({navigation:{navigate}}) => {
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
             </PopualrBox>
-            <PopualrBox>
+            <Menus contents={"회원 탈퇴"} nav={"Withdrawal"}/>
+            {/* <PopualrBox>
                 <PickText>회원 탈퇴</PickText>
                 <GoIcon onPress={()=>navigate("Stack",{screen:"Withdrawal"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
-            </PopualrBox>
+            </PopualrBox> */}
         </BGBox>
         </Container>
 )
