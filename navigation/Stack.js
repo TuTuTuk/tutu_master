@@ -15,7 +15,7 @@ import RecentWatch from "../screens/StackScreens/My/RecentWatch_jun";
 
 //게시판(민정)
 import Designboard_min from "../screens/StackScreens/Board/Designboard_min";
-import Board_research_min from "../screens/StackScreens/Board/Board_research_min";
+import Research from "../screens/StackScreens/Research";
 import HotBoard_min from "../screens/StackScreens/Board/HotBoard_min";
 import Integrated_Board_min from "../screens/StackScreens/Board/Integrated_Board_min";
 import BoardWriting_min from "../screens/StackScreens/Board/BoardWriting_min";
@@ -73,7 +73,7 @@ const Stack =()=>(
         <NativeStack.Screen name="RecentWatch" component={RecentWatch}/>
 
         <NativeStack.Screen name="Designboard_min" component={Designboard_min}/>
-        <NativeStack.Screen name="Board_research_min" component={Board_research_min}/>
+        <NativeStack.Screen name="Research" component={Research}/>
         <NativeStack.Screen name="BoardDetail_jun" component={BoardDetail_jun}/>
         <NativeStack.Screen name="HotBoard_min" component={HotBoard_min}/>
         <NativeStack.Screen name="Integrated_Board_min" component={Integrated_Board_min}/>

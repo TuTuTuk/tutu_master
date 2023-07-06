@@ -3,8 +3,7 @@ import { FlatList } from "react-native";
 import styled from "styled-components/native";
 import { useNavigation } from '@react-navigation/native';
 
-import BoardBox from "../../../components/BoardBox";
-import BoardBox_min from "../../../components/BoardBox_min";
+import BoardBox from "../../../components/BoardPart/BoardBox";
 import KeywordSearchBox_min from "../../../components/KeywordSearchBox_min";
 import TopBar_Search from "../../../components/TopBar_Search";
 
@@ -50,7 +49,6 @@ const WritingBtn = styled.TouchableOpacity`
 
 const Designboard_min = ({navigation:{navigate},route})=>{
     const navigation = useNavigation();
-
     const [boardSave,setBoardSave] = useState("");
 
     const UpdateData=async()=>{

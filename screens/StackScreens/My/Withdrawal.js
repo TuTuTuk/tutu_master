@@ -6,8 +6,8 @@ import firestore from '@react-native-firebase/firestore';
 
 import TopBar from "../../../components/TopBar";
 import BlueButton from "../../../components/BlueButton";
-import ModalTwoOption from "../../../components/ModalTwoOptions";
-import ModalOneOption from "../../../components/ModalOneOptions";
+import ModalTwoOption from "../../../components/Modal/ModalTwoOptions";
+import ModalOneOption from "../../../components/Modal/ModalOneOptions";
 
 const Container = styled.ScrollView.attrs(() => ({
     contentContainerStyle: {

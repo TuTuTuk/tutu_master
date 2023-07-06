@@ -4,8 +4,8 @@ import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Text, Modal} from "react-native";
 
-import ModalTwoOptions from "../../../components/ModalTwoOptions";
-import ModalOneOptions from "../../../components/ModalOneOptions";
+import ModalTwoOptions from "../../../components/Modal/ModalTwoOptions";
+import ModalOneOptions from "../../../components/Modal/ModalOneOptions";
 
 
 const Container = styled.ScrollView.attrs(()=>({

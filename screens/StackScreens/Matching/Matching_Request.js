@@ -5,8 +5,8 @@ import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 
-import ModalTwoOptions from "../../../components/ModalTwoOptions";
-import ModalOneOptTwoTitle from "../../../components/ModalOneOptTwoTitle";
+import ModalTwoOptions from "../../../components/Modal/ModalTwoOptions";
+import ModalOneOptTwoTitle from "../../../components/Modal/ModalOneOptTwoTitle";
 import TopBar from "../../../components/TopBar";
 import Input from "../../../components/Input";
 

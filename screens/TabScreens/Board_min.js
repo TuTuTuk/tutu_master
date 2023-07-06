@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
+
 import TopBar_Search from "../../components/TopBar_Search";
-import HotBoard from "../../components/HotBoard";
+import HotBoard from "../../components/BoardPart/HotBoard";
 import BlueButton from "../../components/BlueButton";
+
 import auth from "@react-native-firebase/auth"
 import firestore from '@react-native-firebase/firestore';
 

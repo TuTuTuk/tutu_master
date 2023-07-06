@@ -7,7 +7,7 @@ import UploadModeModal from "../../../components/UploadModeModal";
 import TopBar from "../../../components/TopBar";
 import BlackButton from "../../../components/BlackButton";
 import BlueButton from "../../../components/BlueButton";
-import ModalOneOptions from "../../../components/ModalOneOptions";
+import ModalOneOptions from "../../../components/Modal/ModalOneOptions";
 
 import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';

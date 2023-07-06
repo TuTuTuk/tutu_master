@@ -3,7 +3,7 @@ import { FlatList } from "react-native";
 import styled from "styled-components/native";
 
 import TopBar from "../../../../components/TopBar";
-import CommentBox_min from "../../../../components/CommentBox_min";
+import CommentBox_min from "../../../../components/BoardPart/CommentBox_min";
 
 import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';

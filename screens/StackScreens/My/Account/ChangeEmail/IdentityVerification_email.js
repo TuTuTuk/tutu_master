@@ -8,7 +8,7 @@ import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
 import TopBar from "../../../../../components/TopBar";
 import BlueButton from "../../../../../components/BlueButton";
-import ModalTwoOptions from "../../../../../components/ModalTwoOptions"
+import ModalTwoOptions from "../../../../../components/Modal/ModalTwoOptions"
 
 
 const Container = styled.ScrollView.attrs(() => ({

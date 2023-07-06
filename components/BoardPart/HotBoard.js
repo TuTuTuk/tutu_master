@@ -1,18 +1,36 @@
-import react from "react";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 import styled from "styled-components/native";
-import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
-const BoardBox = styled.Pressable`
+//------------------------------------------------------------------------------
+//-------------------------------핫 게시판---------------------------------------
+//------------------------------------------------------------------------------
+const HotBoardBox = styled.View`
     //border: 1px;
-    background: #E3E3E3;
-    border-radius: 10px;
+    border-radius: 15px;
+    height:140px; 
     width: 100%;
     align-self: center;
-    margin-bottom: 10px;
 `;
-    const Article = styled.View`
+    const HotTextBox = styled.View`
+        height:40px;
+        flex-direction: row;
+        padding-left: 5px;
+    `;
+        const HotIconBox = styled.Image`
+            height: 30px;
+            width: 30px;
+            margin: 5px;
+        `;   
+        const HotText = styled.Text`
+            color : black;
+            font-size: 15px;
+            padding-top: 10px;
+            font-weight: 500;
+        `;
+    const HotArticle = styled.Pressable`
         //border: 1px;
         border-radius: 15px;
         background-color: #E3E3E3;
@@ -58,7 +76,7 @@ const BoardBox = styled.Pressable`
             justify-content: space-between;
             padding-bottom: 15px;
         `;
-            const Image = styled.Image`
+            const HotImage = styled.Image`
                 border-radius: 10px;
                 background-color: #BBBBBB;
                 width : 60px;
@@ -89,13 +107,43 @@ const BoardBox = styled.Pressable`
                 const GoodText = styled.Text`
                     font-size: 11px;
                 `;
-
-const BoardBox_min = ({move}) => {
+const HotPlusBar = styled.View`
+     //border:1px;
+     margin-top: 10px;
+     margin-left: 10px;
+     margin-right: 10px;
+     margin-bottom : 30px; 
+     align-content: center;
+     justify-content: center;
+     flex-direction : row;
+`;  
+    const PlusBarCircle = styled.View`
+        background-color: #C4BFBF;
+        width: 5px;
+        height: 5px;
+        border-radius: 5px;
+        margin-right: 5px;
+    `;
+    const PlusBarBar = styled.View`
+        background-color: #C4BFBF;
+        border-radius: 5px;
+        height: 5px;
+        width: 60px;
+        margin-right: 5px;
+    `;
+const HotBoard=() => {
     const navigation = useNavigation();
-    return(
-        <BoardBox
-            onPress={()=>navigation.navigate("Stack",{screen:`${move}`})}>
-            <Article>
+    return (
+        <>
+    <HotBoardBox>
+            <HotTextBox>
+                <HotIconBox
+                    source={require('../../images/HOT.png')}>
+                    </HotIconBox>
+                <HotText>HOT</HotText>
+            </HotTextBox>
+            <HotArticle
+                onPress={()=>navigation.navigate("Stack",{screen:"HotBoard_min"})}>
                 <AricleText>
                     <ArticleTitleBox>
                         <ArticleTitle>제목을 입력하세요</ArticleTitle>
@@ -107,7 +155,7 @@ const BoardBox_min = ({move}) => {
                     <ArticleContents>내용을 입력하세요</ArticleContents>
                 </AricleText>
                 <ArticleImageBox>
-                    <Image></Image>
+                    <HotImage></HotImage>
                     <ReactionBox>
                         <CommentIcon>
                             <Icon name="chatbox-ellipses" size = {12} color = "#1655E9"/>
@@ -119,9 +167,16 @@ const BoardBox_min = ({move}) => {
                         <GoodText>18</GoodText>
                     </ReactionBox>
                 </ArticleImageBox>
-            </Article>
-        </BoardBox>
+            </HotArticle>
+        </HotBoardBox>
+        <HotPlusBar>
+            <PlusBarCircle></PlusBarCircle>
+            <PlusBarCircle></PlusBarCircle>
+            <PlusBarBar></PlusBarBar>
+            <PlusBarCircle></PlusBarCircle>
+            <PlusBarCircle></PlusBarCircle>
+        </HotPlusBar>
+        </>
     )
 }
-
-export default BoardBox_min;
+export default HotBoard;

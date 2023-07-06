@@ -112,21 +112,25 @@ const TopBar_Search=({title})=>{
                 <ModalBox>
                     <TextBox onPress={()=>{
                         setModal(false)
-                        navigation.navigate("Stack", {screen:"Inquiry"})}}
-                    ><ModalText>문의하기</ModalText></TextBox>
-                    <TextBox onPress={()=>setModal(false)}><ModalText>새로고침</ModalText></TextBox>
+                        navigation.navigate("Stack", {screen:"Inquiry"})}}>
+                        <ModalText>문의하기</ModalText>
+                    </TextBox>
+                    <TextBox onPress={()=>setModal(false)}>
+                        <ModalText>새로고침</ModalText>
+                    </TextBox>
                 </ModalBox>
             </Modal>
+
             <Container>
                 <BackView>
                     <BackBtn onPressOut={()=>navigation.goBack()}>
                         <BackIcon source={require('../images/Back.png')}></BackIcon>
                     </BackBtn>
                 </BackView>
-                <BoardTextBox onPress={()=>navigation.navigate("Stack",{screen:"Board_research_min"})}>
+                <BoardTextBox onPress={()=>navigation.navigate("Stack",{screen:"Research"})}>
                     <BoardText>{title}</BoardText>   
                     <SearchBtn
-                        onPress={()=>navigation.navigate("Stack",{screen:"Board_research_min"})}>
+                        onPress={()=>navigation.navigate("Stack",{screen:"Research"})}>
                         <SearchImage source={require('../images/Search.png')}></SearchImage>
                     </SearchBtn>
                 </BoardTextBox>

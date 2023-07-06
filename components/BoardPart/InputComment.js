@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState , useEffect, createRef } from "react";
 import { Modal , FlatList } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -53,7 +53,7 @@ const InputWindow = styled.View`
             height: 100%;
         `;
 
-const InputComment = ({navigation:{navigate}})=>{
+const InputComment = ()=>{
 
     const [modalVisible,setModalVisible] = useState(false)
     const [content, setContent] = useState("")
@@ -90,24 +90,36 @@ const InputComment = ({navigation:{navigate}})=>{
             contents:content,
             create_time:timeNow, 
             time : nowTime
-        }).catch((error)=>{
+        }).then(onReset())
+        .catch((error)=>{
             console.log(error)
         })
+    }
+
+    //댓글 달기 눌렀을 때, 댓글창에 있는 글씨 초기화
+    const displayText = (e) => {
+        setContent(e.target.value);
+    };
+    const onReset = (e) => {
+        setContent("");
     }
 
     return(
         <>
         <InputWindow>
             <InputBox
-                onChangeText={(text)=>setContent(text)}
+                onChange={displayText}
+                value = {content}
+                placeholder="입력창"
+                placeholderTextColor = "white"
+                multiline = {true}
             >
-                <InputText>입력창</InputText>
             </InputBox>
             <InputBtn onPress={() => {
-                DoneComment()
+                DoneComment();
                 UpdateData();
             }}>
-                <InputIcon source={require('../../../images/input.png')}></InputIcon>
+                <InputIcon source={require('../../images/input.png')}></InputIcon>
             </InputBtn>
         </InputWindow>  
         </>
