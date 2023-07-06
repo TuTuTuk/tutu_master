@@ -92,34 +92,19 @@ const ModalTwoOptions = ({visible,setvisible,title,contents,yestext,visibleyes,s
             transparent={true}
             visible={visible}
         >
-                <ModalBackView>
-                </ModalBackView>
-                <ModalView>
-                    <ModalTitle>{title}</ModalTitle>
-                    <ModalContents>{contents}</ModalContents>
+                <ModalBackView></ModalBackView>
+                <ModalView><ModalTitle>{title}</ModalTitle>
+                <ModalContents>{contents}</ModalContents>
                     <ModalPressableBox>
-                        <ModalNoPressable onPress={()=>setvisible(false)}>
-                            <ModalNoText>
-                                취소
-                            </ModalNoText>
-                        </ModalNoPressable>
+                        <ModalNoPressable onPress={()=>setvisible(false)}><ModalNoText>취소</ModalNoText></ModalNoPressable>
                         <ModalYesPressable 
                             onPressOut={()=> {
                                 setvisible(false);
                                 setvisibleyes(Image)}}
                             >
-                            <LinearGradient style={{
-                                width:"100%",
-                                height:"100%",
-                                borderRadius: 10,
-                                alignItems:"center",
-                                justifyContent:"center"
-                            }}
-                                colors={['#0062FF', '#0A7DFF', '#1398FF']}
-                                start={{x:1,y:0}} end={{x:0,y:0}}>
-                                <ModalYesText>
-                                    {yestext}
-                                </ModalYesText>
+                            <LinearGradient style={{width:"100%",height:"100%",borderRadius: 10,alignItems:"center",justifyContent:"center"}}
+                                colors={['#0062FF', '#0A7DFF', '#1398FF']}start={{x:1,y:0}} end={{x:0,y:0}}>
+                                <ModalYesText>{yestext}</ModalYesText>
                             </LinearGradient>
                         </ModalYesPressable>
                     </ModalPressableBox>

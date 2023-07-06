@@ -1,33 +1,54 @@
-import React from "react";
+<<<<<<< HEAD
+import React,{ useEffect, useState }from "react";
 import { Text } from "react-native";
-import TopBar from "../../../components/TopBar";
 import styled from "styled-components/native";
-import { useEffect } from "react";
 import firestore from '@react-native-firebase/firestore';
-import { useState } from "react";
-import CommentBox from "../../../components/CommentBox_jun";
+
+import CommentBox from "../../../components/BoardPart/CommentBox_min";
+import TopBar from "../../../components/TopBar";
+import AllBoardBox_min from "../../../components/BoardPart/AllBoardBox_min";
 
 const Container = styled.ScrollView.attrs(()=>({
     contentContainerStyle:{
         showVerticalScrollIndicator:false,
         alignItems:"center"
-    }
-}))`
+}}))`
     //border:1px;
     margin-bottom: 10px;
+=======
+import React from "react";
+import { Text ,FlatList} from "react-native";
+import TopBar from "../../../components/TopBar";
+import styled from "styled-components/native";
+import { useEffect } from "react";
+
+import auth from "@react-native-firebase/auth";
+import firestore from '@react-native-firebase/firestore';
+
+import { useState } from "react";
+import CommentBox from "../../../components/CommentBox_jun";
+
+const Container = styled.View`
+    //border:2px;
+>>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e
     width:100%;
+    height:100%;
+    align-items:center;
+    justify-content: center;
 `;
 
+<<<<<<< HEAD
+=======
 const MainDetail = styled.View`
-    //border:1px;
+    //border:2px;
     background-color: #E3E3F3;
     border-radius: 10px;
-    width:100%;
+    width: 86.11%;
     `;
     const ProfileBox = styled.View`
         width:100%;
         margin-top:10px;
-    margin-bottom:10px;
+        margin-bottom:10px;
         flex-direction: row;
         justify-content: space-between;
     `;
@@ -99,51 +120,130 @@ const MainDetail = styled.View`
             margin-left: 25px;
             color: #1D1D1D;
         `;
+    
+    const ChatBox = styled.View`
+        //border:1px;
+        border-radius:10px;
+        width:86.11%;
+        height:40px;
+        bottom:8px;
+        padding-left:15px;
+        padding-right:15px;
+        flex-direction: row;
+        align-self:center;
+        justify-self: start;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #818181;
+        position:absolute;        
+    `;
+        const ChatInput = styled.TextInput`
+            //border:1px;
+            border-radius:10px;
+            width:80%;
+            height:100%;
+        `;
+            const SendBtn = styled.Pressable`
+                //border:1px;      
+                width:25px;
+                height:25px;
+            `;
+                const ImageBtn = styled.Image`
+                `;
 
+>>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e
 const BoardDetail_jun =({route})=>{
-    console.log(route)
+    //console.log(route)
 
     const [userData,setUserData] = useState(null);
+    const [commentData,setCommentData] = useState(null);
+    const [comment,setComment] = useState("");
 
-    const UpdateData=async()=>{ //게시물을 쓴 사용자 정보 가져오기
+    const UpdateData=async()=>{ //게시물을 쓴 사용자 정보,댓글 정보 가져오기
         const tempData = await firestore().collection("users").doc(route.params.info.user_uid).get();
-        console.log(tempData._data)
+        const tempCommentsData = await firestore().collection("Comments").doc(route.params.info.boards_uid).get()
+        
+        setCommentData(tempCommentsData._data)
         setUserData(tempData._data)
+
+       // console.log("route"+route.params)
+       console.log(commentData)
     }
+
     useEffect(()=>{
         UpdateData()
     },[])
 
+    //댓글달기
+    const SendComment = async()=>{
+        const tempSave = await firestore().collection("Comments").doc(route.params.info.boards_uid).get();
+
+        await firestore().collection("Comments").doc(route.params.info.boards_uid).update({
+            arr:[...tempSave._data.arr,{
+                user_name:auth().currentUser.displayName,
+                user_uid: auth().currentUser.uid,
+                comment: comment
+            }]
+        })
+        console.log(tempSave._data)
+    }
+
     return(
+<<<<<<< HEAD
         <>
-            <TopBar title=""/>
-            <Container>
-                <MainDetail>
-                    <ProfileBox>
-                            <ProfileInfo>
-                                <ProfileImage source={{uri:userData?userData.user_profile:null}}/>
-                                <ProfileText>
-                                    <UserName>{route.params.info.user_name}</UserName>
-                                    <Date>{route.params.info.create_time}</Date>
-                                </ProfileText>
-                            </ProfileInfo>
-                        <FunctionBox>
-                            <FunctionImage></FunctionImage>
-                            <FunctionImage></FunctionImage>
-                            <FunctionImage></FunctionImage>
-                        </FunctionBox>
-                    </ProfileBox>
-                    <MainContain>
-                        <MainTitle>{route.params.info.title}</MainTitle>
-                        <MainContents>{route.params.info.contents}</MainContents>
-                    </MainContain>
-                </MainDetail>
-                <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
-                <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
-                <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
-            </Container>
+        <TopBar title=""/>
+        <Container>
+            <AllBoardBox_min name = {route.params.info.user_name} profile = {{uri:userData?userData.user_profile:null}} title={route.params.info.title} content={route.params.info.contents} time={route.params.info.create_time} goodCount="20" commentCountt="5" ></AllBoardBox_min>
+            <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
+            <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
+            <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
+        </Container>
         </>
+    )}
+=======
+        <Container>
+                <TopBar title=""/>
+                {commentData==null? <Text>Loading</Text> :
+                    <FlatList
+                        ListHeaderComponent={
+                            <MainDetail>
+                                <ProfileBox>
+                                        <ProfileInfo>
+                                            <ProfileImage source={{uri:userData?userData.user_profile:null}}/>
+                                            <ProfileText>
+                                                <UserName>{route.params.info.user_name}</UserName>
+                                                <Date>{route.params.info.create_time}</Date>
+                                            </ProfileText>
+                                        </ProfileInfo>
+                                    <FunctionBox>
+                                        <FunctionImage></FunctionImage>
+                                        <FunctionImage></FunctionImage>
+                                        <FunctionImage></FunctionImage>
+                                    </FunctionBox>
+                                </ProfileBox>
+                                <MainContain>
+                                    <MainTitle>{route.params.info.title}</MainTitle>
+                                    <MainContents>{route.params.info.contents}</MainContents>
+                                </MainContain>
+                            </MainDetail>
+                        }
+                        showsVerticalScrollIndicator={false} //scroll바 가리기
+                        keyExtractor={(item)=>`${item.comment}`}//고유 키값 부여
+                        data={commentData.arr}
+                        renderItem={({item})=>
+                            <CommentBox name={item.user_name} content={item.comment}/>
+                        }
+                    />
+                }
+                <ChatBox>
+                    <ChatInput placeholder="입력창" onChangeText={(text)=>setComment(text)}/>
+                    <SendBtn onPress={()=>SendComment()}>
+                        <ImageBtn resizeMode="stretch" source={require('../../../images/sendBtn.png')}/>
+                    </SendBtn>
+                </ChatBox>
+        </Container>
     )
 }
 
+>>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e
 export default BoardDetail_jun;

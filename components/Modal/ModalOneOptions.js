@@ -47,36 +47,31 @@ const ModalView = styled.View`
             color: #FFFFFF;
         `;
 
-
 const ModalOneOptions = ({visible,setvisible,title,yestext}) => {
-
     return(
         <Modal
             animationType="fade"
             transparent={true}
             visible={visible}
         >
-                <ModalBackView>
-                </ModalBackView>
+                <ModalBackView></ModalBackView>
                 <ModalView>
                     <ModalTitle>{title}</ModalTitle>
                     <ModalYesPressable onPress={()=>{setvisible(false)}}>
                     <LinearGradient style={{
-                                width:"100%",
-                                height:"100%",
-                                borderRadius: 10,
-                                alignItems:"center",
-                                justifyContent:"center"
-                            }}
-                                colors={['#0062FF', '#0A7DFF', '#1398FF']}
-                                start={{x:1,y:0}} end={{x:0,y:0}}>
-                                <ModalYesText>
-                                    {yestext}
-                                </ModalYesText>
-                        </LinearGradient>
+                        width:"100%",
+                        height:"100%",
+                        borderRadius: 10,
+                        alignItems:"center",
+                        justifyContent:"center"
+                    }}
+                        colors={['#0062FF', '#0A7DFF', '#1398FF']}
+                        start={{x:1,y:0}} end={{x:0,y:0}}>
+                    <ModalYesText>{yestext}</ModalYesText>
+                    </LinearGradient>
                     </ModalYesPressable>
                 </ModalView>
-            </Modal>
+        </Modal>
     )
 }
 

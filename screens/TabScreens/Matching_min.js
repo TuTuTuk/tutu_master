@@ -3,8 +3,9 @@ import { StyleSheet, Text, View} from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
+
 import TopBar_Search from "../../components/TopBar_Search";
-import HotBoard from "../../components/HotBoard";
+import HotBoard from "../../components/BoardPart/HotBoard";
 import BlueButton from "../../components/BlueButton";
 
 const Container = styled.ScrollView.attrs(()=>({
@@ -87,6 +88,7 @@ const MeneBtnBox= styled.View`
                     align-self: center;
             `;
 
+
 const Menus = ({address, name}) => {
     return(
         <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
@@ -139,6 +141,7 @@ const Matching_min = ({navigation:{navigate}})=>{
                     <Menus key={`Menus_2_${index}`} address={Menu[0]} name={Menu[1]}/>
                 )
             })}
+
         </MeneBtnBox>
     </Container>
     )

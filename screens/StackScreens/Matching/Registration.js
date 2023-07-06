@@ -10,7 +10,7 @@ import firestore from '@react-native-firebase/firestore';
 import TopBar from "../../../components/TopBar";
 import Input from "../../../components/Input";
 import BlueButton from "../../../components/BlueButton";
-import ModalTwoOptions from "../../../components/ModalTwoOptions";
+import ModalTwoOptions from "../../../components/Modal/ModalTwoOptions";
 
 import { RadioButton } from "react-native-paper";
 

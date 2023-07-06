@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
+
 import TopBar_Search from "../../components/TopBar_Search";
-import HotBoard from "../../components/HotBoard";
+import HotBoard from "../../components/BoardPart/HotBoard";
 import BlueButton from "../../components/BlueButton";
+
 import auth from "@react-native-firebase/auth"
 import firestore from '@react-native-firebase/firestore';
 
@@ -93,7 +95,6 @@ const MajorContainer = ({title, address, name}) => {
           </Major11>
      )  
 }
-
 const Board_min = ({navigation:{navigate}})=>{
      const Majors_1 = [["Design", require("../../images/Major_Icon/Major_Design.png"), "디자인"],
      ["Computer", require("../../images/Major_Icon/Major_Computer.png"), "컴퓨터"],
@@ -111,6 +112,7 @@ const Board_min = ({navigation:{navigate}})=>{
      ["Nano", require("../../images/Major_Icon/Major_Nano.png"), "나노반도체"],
      ["Energy", require("../../images/Major_Icon/Major_Energy.png"), "에너지-전기"]]
      
+const Board_min = ({navigation:{navigate}})=>{
      return(
           <Container>
                <TopBar_Search title="게시판"></TopBar_Search>

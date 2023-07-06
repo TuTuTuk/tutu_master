@@ -69,8 +69,7 @@ const ModalOneOptTwoTitle = ({visible,setvisible,title,contents,yestext,click,ne
             transparent={true}
             visible={visible}
         >
-                <ModalBackView>
-                </ModalBackView>
+                <ModalBackView></ModalBackView>
                 <ModalView>
                     <ModalTitle>{title}</ModalTitle>
                     <ModalContents>{contents}</ModalContents>
@@ -80,20 +79,17 @@ const ModalOneOptTwoTitle = ({visible,setvisible,title,contents,yestext,click,ne
                             click(true);
                             navigation.navigate("Stack",{screen:`${nextPj}`});
 
-                        }}
-                    >
+                        }}>
                         <LinearGradient style={{
-                                width:"100%",
-                                height:"100%",
-                                borderRadius: 10,
-                                alignItems:"center",
-                                justifyContent:"center"
-                            }}
-                                colors={['#0062FF', '#0A7DFF', '#1398FF']}
-                                start={{x:1,y:0}} end={{x:0,y:0}}>
-                                <ModalYesText>
-                                    {yestext}
-                                </ModalYesText>
+                            width:"100%",
+                            height:"100%",
+                            borderRadius: 10,
+                            alignItems:"center",
+                            justifyContent:"center"
+                        }}
+                            colors={['#0062FF', '#0A7DFF', '#1398FF']}
+                            start={{x:1,y:0}} end={{x:0,y:0}}>
+                            <ModalYesText>{yestext}</ModalYesText>
                         </LinearGradient>
                     </ModalYesPressable>
                 </ModalView>

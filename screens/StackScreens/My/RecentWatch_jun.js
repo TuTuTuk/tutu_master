@@ -4,9 +4,9 @@ import {FlatList, Pressable, Text, View } from "react-native"
 import styled from "styled-components/native"
 import { useState } from "react"
 import Blackbutton from "../../../components/BlackButton"
-import BoardBox from "../../../components/BoardBox"
+import BoardBox from "../../../components/BoardPart/BoardBox"
 import { useEffect } from "react"
-import ModalTwoOptions from "../../../components/ModalTwoOptions"
+import ModalTwoOptions from "../../../components/Modal/ModalTwoOptions"
 
 import auth from "@react-native-firebase/auth"
 import firestore from '@react-native-firebase/firestore';
