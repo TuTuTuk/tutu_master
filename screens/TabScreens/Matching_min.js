@@ -88,11 +88,12 @@ const MeneBtnBox= styled.View`
                     align-self: center;
             `;
 
-const Menus = ({name}) => {
+
+const Menus = ({address, name}) => {
     return(
         <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
             <Image>
-                <MajorIcon source={{uri : `../../images/${name}.png`}}></MajorIcon>
+                <MajorIcon source={address}></MajorIcon>
             </Image>
             <TextBox>
                 <ImageText>{name}</ImageText>
@@ -102,7 +103,12 @@ const Menus = ({name}) => {
 }
 
 const Matching_min = ({navigation:{navigate}})=>{
+    const Menus_1 = [[require("../../images/비교과.png"), "비교과"],
+    [require("../../images/대외활동.png"), "대외활동"]]
 
+    const Menus_2 = [[require("../../images/핫플.png"), "핫플"],
+    [require("../../images/취업진로.png"), "취업진로"],
+    [require("../../images/기타프로젝트.png"), "기타프로젝트"]]
     return(
     <Container>
         <TopBar_Search title="게시판"></TopBar_Search>
@@ -123,33 +129,19 @@ const Matching_min = ({navigation:{navigate}})=>{
                 <Image><MajorIcon source={require('../../images/비교과.png')}></MajorIcon></Image>
                 <TextBox><ImageText>전공/교양</ImageText></TextBox>
             </MenuBtn>
-            <Menus name={"비교과"}/>
-            <Menus name={"대외활동"}/>
-            {/* <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
-                <Image><MajorIcon source={require('../../images/비교과.png')}></MajorIcon></Image>
-                <TextBox><ImageText>비교과</ImageText></TextBox>
-            </MenuBtn>
-            <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
-                <Image><MajorIcon source={require('../../images/대외활동.png')}></MajorIcon></Image>
-                <TextBox><ImageText>대외활동</ImageText></TextBox>
-            </MenuBtn> */}
+            {Menus_1.map((Menu, index)=>{
+                return(
+                    <Menus key={`Menus_1_${index}`} address={Menu[0]} name={Menu[1]}/>
+                )
+            })}
         </MeneBtnBox>
         <MeneBtnBox>
-            <Menus name={"핫플"}/>
-            <Menus name={"취업진로"}/>
-            <Menus name={"기타프로젝트"}/>
-            {/* <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
-                <Image><MajorIcon source={require('../../images/핫플.png')}></MajorIcon></Image>
-                <TextBox><ImageText>핫플</ImageText></TextBox>
-            </MenuBtn>
-            <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
-                <Image><MajorIcon source={require('../../images/취업진로.png')}></MajorIcon></Image>
-                <TextBox><ImageText>취업진로</ImageText></TextBox>
-            </MenuBtn>
-            <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
-                <Image><MajorIcon source={require('../../images/기타프로젝트.png')}></MajorIcon></Image>
-                <TextBox><ImageText>기타 프로젝트</ImageText></TextBox>
-            </MenuBtn> */}
+            {Menus_2.map((Menu, index)=>{
+                return(
+                    <Menus key={`Menus_2_${index}`} address={Menu[0]} name={Menu[1]}/>
+                )
+            })}
+
         </MeneBtnBox>
     </Container>
     )

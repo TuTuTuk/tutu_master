@@ -224,26 +224,16 @@ const Home =({navigation:{navigate}})=>{
         <Container scrollEnabled={!alarmVisible}>
             <Pressable className="modal" style={{position:"absolute", display: alarmVisible ? "flex" : "none", width:"100%", height:"100%", backgroundColor:"rgba(1,1,1,0.5)", zIndex:10, alignItems:"center"}}>
                 <View style={{alignItems:"center", backgroundColor:"white", width:"90%",height:"40%", position:"absolute", marginTop:"13%", zIndex:11, borderRadius:10 }}>
-<<<<<<< HEAD
-                    <Text style={{margin:16, fontSize:16, fontWeight:"700"}}>알림</Text>
+                    <Pressable>
+                        <Text style={{margin:16, fontSize:16, fontWeight:"700"}}>알림</Text>
+                        <Text style={{position:"absolute", margin:16, right:-150, fontSize: 16, fontWeight:"700"}}  onPress={()=>setAlarmVisible(!alarmVisible)}>X</Text>
+                    </Pressable>
                     <Date comment = {date}/>
                     <GetPoint comment = {getpoint}/>
                     <UsePoint comment = {usePoint}/>
                     <Notice comment = {notice}/>
                     <MyPage comment = {mypage}/>
                     <Message comment = {message}/>
-=======
-                    <Pressable>
-                        <Text style={{margin:16, fontSize:16, fontWeight:"700"}}>알림</Text>
-                        <Text style={{position:"absolute", margin:16, right:-150, fontSize: 16, fontWeight:"700"}}  onPress={()=>setAlarmVisible(!alarmVisible)}>X</Text>
-                    </Pressable>
-                    <Date/>
-                    <GetPoint/>
-                    <UsePoint/>
-                    <Notice/>
-                    <MyPage/>
-                    <Message/>
->>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e
                 </View>
             </Pressable>
             <ModalTwoOptions 
