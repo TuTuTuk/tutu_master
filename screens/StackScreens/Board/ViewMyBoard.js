@@ -6,10 +6,9 @@ import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Route } from "@react-navigation/native";
 
-import AllBoardBox_min from "../../../components/AllBoardBox_min";
-import BoardBoxSelf_min from "../../../components/BoardBoxSelf_min";
-import CommentBox_min from "../../../components/CommentBox_min";
-import ModalOneOptions from "../../../components/ModalOneOptions";
+import AllBoardBox_min from "../../../components/BoardPart/AllBoardBox_min";
+import CommentBox_min from "../../../components/BoardPart/CommentBox_min";
+import ModalOneOptions from "../../../components/Modal/ModalOneOptions";
 import TopBar from "../../../components/TopBar";
 
 import firestore from '@react-native-firebase/firestore';
@@ -110,7 +109,6 @@ const ViewMyBoard = ({navigation:{navigate}, route})=>{
                 </ModalView>
             </Modal>
             <TopBar/>
-            <BoardBoxSelf_min title = {route.params.GiveTitle} content = {route.params.GiveContent} date = {route.params.GiveDate} time = {route.params.GiveTime}/>
             <CommentBox_min></CommentBox_min>
             <CommentBox_min></CommentBox_min>
             <CommentBox_min></CommentBox_min>

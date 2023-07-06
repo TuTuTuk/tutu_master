@@ -1,20 +1,22 @@
-import React, { useState } from "react";
-import { Text, TouchableOpacity, View,Modal, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Text, TouchableOpacity, View,Modal, Image, Pressable } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons'
 
-import BoardBox from "../../components/BoardBox";
-import ModalTwoOptions from "../../components/ModalTwoOptions";
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
+
+import BoardBox from "../../components/BoardPart/BoardBox";
+import ModalTwoOptions from "../../components/Modal/ModalTwoOptions";
 import auth from "@react-native-firebase/auth";
-import { Pressable } from "react-native";
 
 // components 폴더에 있음
-import GetPoint from "../../components/GetPoint";
-import UsePoint from "../../components/UsePoint";
-import Notice from "../../components/Notice";
-import MyPage from "../../components/MyPage";
-import Message from "../../components/Message";
-import Date from "../../components/Date";
+import GetPoint from "../../components/Notification/GetPoint";
+import UsePoint from "../../components/Notification/UsePoint";
+import Notice from "../../components/Notification/Notice";
+import MyPage from "../../components/Notification/MyPage";
+import Message from "../../components/Notification/Message";
+import Date from "../../components/Notification/Date";
 
 
 //scrollView 
@@ -64,7 +66,7 @@ const HeaderBox = styled.View`
         height:30px;
         flex-direction: row;
     `;
-
+    
         const AlarmButton = styled.Pressable`
             width:50%;
             height:100%;
@@ -185,13 +187,52 @@ const Menus = ({name}) => {
 }
 
 const Home =({navigation:{navigate}})=>{
+    
     const [click,setClick] = useState(false);
     const [modalVisible,setModalVisible] = useState(false)
     const [alarmVisible, setAlarmVisible] = useState(false)
+
+    const [temps, setTemps] = useState([]);
+    const [date,setDate] = useState("");
+    const [getpoint, setGetPoint] = useState("");
+    const [message, setMessage] = useState("");
+    const [usePoint, setUsePoint] = useState("");
+    const [mypage, setMypage] = useState("");
+    const [notice, setNotice] = useState("");
+
+    const UpdateDate = async() => {
+        setTemps([])
+        firestore().collection("Notification").get().then((tempData)=>{
+            tempData.forEach((doc) => {
+                const tempObj = {
+                    id: doc.id,
+                }
+                setTemps(prev => [tempObj, ...prev])
+            });
+        })
+        console.log(temps)
+
+        const tempd = await firestore().collection("Notification").doc(temps[0].id).collection("mypage").get();
+        console.log(tempd)
+    }
+
+    useEffect(()=>{
+        UpdateDate()
+    },[])
+
     return(
         <Container scrollEnabled={!alarmVisible}>
             <Pressable className="modal" style={{position:"absolute", display: alarmVisible ? "flex" : "none", width:"100%", height:"100%", backgroundColor:"rgba(1,1,1,0.5)", zIndex:10, alignItems:"center"}}>
                 <View style={{alignItems:"center", backgroundColor:"white", width:"90%",height:"40%", position:"absolute", marginTop:"13%", zIndex:11, borderRadius:10 }}>
+<<<<<<< HEAD
+                    <Text style={{margin:16, fontSize:16, fontWeight:"700"}}>알림</Text>
+                    <Date comment = {date}/>
+                    <GetPoint comment = {getpoint}/>
+                    <UsePoint comment = {usePoint}/>
+                    <Notice comment = {notice}/>
+                    <MyPage comment = {mypage}/>
+                    <Message comment = {message}/>
+=======
                     <Pressable>
                         <Text style={{margin:16, fontSize:16, fontWeight:"700"}}>알림</Text>
                         <Text style={{position:"absolute", margin:16, right:-150, fontSize: 16, fontWeight:"700"}}  onPress={()=>setAlarmVisible(!alarmVisible)}>X</Text>
@@ -202,6 +243,7 @@ const Home =({navigation:{navigate}})=>{
                     <Notice/>
                     <MyPage/>
                     <Message/>
+>>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e
                 </View>
             </Pressable>
             <ModalTwoOptions 

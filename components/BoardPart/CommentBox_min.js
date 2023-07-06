@@ -12,7 +12,7 @@ const CommentBox = styled.View`
     border-radius: 10px;
     background-color: #E3E3E3;
     //border: 1px;
-    width: 100%;
+    width: 86.1%;
     height: 102px;
     align-self: center;
     margin-bottom: 10px;
@@ -20,7 +20,7 @@ const CommentBox = styled.View`
 `;
     const CommentProfileBox = styled.View`
         //border: 1px;
-        width: 93.5%;
+        width: 96%;
         height: 25px;
         align-self: center;
         flex-direction: row;
@@ -131,9 +131,8 @@ const ModalView = styled.View`
         const MiddleText = styled.Text`
             font-size:12px;
         `;
-const CommentBox_min = ({content, time}) => {
+const CommentBox_min = ({content, name}) => {
     const [modalVisible,setModalVisible] = useState(false)
-
 
     return(
         <CommentBox>
@@ -145,38 +144,23 @@ const CommentBox_min = ({content, time}) => {
                 <ModalBackView>
                 </ModalBackView>
                 <ModalView>
-                    <Modalinquire onPress={()=>setModalVisible(false)}>
-                        <MiddleText>댓글달기</MiddleText>
-                    </Modalinquire>
-                    <Modalinquire onPress={()=>setModalVisible(true)}>
-                        <MiddleText>신고하기</MiddleText>
-                    </Modalinquire>
-                    <Modalinquire onPress={()=>setModalVisible(false)}>
-                        <MiddleText>쪽지 보내기</MiddleText>
-                    </Modalinquire>
+                    <Modalinquire onPress={()=>setModalVisible(false)}><MiddleText>댓글달기</MiddleText></Modalinquire>
+                    <Modalinquire onPress={()=>setModalVisible(true)}><MiddleText>신고하기</MiddleText>
+                    </Modalinquire><Modalinquire onPress={()=>setModalVisible(false)}><MiddleText>쪽지 보내기</MiddleText></Modalinquire>
                 </ModalView>
             </Modal>
                 <CommentProfileBox>
-                    <ProfileNameBox>    
-                        <ProfileImage></ProfileImage>
-                        <CommentName>익명 1</CommentName>
-                    </ProfileNameBox>
+                    <ProfileNameBox><ProfileImage></ProfileImage><CommentName>{name}</CommentName></ProfileNameBox>
                     <CommentMenuBox>
-                        <CocommentIcon>
-                            <Icon name="chatbox-ellipses-sharp" size = {20} color = '#808080'/>
-                        </CocommentIcon>
-                        <CommentGoodIcon>
-                            <Icon name="thumbs-up-sharp" size = {18} color = '#808080'/>
-                        </CommentGoodIcon>
-                        <CommentPlusIcon onPress={()=>setModalVisible(true)}>
-                            <Icon name="ellipsis-vertical-outline" size = {15} color = '#808080'/>
-                        </CommentPlusIcon>
+                        <CocommentIcon><Icon name="chatbox-ellipses-sharp" size = {20} color = '#808080'/></CocommentIcon>
+                        <CommentGoodIcon><Icon name="thumbs-up-sharp" size = {18} color = '#808080'/></CommentGoodIcon>
+                        <CommentPlusIcon onPress={()=>setModalVisible(true)}><Icon name="ellipsis-vertical-outline" size = {15} color = '#808080'/></CommentPlusIcon>
                     </CommentMenuBox>
                 </CommentProfileBox>
                 <CommentContent>{content}</CommentContent>
                 <DataAndGoodBox>
-                    <CommentDate>{time}</CommentDate>
-                    <CommentGood source={require('../images/good.png')}></CommentGood>
+                    <CommentDate>2023/06/28</CommentDate>
+                    <CommentGood source={require('../../images/good.png')}></CommentGood>
                     <CommetGoodCnt>18</CommetGoodCnt>
                 </DataAndGoodBox>
             </CommentBox>

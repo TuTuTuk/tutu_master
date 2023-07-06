@@ -1,4 +1,4 @@
-import react,{useEffect} from "react";
+import react,{useState, useEffect} from "react";
 import styled from "styled-components/native";
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -76,13 +76,20 @@ const BoardBox = ({info,title,contents,kind}) => {
     const HEIGHT = Dimensions.get('window').height;
     //firestore().collection("users").doc(auth().currentUser.uid).get();
 
+    const [titles, setTitles] = useState();
+
+    
     useEffect(()=>{
     },[])
     
     const addBoardId=async()=>{ //user 정보에 방문한 board id 저장
+<<<<<<< HEAD:components/BoardPart/BoardBox.js
+        //console.log(info)
+
+=======
         console.log("@@@"+{title}+"####"+contents)
+>>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e:components/BoardBox.js
         const tempData = await firestore().collection("users").doc(auth().currentUser.uid).get();
-        console.log(tempData._data);
         firestore().collection("users").doc(auth().currentUser.uid).update({
             user_watch_board_uid:[...tempData._data.user_watch_board_uid,
                 info.boards_uid
@@ -90,16 +97,19 @@ const BoardBox = ({info,title,contents,kind}) => {
         })
     }
 
-    
-
     return(
         <PopularBox 
             onPress={()=>addBoardId()}
             onPressOut={()=>navigation.navigate("Stack",{screen:"BoardDetail_jun",params:{info,title,contents,kind}})}
             hei={HEIGHT}>
             <PopularBoxLeft>
+<<<<<<< HEAD:components/BoardPart/BoardBox.js
+                <PopularBoxTitle>{titles}</PopularBoxTitle>
+                <PopularBoxContent></PopularBoxContent>
+=======
                 <PopularBoxTitle>{title}</PopularBoxTitle>
                 <PopularBoxContent>{contents}</PopularBoxContent>
+>>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e:components/BoardBox.js
                 <PopularBoxKeywordBox>
                     <LinearGradient style={{
                         width:40,
@@ -140,18 +150,10 @@ const BoardBox = ({info,title,contents,kind}) => {
                 </PopularBoxKeywordBox>
             </PopularBoxLeft>
             <PopularBoxRight>
-                <PopularBoxImage
-                    hei={HEIGHT}
-                />
+                <PopularBoxImage hei={HEIGHT}/>
                 <PopularBoxComment>
-                    <CommentImage
-                        resizeMode="stretch"
-                        source={require('../images/comment.png')}
-                    />
-                        <CommentImage
-                        resizeMode="stretch"
-                        source={require('../images/good.png')}
-                    />
+                    <CommentImage resizeMode="stretch" source={require('../../images/comment.png')}/>
+                    <CommentImage resizeMode="stretch" source={require('../../images/good.png')}/>
                 </PopularBoxComment>
             </PopularBoxRight>
         </PopularBox>

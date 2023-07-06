@@ -4,13 +4,12 @@ import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-import ModalOneOptTwoTitle from "../../../components/ModalOneOptTwoTitle";
-import ModalOneOptions from "../../../components/ModalOneOptions";
-import ModalTwoOptions from "../../../components/ModalTwoOptions";
+import ModalOneOptTwoTitle from "../../../components/Modal/ModalOneOptTwoTitle";
+import ModalOneOptions from "../../../components//Modal/ModalOneOptions";
+import ModalTwoOptions from "../../../components//Modal/ModalTwoOptions";
 import TopBar from "../../../components/TopBar";
-import BoardBoxSelf_min from "../../../components/BoardBoxSelf_min";
-import CommentBox_min from "../../../components/CommentBox_min";
-import AllBoardBox_min from "../../../components/AllBoardBox_min";
+import CommentBox_min from "../../../components/BoardPart/CommentBox_min";
+import AllBoardBox_min from "../../../components/BoardPart/AllBoardBox_min";
 
 const Container = styled.ScrollView.attrs(()=>({
     contentContainerStyle:{
