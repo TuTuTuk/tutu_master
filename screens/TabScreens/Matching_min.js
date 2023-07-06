@@ -87,6 +87,19 @@ const MeneBtnBox= styled.View`
                     align-self: center;
             `;
 
+const Menus = ({name}) => {
+    return(
+        <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
+            <Image>
+                <MajorIcon source={{uri : `../../images/${name}.png`}}></MajorIcon>
+            </Image>
+            <TextBox>
+                <ImageText>{name}</ImageText>
+            </TextBox>
+        </MenuBtn>
+    )
+}
+
 const Matching_min = ({navigation:{navigate}})=>{
 
     return(
@@ -109,17 +122,22 @@ const Matching_min = ({navigation:{navigate}})=>{
                 <Image><MajorIcon source={require('../../images/비교과.png')}></MajorIcon></Image>
                 <TextBox><ImageText>전공/교양</ImageText></TextBox>
             </MenuBtn>
-            <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
+            <Menus name={"비교과"}/>
+            <Menus name={"대외활동"}/>
+            {/* <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
                 <Image><MajorIcon source={require('../../images/비교과.png')}></MajorIcon></Image>
                 <TextBox><ImageText>비교과</ImageText></TextBox>
             </MenuBtn>
             <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
                 <Image><MajorIcon source={require('../../images/대외활동.png')}></MajorIcon></Image>
                 <TextBox><ImageText>대외활동</ImageText></TextBox>
-            </MenuBtn>
+            </MenuBtn> */}
         </MeneBtnBox>
         <MeneBtnBox>
-            <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
+            <Menus name={"핫플"}/>
+            <Menus name={"취업진로"}/>
+            <Menus name={"기타프로젝트"}/>
+            {/* <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
                 <Image><MajorIcon source={require('../../images/핫플.png')}></MajorIcon></Image>
                 <TextBox><ImageText>핫플</ImageText></TextBox>
             </MenuBtn>
@@ -130,7 +148,7 @@ const Matching_min = ({navigation:{navigate}})=>{
             <MenuBtn onPress={()=>navigate("Stack",{screen:"Designboard_min"})}>
                 <Image><MajorIcon source={require('../../images/기타프로젝트.png')}></MajorIcon></Image>
                 <TextBox><ImageText>기타 프로젝트</ImageText></TextBox>
-            </MenuBtn>
+            </MenuBtn> */}
         </MeneBtnBox>
     </Container>
     )
