@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Pressable, ScrollView, Text,View } from "react-native";
+import { Pressable, ScrollView, Text,TouchableOpacity,View } from "react-native";
 import TopBar from "../../components/TopBar";
 import TopBar_Close from "../../components/TopBar_Close";
 import LinearGradient from 'react-native-linear-gradient';
@@ -89,14 +89,14 @@ const Contents = () => {
 
 // 1. 추후 백엔드와 연동하여 다시 만들어야함
 // 2. 임시로 Timetable에 만든거라 해당 페이지 생기면 옮겨야함
-const Timetable =()=>{
+const Timetable =({navigation:{navigate}})=>{
     const [more, setMore] = useState(false)
     const onPress = () => {
         setMore(!more)
     }
     return(
     <View style={{backgroundColor:"#FFFFFF", height:"100%", display:"flex", alignItems:"center"}}>
-        <TopBar_Close/>
+        <TopBar_Close title={"선-후배 매칭"}/>
         <Text style={{lineHeight:14, fontSize:12, color:"#545454"}}>선-후배 매칭_ 학교생활 조언해줄 후배 선택하기</Text>
         <List/>
         <View style={{height: "50%" ,width: "70%", marginTop:20, borderRadius: 10, backgroundColor: "#F7F7F7"}}>
@@ -137,6 +137,9 @@ const Timetable =()=>{
             >
             <Text style={{color:"#FFFFFF",fontWeight:"600"}}>선택하기</Text>                        
         </LinearGradient>
+        <TouchableOpacity onPress={()=>navigate("Stack",{screen:"Agreement"})}>
+            <Text>약관동의</Text>
+        </TouchableOpacity>
     </View>
     )
 }

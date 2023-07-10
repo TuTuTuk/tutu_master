@@ -153,5 +153,5 @@ const Board_min = ({navigation:{navigate}})=>{
                </AllMajorBox>
           </Container>
      )
-}
+}}
 export default Board_min;
