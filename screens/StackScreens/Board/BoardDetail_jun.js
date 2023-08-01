@@ -1,23 +1,5 @@
-<<<<<<< HEAD
-import React,{ useEffect, useState }from "react";
-import { Text } from "react-native";
-import styled from "styled-components/native";
-import firestore from '@react-native-firebase/firestore';
-
-import CommentBox from "../../../components/BoardPart/CommentBox_min";
-import TopBar from "../../../components/TopBar";
-import AllBoardBox_min from "../../../components/BoardPart/AllBoardBox_min";
-
-const Container = styled.ScrollView.attrs(()=>({
-    contentContainerStyle:{
-        showVerticalScrollIndicator:false,
-        alignItems:"center"
-}}))`
-    //border:1px;
-    margin-bottom: 10px;
-=======
 import React from "react";
-import { Text ,FlatList} from "react-native";
+import { Text ,FlatList,Keyboard,TouchableWithoutFeedback} from "react-native";
 import TopBar from "../../../components/TopBar";
 import styled from "styled-components/native";
 import { useEffect } from "react";
@@ -25,26 +7,26 @@ import { useEffect } from "react";
 import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
 
-import { useState } from "react";
-import CommentBox from "../../../components/CommentBox_jun";
+import { useState  } from "react";
+import CommentBox from "../../../components/NotUsing/CommentBox_jun";
 
 const Container = styled.View`
     //border:2px;
->>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e
+    border-color:red;
     width:100%;
     height:100%;
-    align-items:center;
     justify-content: center;
 `;
 
-<<<<<<< HEAD
-=======
 const MainDetail = styled.View`
-    //border:2px;
+    //border: 2px;
+    border-color:green;
     background-color: #E3E3F3;
     border-radius: 10px;
-    width: 86.11%;
-    `;
+    width: 100%;
+    align-self:center;
+    
+`;
     const ProfileBox = styled.View`
         width:100%;
         margin-top:10px;
@@ -151,9 +133,8 @@ const MainDetail = styled.View`
                 const ImageBtn = styled.Image`
                 `;
 
->>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e
 const BoardDetail_jun =({route})=>{
-    //console.log(route)
+
 
     const [userData,setUserData] = useState(null);
     const [commentData,setCommentData] = useState(null);
@@ -163,8 +144,8 @@ const BoardDetail_jun =({route})=>{
         const tempData = await firestore().collection("users").doc(route.params.info.user_uid).get();
         const tempCommentsData = await firestore().collection("Comments").doc(route.params.info.boards_uid).get()
         
-        setCommentData(tempCommentsData._data)
         setUserData(tempData._data)
+        setCommentData(tempCommentsData._data)
 
        // console.log("route"+route.params)
        console.log(commentData)
@@ -174,33 +155,40 @@ const BoardDetail_jun =({route})=>{
         UpdateData()
     },[])
 
+
+
     //댓글달기
     const SendComment = async()=>{
+        Keyboard.dismiss()
         const tempSave = await firestore().collection("Comments").doc(route.params.info.boards_uid).get();
+        const tempUser = await firestore().collection("users").doc(auth().currentUser.uid).get();
 
+        var timeNow = new window.Date();
+        const timeMili = timeNow.getMilliseconds()
+        const timeSec = timeNow.getSeconds()
+        const timeMin = timeNow.getMinutes()
+        const timeHour = (timeNow.getHours()+9)%24
+        const timeDate = timeNow.getDate()
+        const timeMonth = timeNow.getMonth()+1
+        const timeYear = timeNow.getFullYear()
+        const timeStr = timeYear+"-"+timeMonth+"-"+timeDate+"-"+timeHour+":"+timeMin+":"+timeSec+"."+timeMili
+        
         await firestore().collection("Comments").doc(route.params.info.boards_uid).update({
             arr:[...tempSave._data.arr,{
                 user_name:auth().currentUser.displayName,
                 user_uid: auth().currentUser.uid,
-                comment: comment
+                user_class_number : tempUser._data.user_class_number,
+                user_profile: tempUser._data.user_profile,
+                comment: comment,
+                time: timeStr
             }]
         })
+        setComment("")
         console.log(tempSave._data)
+        UpdateData()
     }
 
     return(
-<<<<<<< HEAD
-        <>
-        <TopBar title=""/>
-        <Container>
-            <AllBoardBox_min name = {route.params.info.user_name} profile = {{uri:userData?userData.user_profile:null}} title={route.params.info.title} content={route.params.info.contents} time={route.params.info.create_time} goodCount="20" commentCountt="5" ></AllBoardBox_min>
-            <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
-            <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
-            <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
-        </Container>
-        </>
-    )}
-=======
         <Container>
                 <TopBar title=""/>
                 {commentData==null? <Text>Loading</Text> :
@@ -228,15 +216,15 @@ const BoardDetail_jun =({route})=>{
                             </MainDetail>
                         }
                         showsVerticalScrollIndicator={false} //scroll바 가리기
-                        keyExtractor={(item)=>`${item.comment}`}//고유 키값 부여
+                        keyExtractor={(item)=>`${item.time}`}//고유 키값 부여
                         data={commentData.arr}
                         renderItem={({item})=>
-                            <CommentBox name={item.user_name} content={item.comment}/>
+                            <CommentBox info={item}/>
                         }
                     />
                 }
                 <ChatBox>
-                    <ChatInput placeholder="입력창" onChangeText={(text)=>setComment(text)}/>
+                    <ChatInput placeholder="입력창" onChangeText={(text)=>setComment(text)} value={comment}/>
                     <SendBtn onPress={()=>SendComment()}>
                         <ImageBtn resizeMode="stretch" source={require('../../../images/sendBtn.png')}/>
                     </SendBtn>
@@ -245,5 +233,4 @@ const BoardDetail_jun =({route})=>{
     )
 }
 
->>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e
 export default BoardDetail_jun;

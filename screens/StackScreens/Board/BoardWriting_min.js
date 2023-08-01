@@ -309,8 +309,8 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                             user_boards_count: userTempSave._data.user_boards_count+1
                         });
 
-                        await navigation.reset({routes:[{name:"Designboard_min",params:{kind:route.params.kind}}]}) //새로고침
-                        navigation.navigate("Stack",{screen:"Designboard_min",params:{kind:route.params.kind}}) //화면 뒤로 이동
+                        await navigation.reset({routes:[{name:"Designboard_min",params:{title:route.params.kind}}]}) //새로고침
+                        navigation.navigate("Stack",{screen:"Designboard_min",params:{title:route.params.kind}}) //화면 뒤로 이동
                     })
                     .catch((error)=>{
                         console.log(error)

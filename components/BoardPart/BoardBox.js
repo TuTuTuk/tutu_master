@@ -83,12 +83,7 @@ const BoardBox = ({info,title,contents,kind}) => {
     },[])
     
     const addBoardId=async()=>{ //user 정보에 방문한 board id 저장
-<<<<<<< HEAD:components/BoardPart/BoardBox.js
-        //console.log(info)
-
-=======
         console.log("@@@"+{title}+"####"+contents)
->>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e:components/BoardBox.js
         const tempData = await firestore().collection("users").doc(auth().currentUser.uid).get();
         firestore().collection("users").doc(auth().currentUser.uid).update({
             user_watch_board_uid:[...tempData._data.user_watch_board_uid,
@@ -103,13 +98,8 @@ const BoardBox = ({info,title,contents,kind}) => {
             onPressOut={()=>navigation.navigate("Stack",{screen:"BoardDetail_jun",params:{info,title,contents,kind}})}
             hei={HEIGHT}>
             <PopularBoxLeft>
-<<<<<<< HEAD:components/BoardPart/BoardBox.js
-                <PopularBoxTitle>{titles}</PopularBoxTitle>
-                <PopularBoxContent></PopularBoxContent>
-=======
                 <PopularBoxTitle>{title}</PopularBoxTitle>
                 <PopularBoxContent>{contents}</PopularBoxContent>
->>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e:components/BoardBox.js
                 <PopularBoxKeywordBox>
                     <LinearGradient style={{
                         width:40,
