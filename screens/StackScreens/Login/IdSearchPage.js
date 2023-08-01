@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Input from "../../../components/Input";
 import BlueButton from "../../../components/BlueButton";
-import ModalOneOptions from "../../../components/ModalOneOptions";
+import ModalOneOptions from "../../../components/Modal/ModalOneOptions";
 
 const Container = styled.View`
     width:100%;

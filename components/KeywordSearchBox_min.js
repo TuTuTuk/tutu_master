@@ -8,7 +8,7 @@ import { Text, View } from "react-native";
 //-----------------------------키워드 검색하는 부분------------------------------
 //-----------------------------------------------------------------------------
 const SearchFilterBox = styled.View`
-        border : 1px;
+        //border : 1px;
         width: 100%;
         height : 40px;
         //4.8%
@@ -86,19 +86,10 @@ const KeywordSearchBox_min = ({tag}) => {
     return(
         <SearchFilterBox>
             <FilterBox>
-             <Filter1>
-                 <Filter1Text>{tag}</Filter1Text>
-                 <TextX1> X</TextX1>
-             </Filter1>
-             <Filter2>
-                 <Filter2Text>교양</Filter2Text>
-                 <TextX2> X</TextX2>
-             </Filter2>
-            </FilterBox>
+                <Filter1><Filter1Text>{tag}</Filter1Text><TextX1> X</TextX1></Filter1>
+                <Filter2><Filter2Text>교양</Filter2Text><TextX2> X</TextX2></Filter2></FilterBox>
             <SearchFilterBtn>
-                <View style = {{
-                    flexDirection : "row"
-                }}>
+                <View style = {{flexDirection : "row"}}>
                     <LinearGradient style={{
                         width : 100,
                         height: 40,
@@ -107,17 +98,11 @@ const KeywordSearchBox_min = ({tag}) => {
                     }}
                         colors={['#0062FF', '#0A7DFF', '#1398FF']}
                         start={{x:1,y:0}} end={{x:0,y:0}}
-                    >
-                    <SearchFilterIcon>
-                        <Icon name="settings" size={25} color = 'white'/>
-                        <SearchFilterText>검색필터</SearchFilterText>
-                    </SearchFilterIcon>
-                    
+                    ><SearchFilterIcon><Icon name="settings" size={25} color = 'white'/><SearchFilterText>검색필터</SearchFilterText></SearchFilterIcon>             
                     </LinearGradient>
                 </View>
             </SearchFilterBtn>
         </SearchFilterBox>
     )
 }
-
 export default KeywordSearchBox_min;

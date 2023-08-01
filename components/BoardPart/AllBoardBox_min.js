@@ -4,12 +4,11 @@ import firestore from '@react-native-firebase/firestore';
 import styled from "styled-components/native";
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
-import ModalTwoOptions from "./ModalTwoOptions";
+import ModalTwoOptions from "../Modal/ModalTwoOptions";
 
 import moment from "moment"
 
 //게시글 누르면 전체 글이 나오는 Box
-
 const BoardBox = styled.View`
     //border: 1px;
     border-radius: 10px;
@@ -24,7 +23,7 @@ const BoardBox = styled.View`
         flex-direction: row;
         margin-bottom: 10px;
     `;
-        const WriterPicture = styled.View`
+        const WriterPicture = styled.Image`
             margin-left: 20px;
             border-radius: 10px;
             background-color: #BBBBBB;
@@ -209,7 +208,7 @@ const BoardBox = styled.View`
                         align-self: center;
                     `;
 
-const AllBoardBox_min = ({title, content, time, goodCount, CommentCountt}) => {
+const AllBoardBox_min = ({profile, name, title, content, time, goodCount, commentCountt}) => {
     const [modalVisible,setModalVisible] = useState(false)
     
     const DoScrap = () =>{
@@ -241,51 +240,26 @@ const AllBoardBox_min = ({title, content, time, goodCount, CommentCountt}) => {
                 yestext="스크랩하기"
                 actOn={DoScrap}
             />
-                <WriterProfileBox><WriterPicture></WriterPicture>
-                    <PostinforBox>
-                        <WriterName>익명</WriterName>
-                        <PostDate>{time}</PostDate>
-                    </PostinforBox>
-                    <ShareIcon><Icons source={require('../images/share.png')}/></ShareIcon>
-                    <SaveIcon ConfigureBtn onPress={()=>setModalVisible(true)}>
-                        <Icons source={require('../images/scrap.png')}/>
-                    </SaveIcon>
-                    <SendIcon><Icons source={require('../images/Note.png')}/></SendIcon>
+                <WriterProfileBox>
+                    <WriterPicture source={profile}></WriterPicture>
+                    <PostinforBox><WriterName>{name}</WriterName><PostDate>{time}</PostDate></PostinforBox>
+                    <ShareIcon><Icons source={require('../../images/share.png')}/></ShareIcon>
+                    <SaveIcon ConfigureBtn onPress={()=>setModalVisible(true)}><Icons source={require('../../images/scrap.png')}/></SaveIcon>
+                    <SendIcon><Icons source={require('../../images/Note.png')}/></SendIcon>
                 </WriterProfileBox>
                 <WriterPost>
-                    <PostTitle>
-                        <PostTitleText>{title}</PostTitleText>
-                    </PostTitle>
-                    <PostContent>
-                        <PostContentText>{content}</PostContentText>
-                    </PostContent>
+                    <PostTitle><PostTitleText>{title}</PostTitleText></PostTitle>
+                    <PostContent><PostContentText>{content}</PostContentText></PostContent>
                     <OtherBox>
                         <KeywordBox>
-                            <KeywordBox1>
-                                <Keyword1>
-                                    <KeywordText1># 키워드</KeywordText1>
-                                </Keyword1>
-                            </KeywordBox1>
-                            <KeywordBox2>
-                                <Keyword2>
-                                    <KeywordText2># 키워드</KeywordText2>
-                                </Keyword2>
-                            </KeywordBox2>
+                        <KeywordBox1><Keyword1><KeywordText1># 키워드</KeywordText1></Keyword1></KeywordBox1>
+                        <KeywordBox2><Keyword2><KeywordText2># 키워드</KeywordText2></Keyword2></KeywordBox2>
                         </KeywordBox>
                         <WriterCommentBox>
-                            <CommentCount>
-                                <CommentIcon source={require('../images/comment.png')}>
-                                </CommentIcon>
-                                <CommentText>{CommentCountt}</CommentText>
-                            </CommentCount>
-                            <GoodCount>
-                                <GoodIcon source={require('../images/good.png')}>
-                                </GoodIcon>
-                                <GoodText>{goodCount}</GoodText>
-                            </GoodCount>
+                            <CommentCount><CommentIcon source={require('../../images/comment.png')}></CommentIcon><CommentText>{commentCountt}</CommentText></CommentCount>
+                            <GoodCount><GoodIcon source={require('../../images/good.png')}></GoodIcon><GoodText>{goodCount}</GoodText></GoodCount>
                         </WriterCommentBox>
                     </OtherBox>
-                    
                 </WriterPost>
             </BoardBox>
     )

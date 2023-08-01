@@ -8,7 +8,7 @@ import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
 
 import { useState  } from "react";
-import CommentBox from "../../../components/CommentBox_jun";
+import CommentBox from "../../../components/NotUsing/CommentBox_jun";
 
 const Container = styled.View`
     //border:2px;

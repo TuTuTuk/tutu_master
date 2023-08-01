@@ -66,15 +66,15 @@ const CommentBox=({info})=>{
                 <RightView>
                     <FunctionImage 
                         resizeMode="stretch"
-                        source={require('../images/comment.png')}
+                        source={require('../../images/comment.png')}
                     />
                     <FunctionImage 
                         resizeMode="stretch"
-                        source={require('../images/good.png')}
+                        source={require('../../images/good.png')}
                     />
                     <FunctionImage 
                         resizeMode="stretch"
-                        source={require('../images/ViewMore.png')}
+                        source={require('../../images/ViewMore.png')}
                     />
                 </RightView>
             </TopView>

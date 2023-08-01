@@ -283,7 +283,7 @@ const My = ({navigation:{navigate}}) => {
             <Menus contents={"오픈소스 라이선스"} nav={""}/>
             {/* <PopualrBox>
                 <PickText>문의하기</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"Question_min"})}>
+                <GoIcon onPress={()=>navigate("Stack",{screen:"Inquiry"})}>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
             </PopualrBox>

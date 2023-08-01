@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
+
 import TopBar_Search from "../../components/TopBar_Search";
-import HotBoard from "../../components/HotBoard";
+import HotBoard from "../../components/BoardPart/HotBoard";
 import BlueButton from "../../components/BlueButton";
+
 import auth from "@react-native-firebase/auth"
 import firestore from '@react-native-firebase/firestore';
 
@@ -81,20 +83,37 @@ const MajorIcon = styled.Image`
         align-self: center;
 `;
 
-const MajorContainer = ({title, name}) => {
-     return(
-          <Major11 onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:title}})}>
-               <Image11>
-                    <MajorIcon source={{uri : `../../images/Major_Icon/Major_${title}.png`}}></MajorIcon>
-               </Image11>
-               <TextBox11>
-                    <Image11Text>{name}</Image11Text>
-               </TextBox11>
-          </Major11>
-     )  
-}
-
 const Board_min = ({navigation:{navigate}})=>{
+
+     const Majors_1 = [["Design", require("../../images/Major_Icon/Major_Design.png"), "디자인"],
+     ["Computer", require("../../images/Major_Icon/Major_Computer.png"), "컴퓨터"],
+     ["Game", require("../../images/Major_Icon/Major_Game.png"), "게임"]]
+
+     const Majors_2 = [["Ai", require("../../images/Major_Icon/Major_AI.png"), "인공지능"],
+     ["Machine", require("../../images/Major_Icon/Major_Machine.png"), "기계"],
+     ["MachineDesign",require("../../images/Major_Icon/Major_MachineDesign.png"), "기계설계"]]
+
+     const Majors_3 = [["Mechatronics", require("../../images/Major_Icon/Major_Mechatronics.png"), "메카트로닉스"],
+     ["Electron", require("../../images/Major_Icon/Major_Electron.png"), "전자"],
+     ["NewMaterial", require("../../images/Major_Icon/Major_NewMaterial.png"), "신소재"]]
+
+     const Majors_4 = [["Chemistry", require("../../images/Major_Icon/Major_LifeChemistry.png"), "생명화학"],
+     ["Nano", require("../../images/Major_Icon/Major_Nano.png"), "나노반도체"],
+     ["Energy", require("../../images/Major_Icon/Major_Energy.png"), "에너지-전기"]]
+
+     const MajorContainer = ({title, address, name}) => {
+          return(
+               <Major11 onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:title}})}>
+                    <Image11>
+                         <MajorIcon source={address}></MajorIcon>
+                    </Image11>
+                    <TextBox11>
+                         <Image11Text>{name}</Image11Text>
+                    </TextBox11>
+               </Major11>
+          )  
+     }
+
      return(
           <Container>
                <TopBar_Search title="게시판"></TopBar_Search>
@@ -102,105 +121,35 @@ const Board_min = ({navigation:{navigate}})=>{
                <BlueButton title="통합 게시판" click={null} mbottom={30} move="Integrated_Board_min"/>
                <AllMajorBox>
                     <Major1>
-                         {/*<MajorContainer title={"Design"} name={"디자인"}/>
-                         // <MajorContainer title={"Computer"} name={"컴퓨터"}/>
-                         // <MajorContainer title={"Game"} name={"게임"}/>*/}
-                         <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Design"}})}
-                         >
-                              <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Design.png')}></MajorIcon></Image11>
-                              <TextBox11><Image11Text>디자인</Image11Text></TextBox11>
-                         </Major11>
-                         <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Computer"}})}
-                         >    
-                              <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Computer.png')}></MajorIcon></Image11>
-                              <TextBox11><Image11Text>컴퓨터</Image11Text></TextBox11>
-                         </Major11>
-                         <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Game"}})}
-                         >
-                              <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Game.png')}></MajorIcon></Image11>
-                              <TextBox11><Image11Text>게임</Image11Text></TextBox11>
-                         </Major11> 
+                         {Majors_1.map((Major, index)=>{
+                              return(
+                                   <MajorContainer key={`Majors_1_${index}`} title={Major[0]} address={Major[1]} name={Major[2]}/>          
+                              )
+                         })}
                     </Major1>
                     <Major1>
-                          {/*<MajorContainer title={"AI"} name={"인공지능"}/>
-                         // <MajorContainer title={"Machine"} name={"기계"}/>
-                         // <MajorContainer title={"MachineDesign"} name={"기계설계"}/>*/}
-                         <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"AI"}})}
-                         >
-                              <Image11><MajorIcon source={require('../../images/Major_Icon/Major_AI.png')}></MajorIcon></Image11>
-                              <TextBox11><Image11Text>인공지능</Image11Text></TextBox11>
-                         </Major11>
-                         <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Machine"}})}
-                         >
-                              <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Machine.png')}></MajorIcon></Image11>
-                              <TextBox11><Image11Text>기계</Image11Text></TextBox11>
-                         </Major11>
-                         <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"MachineDesign"}})}
-                         >
-                              <Image11><MajorIcon source={require('../../images/Major_Icon/Major_MechineDesign.png')}></MajorIcon></Image11>
-                              <TextBox11><Image11Text>기계설계</Image11Text></TextBox11>
-                         </Major11>
+                         {Majors_2.map((Major, index)=>{
+                              return(
+                                   <MajorContainer key={`Majors_2_${index}`} title={Major[0]} address={Major[1]} name={Major[2]}/>          
+                              )
+                         })}
                     </Major1>
                     <Major1>
-                          {/*<MajorContainer title={"Mechatronics"} name={"메카트로닉스"}/>
-                         // <MajorContainer title={"Electron"} name={"전자"}/>
-                         // <MajorContainer title={"NewMaterial"} name={"신소재"}/>*/}
-                         <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Mechatronics"}})}
-                         >
-                              <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Mechatronics.png')}></MajorIcon></Image11>
-                              <TextBox11><Image11Text>메카트로닉스</Image11Text></TextBox11>
-                         </Major11>
-                         <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Electron"}})}
-                         >
-                              <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Electron.png')}></MajorIcon></Image11>
-                              <TextBox11><Image11Text>전자</Image11Text></TextBox11>
-                         </Major11>
-                         <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"NewMaterial"}})}
-                         >
-                              <Image11><MajorIcon source={require('../../images/Major_Icon/Major_NewMaterial.png')}></MajorIcon></Image11>
-                              <TextBox11><Image11Text>신소재</Image11Text></TextBox11>
-                         </Major11>
+                         {Majors_3.map((Major, index)=>{
+                              return(
+                                   <MajorContainer key={`Majors_3_${index}`} title={Major[0]} address={Major[1]} name={Major[2]}/>          
+                              )
+                         })}
                     </Major1>
                     <Major1>
-                         {/*<MajorContainer title={"LifeChemistry"} name={"생명화학"}/>
-                         // <MajorContainer title={"Nano"} name={"나노반도체"}/>
-                         // <MajorContainer title={"Energy"} name={"에너지-전기"}/>*/}
-                        <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"LifeChemistry"}})}
-                         >
-                              <Image11><MajorIcon source={require('../../images/Major_Icon/Major_LifeChemistry.png')}></MajorIcon></Image11>
-                              <TextBox11><Image11Text>생명화학</Image11Text></TextBox11>
-                         </Major11>
-                         <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Nano"}})}
-                         >
-                              <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Nano.png')}></MajorIcon></Image11>
-                              <TextBox11><Image11Text>나노반도체</Image11Text></TextBox11>
-                         </Major11>
-                         <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Energy"}})}
-                         >
-                              <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Energy.png')}></MajorIcon></Image11>
-                              <TextBox11><Image11Text>에너지-전기</Image11Text></TextBox11>
-                         </Major11>
+                         {Majors_4.map((Major, index)=>{
+                              return(
+                                   <MajorContainer key={`Majors_4_${index}`} title={Major[0]} address={Major[1]} name={Major[2]}/>          
+                              )
+                         })}
                     </Major1>
                     <Major1>
-                         {/*<MajorContainer title={"Management"} name={"경영"}/>*/}
-                         <Major11
-                              onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{kind:"Management"}})}
-                         >
-                              <Image11><MajorIcon source={require('../../images/Major_Icon/Major_Management.png')}></MajorIcon></Image11>
-                              <TextBox11><Image11Text>경영</Image11Text></TextBox11>
-                         </Major11>
+                         <MajorContainer title={"Management"} address={require("../../images/Major_Icon/Major_Management.png")} name={"경영"}/>
                     </Major1>
                </AllMajorBox>
           </Container>

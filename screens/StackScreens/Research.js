@@ -6,7 +6,9 @@ import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
 import LinearGradient from 'react-native-linear-gradient';
 
-import ModalTwoOptions from "../../../components/ModalTwoOptions";
+import ModalTwoOptions from "../../components/Modal/ModalTwoOptions";
+import RecentKwd from "./Research/RecentKwd";
+import HotResearch from "./Research/HotResearch";
 
 const Container = styled.View`
     //border:1px;
@@ -105,6 +107,9 @@ const SelectBox = styled.View`
         line-height: 19px;
         text-align: center;
     `;
+
+//--------------------------검색필터---------------------------
+
 //-------------------------------------------------------------------
 //--------------------------최근 검색어-------------------------------
 //-------------------------------------------------------------------
@@ -149,96 +154,8 @@ const SeachHistoryBox = styled.View`
             width: 100%;
             height: 100%;
         `;
-
-const AllDelect = styled.TouchableOpacity`
-    margin-top: 40px;
-    width: 100%;
-    height : 30px;
-    justify-content: center;
-    border-radius: 10px;
-    background-color: #545454;
-    align-self: center;
-`;
-    const AllDelectText = styled.Text`
-        font-family: 'Pretendard';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 19px;
-        align-self: center;
-        color: white;
-    `;
-
-//---------------------------------------------------------------
-//-------------------------인기 키워드----------------------------
-//---------------------------------------------------------------
-const AllBox = styled.View`
-    //border: 1px;
-`;
-const HotKeywordBox = styled.View`
-    //border  : 1px;
-    margin-top: 1.37%;
-    width : 100%;
-    height : 30px;
-    flex-direction: row;
-    border-radius: 10px;
-    background-color: #E3E3E3 ;
-    align-self: center;
-`; 
-    const HotNumberBox = styled.View`
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-        //border: 1px;
-        margin-top: 3px;
-        margin-right: 10px;
-    `;
-        const NumberTopText = styled.Text`
-            font-family: 'Pretendard';
-            font-style: normal;
-            font-weight: 500;
-            font-size: 16px;
-            line-height: 19px;
-            align-self: center;
-            color: #0062FF;
-        `;
-        const NumberText = styled.Text`
-            font-family: 'Pretendard';
-            font-style: normal;
-            font-weight: 500;
-            font-size: 16px;
-            line-height: 19px;
-            align-self: center;
-            color: #818181;
-        `;
-    const KeywordTextBox = styled.View`
-        height: 30px;
-        //border: 1px;
-        justify-content: center;
-        width : 80%;
-    `;
-        const KeywordText = styled.Text`
-            font-family: 'Pretendard';
-            font-style: normal;
-            font-weight: 500;
-            font-size: 12px;
-            line-height: 14px;
-            display: flex;
-            align-items: center;
-        `;
-    const UpDownBox = styled.View`
-        //border: 1px;
-        width: 30px;
-        height: 30px;
-    `;    
-    const UpDownIcon = styled.Image`
-        width: 100%;
-        height: 100%;
-    `;
-
-//---------------------------------------------------------------
-//-------------------------검색 필터------------------------------
-//---------------------------------------------------------------
+    
+//--------------------------검색필터---------------------------
 const ViewFilterBox  = styled.ScrollView`
     //border: 1px;
     margin-top: 2.45%;
@@ -409,18 +326,15 @@ const FilterPartBox = styled.View`
                 height: 100%;
             `;
 
-
-const Board_research_min = ({navigation:{navigate}})=>{
+const Research = ({navigation:{navigate}})=>{
+    const navigation = useNavigation();
     
     const [click,setClick] = useState(false);
-    const [modalVisible,setModalVisible] = useState(false);
-
-    const navigation = useNavigation();
-
     const [recent, setRecent] = useState("#E3E3E3");
     const [hot, setHot] = useState("#E3E3E3");
     const [filter, setFilter] = useState("#E3E3E3");
 
+    //최근검색어,인기키워드,검색필터 누르면 색깔 변화
     const ClickRecent=()=>{
         recent === "#E3E3E3" ? setRecent("#1398FF"):setRecent("#1398FF");
         hot === "#1398FF" ? setHot("#E3E3E3"):setHot("#E3E3E3");
@@ -447,8 +361,8 @@ const Board_research_min = ({navigation:{navigate}})=>{
         UpdateData();
     },[])
 
+    //
     const GetValue = async() =>{
-
         const Ref = firestore().collection('Search')
         const data = await Ref.orderBy("searchCnt","asc").get();
         data.forEach(document=>{
@@ -457,15 +371,14 @@ const Board_research_min = ({navigation:{navigate}})=>{
                 id: document.id,
             }
             setHotKwd(prev => [rweetObject, ...prev]); 
-        })
-    }
+        })}
+
     const UpdateData=async()=>{
         const tempSave = await firestore().collection("users").doc(auth().currentUser.uid).collection("recent_searches").doc("arr").get();
         setRecentSave(tempSave._data);
+        console.log(recentSave)
     }
-    const onRemove=() => {
-        firestore().collection("users").doc(auth().currentUser.uid).collection("recent_searches").doc("arr").delete();
-    }
+
     //---------------------------------------------------------------------
     //-----------------------------검색 누르면------------------------------
     const DoneSearch = async()=>{
@@ -487,11 +400,12 @@ const Board_research_min = ({navigation:{navigate}})=>{
         }
         //최근 검색어에 넣기
         const tempSave = await firestore().collection("users").doc(auth().currentUser.uid).collection("recent_searches").doc("arr").get()
-        firestore().collection("users").doc(auth().currentUser.uid).collection("recent_searches").doc("arr").update({
-                    arr:[...tempSave._data.arr,{
-                        keyword : searchText,
-                    }]
-        })
+        firestore().collection("users").doc(auth().currentUser.uid).collection("recent_searches").doc("arr").set({
+            arr:[...tempSave._data.arr,{
+                keyword : searchText,
+        }]})
+        UpdateData();
+        navigation.navigate("Research");
     }
 
     const RecentBox = styled.TouchableOpacity`
@@ -538,6 +452,7 @@ const Board_research_min = ({navigation:{navigate}})=>{
         setKeywords(keywordd)
         console.log(Keywords)
     }
+
     //특정 키워드 색깔 돌려놓기 (전공)
     const ResetMajor=(major)=>{
         const save = [...pressMajor];
@@ -616,6 +531,22 @@ const Board_research_min = ({navigation:{navigate}})=>{
             default: null
         }
     }   
+    const filtering=()=>{
+        const keywordd = [...Keywords];
+        let filtered1 = keywordd.filter((element) => element != "컴퓨터공학부");
+        let filtered2 = filtered1.filter((element) => element != "게임공학과");
+        let filtered3 = filtered2.filter((element) => element != "인공지능학과");
+        let filtered4 = filtered3.filter((element) => element != "기계설계공학과");
+        let filtered5 = filtered4.filter((element) => element != "생명화학공학과");
+        let filtered6 = filtered5.filter((element) => element != "나노반도체공학과");
+        let filtered7 = filtered6.filter((element) => element != "에너지,전기공학과");
+        let filtered8 = filtered7.filter((element) => element != "경영학부");
+        let filtered9 = filtered8.filter((element) => element != "디자인공학부");
+        let filtered10 = filtered9.filter((element) => element != "전자공학부");
+        let filtered11 = filtered10.filter((element) => element != "메카트로닉스공학부");
+        let filtered12 = filtered11.filter((element) => element != "신소재공학과");
+        setKeywords(filtered12)        
+    }
 
     const [keywordsView , setKeywordsView] = useState(false);
     const [addKeyword, setAddKeyword] = useState("");
@@ -627,21 +558,12 @@ const Board_research_min = ({navigation:{navigate}})=>{
     
     return(
         <>
-        <ModalTwoOptions
-                transparent={true}
-                visible={modalVisible}
-                setvisible={setModalVisible}
-                title = "전체 삭제"
-                contents="최근 검색 기록을 전체 삭제 하시겠습니까?"
-                yestext="삭제하기"
-                actOn={onRemove}
-        />
         <Container>
             <HeaderBox>
                 <BackView>
                     <BackBtn 
                         onPressOut={()=>navigation.goBack()}>
-                        <BackIcon source={require('../../../images/Back.png')}></BackIcon>
+                        <BackIcon source={require('../../images/Back.png')}></BackIcon>
                     </BackBtn>
                 </BackView>
                 <BoardTextBox>
@@ -656,11 +578,11 @@ const Board_research_min = ({navigation:{navigate}})=>{
                             navigation.navigate("Stack",{screen:"Board_research_min"})
                             DoneSearch();
                         }}>
-                        <SearchImage source={require('../../../images/Search.png')}></SearchImage>
+                        <SearchImage source={require('../../images/Search.png')}></SearchImage>
                     </SearchBtn>
                 </BoardTextBox>
                 <PlusBtn onPress={()=> setModal(true)}> 
-                    <PlusImage source={require('../../../images/ViewMore.png')}></PlusImage>
+                    <PlusImage source={require('../../images/ViewMore.png')}></PlusImage>
                 </PlusBtn>
             </HeaderBox>
 
@@ -681,7 +603,7 @@ const Board_research_min = ({navigation:{navigate}})=>{
                             DelKwd(keyword)
                             ResetField(keyword)
                         }}>
-                            <DeleteIcon source={require('../././../../images/X.png')}></DeleteIcon>
+                            <DeleteIcon source={require('../../images/X.png')}></DeleteIcon>
                         </AddFilterDelete>
                     </PressFieldFilter>
                     :   
@@ -694,7 +616,7 @@ const Board_research_min = ({navigation:{navigate}})=>{
                             DelKwd(keyword)
                             ResetMajor(keyword);
                         }}>
-                            <DeleteIcon source={require('../././../../images/X.png')}></DeleteIcon>
+                            <DeleteIcon source={require('../../images/X.png')}></DeleteIcon>
                         </AddFilterDelete>
                     </PressMajorFilter>
                     :
@@ -703,15 +625,11 @@ const Board_research_min = ({navigation:{navigate}})=>{
                         <AddFilterDelete onPress={()=>{
                             DelKwd(keyword)
                             ResetHot(keyword)
-                            
                         }}>
-                            <DeleteIcon source={require('../././../../images/X.png')}></DeleteIcon>
+                            <DeleteIcon source={require('../../images/X.png')}></DeleteIcon>
                         </AddFilterDelete>
                     </PressHotFilter>
-                    )
-        })
-                }
-                   
+                    )})}
                 </ViewFilterBox>
                 :
                 null
@@ -744,166 +662,36 @@ const Board_research_min = ({navigation:{navigate}})=>{
             </SelectBox>
             {
                 recentVisible == true?
-                    recentSave != null?
-                    <BigView>
-                        <FlatList
-                            showsVerticalScrollIndicator={false} //scroll바 가리기
-                            keyExtractor={(item)=>`${item.keyword}`}//고유 키값 부여
-                            data={recentSave.arr}
-                            renderItem= {({item})=>
-                                <SeachHistoryBox>
-                                    <SearchHistoryTextBox>
-                                        <SearchHistoryText>{item.keyword}</SearchHistoryText>
-                                    </SearchHistoryTextBox>
-                                    <DelectHistoryBox>
-                                        <DelectHistoryIcon source={require('../../../images/X.png')}></DelectHistoryIcon>
-                                    </DelectHistoryBox>
-                                </SeachHistoryBox>
-                            }
-                        />
-                        <AllDelect onPress={()=>setModalVisible(true)}>
-                            <AllDelectText>검색기록 전체삭제</AllDelectText>
-                        </AllDelect>
-                    </BigView>
-                    :
-                    <BigView>
-                        <AllDelect onPress={()=>setModalVisible(true)}>
-                            <AllDelectText>검색기록 전체삭제</AllDelectText>
-                        </AllDelect>
-                    </BigView>
+                <RecentKwd 
+                    recentSave = {recentSave}
+                    setRecentSave = {setRecentSave} 
+                /> 
                 :
                 hotVisible == true?
-                <AllBox>
-                    <HotKeywordBox>
-                        <HotNumberBox><NumberTopText>1</NumberTopText></HotNumberBox>
-                        {
-                            HotKwd[0] == null?
-                            <KeywordTextBox><KeywordText></KeywordText></KeywordTextBox>
-                            :<KeywordTextBox><KeywordText>{HotKwd[0].id}</KeywordText></KeywordTextBox>
-                        }
-                        <UpDownBox><UpDownIcon source={require('../../../images/UpArrow.png')}></UpDownIcon></UpDownBox>
-                    </HotKeywordBox>
-                    <HotKeywordBox>
-                        <HotNumberBox><NumberTopText>2</NumberTopText></HotNumberBox>
-                        {
-                            HotKwd[1] == null?
-                            <KeywordTextBox><KeywordText></KeywordText></KeywordTextBox>
-                            :<KeywordTextBox><KeywordText>{HotKwd[1].id}</KeywordText></KeywordTextBox>
-                        }
-                        <UpDownBox><UpDownIcon source={require('../../../images/UpArrow.png')}></UpDownIcon></UpDownBox>
-                    </HotKeywordBox>
-                    <HotKeywordBox>
-                        <HotNumberBox><NumberTopText>3</NumberTopText></HotNumberBox>
-                        {
-                            HotKwd[2] == null?
-                            <KeywordTextBox><KeywordText></KeywordText></KeywordTextBox>
-                            :<KeywordTextBox><KeywordText>{HotKwd[2].id}</KeywordText></KeywordTextBox>
-                        }
-                        <UpDownBox><UpDownIcon source={require('../../../images/UpArrow.png')}></UpDownIcon></UpDownBox>
-                    </HotKeywordBox>
-                    <HotKeywordBox>
-                        <HotNumberBox><NumberText>4</NumberText></HotNumberBox>
-                        {
-                            HotKwd[3] == null?
-                            <KeywordTextBox><KeywordText></KeywordText></KeywordTextBox>
-                            :<KeywordTextBox><KeywordText>{HotKwd[3].id}</KeywordText></KeywordTextBox>
-                        }
-                        <UpDownBox><UpDownIcon source={require('../../../images/UpArrow.png')}></UpDownIcon></UpDownBox>
-                    </HotKeywordBox>
-                    <HotKeywordBox>
-                        <HotNumberBox><NumberText>5</NumberText></HotNumberBox>
-                        {
-                            HotKwd[4] == null?
-                            <KeywordTextBox><KeywordText></KeywordText></KeywordTextBox>
-                            :<KeywordTextBox><KeywordText>{HotKwd[4].id}</KeywordText></KeywordTextBox>
-                        }
-                        <UpDownBox><UpDownIcon source={require('../../../images/UpArrow.png')}></UpDownIcon></UpDownBox>
-                    </HotKeywordBox>
-                    <HotKeywordBox>
-                        <HotNumberBox><NumberText>6</NumberText></HotNumberBox>
-                        {
-                            HotKwd[5] == null?
-                            <KeywordTextBox><KeywordText></KeywordText></KeywordTextBox>
-                            :<KeywordTextBox><KeywordText>{HotKwd[5].id}</KeywordText></KeywordTextBox>
-                        }
-                        <UpDownBox><UpDownIcon source={require('../../../images/UpArrow.png')}></UpDownIcon></UpDownBox>
-                    </HotKeywordBox>
-                    <HotKeywordBox>
-                        <HotNumberBox><NumberText>7</NumberText></HotNumberBox>
-                        {
-                            HotKwd[6] == null?
-                            <KeywordTextBox><KeywordText></KeywordText></KeywordTextBox>
-                            :<KeywordTextBox><KeywordText>{HotKwd[6].id}</KeywordText></KeywordTextBox>
-                        }
-                        <UpDownBox><UpDownIcon source={require('../../../images/UpArrow.png')}></UpDownIcon></UpDownBox>
-                    </HotKeywordBox>
-                    <HotKeywordBox>
-                        <HotNumberBox><NumberText>8</NumberText></HotNumberBox>
-                        {
-                            HotKwd[7] == null?
-                            <KeywordTextBox><KeywordText></KeywordText></KeywordTextBox>
-                            :<KeywordTextBox><KeywordText>{HotKwd[7].id}</KeywordText></KeywordTextBox>
-                        }
-                        <UpDownBox><UpDownIcon source={require('../../../images/UpArrow.png')}></UpDownIcon></UpDownBox>
-                    </HotKeywordBox>
-                    <HotKeywordBox>
-                        <HotNumberBox><NumberText>9</NumberText></HotNumberBox>
-                        {
-                            HotKwd[8] == null?
-                            <KeywordTextBox><KeywordText></KeywordText></KeywordTextBox>
-                            :<KeywordTextBox><KeywordText>{HotKwd[8].id}</KeywordText></KeywordTextBox>
-                        }
-                        <UpDownBox><UpDownIcon source={require('../../../images/UpArrow.png')}></UpDownIcon></UpDownBox>
-                    </HotKeywordBox>
-                    <HotKeywordBox>
-                        <HotNumberBox><NumberText>10</NumberText></HotNumberBox>
-                        {
-                            HotKwd[9] == null?
-                            <KeywordTextBox><KeywordText></KeywordText></KeywordTextBox>
-                            :<KeywordTextBox><KeywordText>{HotKwd[9].id}</KeywordText></KeywordTextBox>
-                        }
-                        <UpDownBox><UpDownIcon source={require('../../../images/UpArrow.png')}></UpDownIcon></UpDownBox>
-                    </HotKeywordBox>
-                </AllBox>
+                <HotResearch HotKwd = {HotKwd}/>
                 //===========================================
                 //검색필터 구현
                 :
                 filterVisible == true?
                 <>
                 <FilterPartBox>
-                        <FilterMainTitleBox>
-                            <FilterTitleBox>
-                                <FilterTitleText>학과</FilterTitleText>
-                            </FilterTitleBox>
-                            <DeselectBox onPress={()=>{
+                    <FilterMainTitleBox>
+                        <FilterTitleBox><FilterTitleText>학과</FilterTitleText></FilterTitleBox>
+                        <DeselectBox 
+                            onPress={()=>{
                                 setPressMajor([false,false,false,false,false,false,false,false,false,false,false,false])
-                                const keywordd = [...Keywords];
-                                let filtered1 = keywordd.filter((element) => element != "컴퓨터공학부");
-                                let filtered2 = filtered1.filter((element) => element != "게임공학과");
-                                let filtered3 = filtered2.filter((element) => element != "인공지능학과");
-                                let filtered4 = filtered3.filter((element) => element != "기계설계공학과");
-                                let filtered5 = filtered4.filter((element) => element != "생명화학공학과");
-                                let filtered6 = filtered5.filter((element) => element != "나노반도체공학과");
-                                let filtered7 = filtered6.filter((element) => element != "에너지,전기공학과");
-                                let filtered8 = filtered7.filter((element) => element != "경영학부");
-                                let filtered9 = filtered8.filter((element) => element != "디자인공학부");
-                                let filtered10 = filtered9.filter((element) => element != "전자공학부");
-                                let filtered11 = filtered10.filter((element) => element != "메카트로닉스공학부");
-                                let filtered12 = filtered11.filter((element) => element != "신소재공학과");
-                                setKeywords(filtered12)
-                            }}>
-                                <DeselctText>선택해제</DeselctText>
-                            </DeselectBox>
-                        </FilterMainTitleBox>
-                        <FilterRowColBox>
-                            <FilterRowBox>
-                            {
-                                pressMajor[0] == true?
-                                <FilterPressable onPress={()=>{
-                                    ResetMajor("컴퓨터공학부")
-                                    DelKwd("컴퓨터공학부")
-
-                                }}>
+                                filtering()
+                            }}><DeselctText>선택해제</DeselctText>
+                        </DeselectBox>
+                    </FilterMainTitleBox>
+                    <FilterRowColBox>
+                        <FilterRowBox>
+                        {
+                        pressMajor[0] == true?
+                        <FilterPressable onPress={()=>{
+                            ResetMajor("컴퓨터공학부")
+                            DelKwd("컴퓨터공학부")
+                        }}>
                                     <PressMajorText>컴퓨터공학부</PressMajorText>
                                 </FilterPressable>
                                 :
@@ -1745,4 +1533,4 @@ const Board_research_min = ({navigation:{navigate}})=>{
         </Container>
     </>
 )}
-export default Board_research_min;
+export default Research;
