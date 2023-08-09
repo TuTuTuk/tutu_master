@@ -8,8 +8,8 @@ const Container = styled.View`
     background-color: #E3E3E3;
     width:86.11%;
     height:102px;
-    margin-top: 10px;
     align-self:center;
+    margin-bottom:10px;
 `;
 
 const TopView = styled.View`

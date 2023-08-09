@@ -9,6 +9,7 @@ import firestore from '@react-native-firebase/firestore';
 
 import { useState  } from "react";
 import CommentBox from "../../../components/NotUsing/CommentBox_jun";
+import BlueButton from "../../../components/BlueButton";
 
 const Container = styled.View`
     //border:2px;
@@ -21,10 +22,11 @@ const Container = styled.View`
 const MainDetail = styled.View`
     //border: 2px;
     border-color:green;
-    background-color: #E3E3F3;
+    background-color: #E3E3E3;
     border-radius: 10px;
     width: 100%;
     align-self:center;
+    margin-bottom:20px;
     
 `;
     const ProfileBox = styled.View`
@@ -81,9 +83,9 @@ const MainDetail = styled.View`
             `;
     const MainContain = styled.View`
         //border:1px;
-        background-color: #C3C3C3;
+        background-color: #D3D3D3;
         width:100%;
-        height:172;
+        height:172px;
         border-radius: 10px;
     `;
         const MainTitle = styled.Text`
@@ -102,36 +104,80 @@ const MainDetail = styled.View`
             margin-left: 25px;
             color: #1D1D1D;
         `;
+        const MainOptions = styled.View`
+            //border:1px;
+            width: 85.8%;
+            flex-direction: row;
+            justify-content: space-between;
+            position: absolute;
+            bottom:10px;
+            left:25px;
+        `;
+            const OptionsKeywordBox = styled.View`
+                //border:1px;
+                width:50%;
+                height:20px;
+            `;
+            const OptionsCGBox = styled.View`
+                //border:1px;
+                height:20px;
+                flex-direction: row;
+            `;
+                const CGCGBox = styled.View`
+                    border-radius: 3px;
+                    background-color: white;
+                    flex-direction: row;
+                    margin-left: 5px;
+                `;
+                    const CGCGBoxImage = styled.Image`
+                        //border:1px;
+                        width:17.5px;
+                        height:20px;
+                        margin:2px;
+                    `;
+                    const CGCGBoxText = styled.Text`
+                        font-size:10px;  
+                        align-self: center;
+                        justify-self: center;
+                        margin:2px;
+                    `;
+
+const BlueButtonView = styled.View`
+    //border:2px;
+    width:86.11%;
+    align-self:center;
+`;
     
-    const ChatBox = styled.View`
+const ChatBox = styled.View`
+    //border:1px;
+    border-radius:10px;
+    width:86.11%;
+    height:40px;
+    bottom:8px;
+    padding-left:15px;
+    padding-right:15px;
+    flex-direction: row;
+    align-self:center;
+    justify-self: start;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #818181;
+    position:absolute;        
+`;
+    const ChatInput = styled.TextInput`
         //border:1px;
         border-radius:10px;
-        width:86.11%;
-        height:40px;
-        bottom:8px;
-        padding-left:15px;
-        padding-right:15px;
-        flex-direction: row;
-        align-self:center;
-        justify-self: start;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #818181;
-        position:absolute;        
+        width:80%;
+        height:100%;
+        
     `;
-        const ChatInput = styled.TextInput`
-            //border:1px;
-            border-radius:10px;
-            width:80%;
-            height:100%;
+        const SendBtn = styled.Pressable`
+            //border:1px;      
+            width:25px;
+            height:25px;
         `;
-            const SendBtn = styled.Pressable`
-                //border:1px;      
-                width:25px;
-                height:25px;
+            const ImageBtn = styled.Image`
             `;
-                const ImageBtn = styled.Image`
-                `;
 
 const BoardDetail_jun =({route})=>{
 
@@ -194,26 +240,60 @@ const BoardDetail_jun =({route})=>{
                 {commentData==null? <Text>Loading</Text> :
                     <FlatList
                         ListHeaderComponent={
-                            <MainDetail>
-                                <ProfileBox>
-                                        <ProfileInfo>
-                                            <ProfileImage source={{uri:userData?userData.user_profile:null}}/>
-                                            <ProfileText>
-                                                <UserName>{route.params.info.user_name}</UserName>
-                                                <Date>{route.params.info.create_time}</Date>
-                                            </ProfileText>
-                                        </ProfileInfo>
-                                    <FunctionBox>
-                                        <FunctionImage></FunctionImage>
-                                        <FunctionImage></FunctionImage>
-                                        <FunctionImage></FunctionImage>
-                                    </FunctionBox>
-                                </ProfileBox>
-                                <MainContain>
-                                    <MainTitle>{route.params.info.title}</MainTitle>
-                                    <MainContents>{route.params.info.contents}</MainContents>
-                                </MainContain>
-                            </MainDetail>
+                            <>
+                                <MainDetail>
+                                    <ProfileBox>
+                                            <ProfileInfo>
+                                                <ProfileImage source={{uri:userData?userData.user_profile:null}}/>
+                                                <ProfileText>
+                                                    <UserName>{route.params.info.user_name}</UserName>
+                                                    <Date>{route.params.info.create_time}</Date>
+                                                </ProfileText>
+                                            </ProfileInfo>
+                                        <FunctionBox>
+                                            <FunctionImage 
+                                                resizeMode="stretch"
+                                                source={require('../../../images/share.png')}
+                                            />
+                                            <FunctionImage
+                                                resizeMode="stretch"
+                                                source={require('../../../images/scrap.png')}
+                                            />
+                                            <FunctionImage
+                                                resizeMode="stretch"
+                                                source={require('../../../images/Note.png')}
+                                            />
+                                        </FunctionBox>
+                                    </ProfileBox>
+                                    <MainContain>
+                                        <MainTitle>{route.params.info.title}</MainTitle>
+                                        <MainContents>{route.params.info.contents}</MainContents>
+                                        <MainOptions>
+                                            <OptionsKeywordBox>
+                                            </OptionsKeywordBox>
+                                            <OptionsCGBox>
+                                                <CGCGBox>
+                                                    <CGCGBoxImage
+                                                        resizeMode="stretch"
+                                                        source={require('../../../images/comment.png')}
+                                                    />
+                                                    <CGCGBoxText>1222</CGCGBoxText>
+                                                </CGCGBox>
+                                                <CGCGBox>
+                                                    <CGCGBoxImage
+                                                        resizeMode="stretch"
+                                                        source={require('../../../images/good.png')}
+                                                    />
+                                                    <CGCGBoxText>1222</CGCGBoxText>
+                                                </CGCGBox>
+                                            </OptionsCGBox>
+                                        </MainOptions>
+                                    </MainContain>
+                                </MainDetail>
+                                <BlueButtonView>
+                                    <BlueButton title="오픈 채팅방 바로가기" click={null} mbottom={20} screen={null}/>
+                                </BlueButtonView>
+                            </>
                         }
                         showsVerticalScrollIndicator={false} //scroll바 가리기
                         keyExtractor={(item)=>`${item.time}`}//고유 키값 부여

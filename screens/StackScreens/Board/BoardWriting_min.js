@@ -279,7 +279,7 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
                         contents:contentText,
                         user_uid:auth().currentUser.uid,
                         user_name:auth().currentUser.displayName,
-                        create_time:timeYear+'/'+timeMonth+'/'+timeDate,
+                        create_time: timeStr,
                         hits_count:0,
                         boards_uid:boardsUid
                     }]
