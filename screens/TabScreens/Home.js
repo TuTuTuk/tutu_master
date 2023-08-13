@@ -212,8 +212,8 @@ const Home =({navigation:{navigate}})=>{
         })
         console.log(temps)
 
-        const tempd = await firestore().collection("Notification").doc(temps[0].id).collection("mypage").get();
-        console.log(tempd)
+        //const tempd = await firestore().collection("Notification").doc(temps[0].id).collection("mypage").get();
+        //console.log(tempd)
     }
 
     useEffect(()=>{

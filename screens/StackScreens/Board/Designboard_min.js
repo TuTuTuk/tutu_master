@@ -15,7 +15,7 @@ import { useState } from "react";
 
 
 const Container = styled.View`
-    border:1px;
+    //border:1px;
     width:86%;
     height:100%;
     margin-left: 7%;
@@ -38,7 +38,7 @@ const WritingBtn = styled.TouchableOpacity`
     border-radius: 28px;
     justify-content: center;
     position: absolute;
-    bottom: 67px;
+    bottom: 30px;
 `;
     const WritingBtnText = styled.Text`
         color: white;
@@ -48,15 +48,14 @@ const WritingBtn = styled.TouchableOpacity`
     `;
 
 const Designboard_min = ({navigation:{navigate},route})=>{
-    const navigation = useNavigation();
     const [boardSave,setBoardSave] = useState("");
 
     const UpdateData=async()=>{
-        console.log(route.params.kind)
-        const tempSave = await firestore().collection("boards").doc(route.params.kind).get();
+        const tempSave = await firestore().collection("boards").doc(route.params.title).get();
+        console.log(tempSave._data+" @@@@")
         setBoardSave(tempSave._data);
     }
-
+    
     useEffect(()=>{
         UpdateData()
     },[])
@@ -74,11 +73,12 @@ const Designboard_min = ({navigation:{navigate},route})=>{
     return(
         <>
             <Container>
+                {boardSave==""?null:
                 <FlatList
                     ListHeaderComponent={
                         <>
                             <TopBar_Search title="검색 키워드"/>
-                            <KeywordSearchBox_min tag={route.params.kind}/>
+                            <KeywordSearchBox_min tag={route.params.title}/>
                         </>
                     }
                     showsVerticalScrollIndicator={false} //scroll바 가리기
@@ -87,12 +87,14 @@ const Designboard_min = ({navigation:{navigate},route})=>{
                     renderItem={({item,index})=>
                         //info={item} 으로 한번에 안넘기고 item.title 로 나눠서 넘기는 이유
                         //route.params.info.title 처럼 쓰지 않으면 info.title로 바로 쓸 수 없다.
-                        <BoardBox info={item} title={item.title} contents={item.contents} kind={route.params.kind} index={index}/>
+                        index==0?null:
+                        <BoardBox info={item} title={item.title} contents={item.contents} kind={route.params.title} index={index}/>
+
                     }
-                />
+                />}
             </Container>
             <WritingBtn
-                onPress={()=>navigate("Stack",{screen:"BoardWriting_min",params:{kind:route.params.kind}})}>
+                onPress={()=>navigate("Stack",{screen:"BoardWriting_min",params:{kind:route.params.title}})}>
                 <WritingBtnText>글쓰기</WritingBtnText>
             </WritingBtn>
         </>

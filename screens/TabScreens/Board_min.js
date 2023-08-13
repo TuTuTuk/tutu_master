@@ -83,24 +83,13 @@ const MajorIcon = styled.Image`
         align-self: center;
 `;
 
-const MajorContainer = ({title, address, name}) => {
-     return(
-          <Major11 onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:title}})}>
-               <Image11>
-                    <MajorIcon source={address}></MajorIcon>
-               </Image11>
-               <TextBox11>
-                    <Image11Text>{name}</Image11Text>
-               </TextBox11>
-          </Major11>
-     )  
-}
 const Board_min = ({navigation:{navigate}})=>{
+
      const Majors_1 = [["Design", require("../../images/Major_Icon/Major_Design.png"), "디자인"],
      ["Computer", require("../../images/Major_Icon/Major_Computer.png"), "컴퓨터"],
      ["Game", require("../../images/Major_Icon/Major_Game.png"), "게임"]]
 
-     const Majors_2 = [["AI", require("../../images/Major_Icon/Major_AI.png"), "인공지능"],
+     const Majors_2 = [["Ai", require("../../images/Major_Icon/Major_AI.png"), "인공지능"],
      ["Machine", require("../../images/Major_Icon/Major_Machine.png"), "기계"],
      ["MachineDesign",require("../../images/Major_Icon/Major_MachineDesign.png"), "기계설계"]]
 
@@ -108,11 +97,23 @@ const Board_min = ({navigation:{navigate}})=>{
      ["Electron", require("../../images/Major_Icon/Major_Electron.png"), "전자"],
      ["NewMaterial", require("../../images/Major_Icon/Major_NewMaterial.png"), "신소재"]]
 
-     const Majors_4 = [["LifeChemistry", require("../../images/Major_Icon/Major_LifeChemistry.png"), "생명화학"],
+     const Majors_4 = [["Chemistry", require("../../images/Major_Icon/Major_LifeChemistry.png"), "생명화학"],
      ["Nano", require("../../images/Major_Icon/Major_Nano.png"), "나노반도체"],
      ["Energy", require("../../images/Major_Icon/Major_Energy.png"), "에너지-전기"]]
-     
-const Board_min = ({navigation:{navigate}})=>{
+
+     const MajorContainer = ({title, address, name}) => {
+          return(
+               <Major11 onPress={()=>navigate("Stack",{screen:"Designboard_min",params:{title:title}})}>
+                    <Image11>
+                         <MajorIcon source={address}></MajorIcon>
+                    </Image11>
+                    <TextBox11>
+                         <Image11Text>{name}</Image11Text>
+                    </TextBox11>
+               </Major11>
+          )  
+     }
+
      return(
           <Container>
                <TopBar_Search title="게시판"></TopBar_Search>
