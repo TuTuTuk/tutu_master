@@ -1,6 +1,7 @@
 import TopBar_List from "../../../components/TopBar_List"
 import { Image, View, Text } from "react-native"
 import LinearGradient from "react-native-linear-gradient"
+import styled from "styled-components/native"
 
 const friends = [
     '조준서',
@@ -12,9 +13,86 @@ const friends = [
     '김한국'
 ]
 
+const Container = styled.View`
+  background-color : #FFFFFF;
+  height : 100%;
+  width : 100%;
+  display : flex;
+  align-items : center;
+  justify-content : space-between;
+  flex-direction : column;
+`
+
+const ContentsWrap = styled.View`
+  height : 55%;
+  width : 100%;
+  padding-vertical : 20;
+  padding-horizontal : 25;
+  display : flex;
+  justify-content : space-between;
+  background-color : rgba(227, 227, 227, 0.3);
+  border-radius : 10;
+`
+
+const GradeCalculateWrap = styled.View`
+  width : 100%;
+  height : 24%;
+  border-radius : 10;
+  background-color : rgba(227, 227, 227, 1);
+  justify-content : space-between;
+  padding-horizontal : 15;
+  padding-vertical : 15;
+`
+
+const FriendsWrap = styled.View`
+  width : 100%;
+  height : 72%;
+  border-radius : 10;
+  background-color : rgba(227, 227, 227, 1);
+  justify-content : space-between;
+  padding-horizontal : 15;
+  padding-vertical : 15;
+`
+
+const ContentTitle = styled.View`
+  display : flex;
+  flex-direction : row;
+  justify-content : space-between;
+  align-items : center;
+`
+
+const Content = styled.Text`
+  color : rgba(0, 98, 255, 1);
+`
+
+const GradeContainer = styled.View`
+  display : flex;
+  flex-direction : row;
+  padding-horizontal : 30;
+`
+
+const GradeWrap = styled.Text`
+  margin-right : 19;
+  font-weight : 500;
+`
+
+const CurrentGrade = styled.Text`
+  font-weight : 700;
+`
+
+const TotalGrade = styled.Text`
+  font-size : 12;
+  color : rgba(129, 129, 129, 1);
+`
+
+const Friend = styled.Text`
+  padding-horizontal : 30;
+  margin-top : 10;
+`
+
 export default function TimeTableMain() {
     return(
-        <View style={{backgroundColor:"#FFFFFF", height:"100%", width:"100%", display:"flex", alignItems:"center", justifyContent:'space-between', flexDirection:'column'}}>
+        <Container>
             <TopBar_List title={"시간표"}/> 
             <Image source={require('../../../images/tutu-logo.png')} alt="none"/>
             <Text style={{fontSize:13, fontWeight:'600'}}>이번 학기 시간표를 만들어주세요</Text>
@@ -30,27 +108,27 @@ export default function TimeTableMain() {
                 >
                 <Text style={{color:"#FFFFFF",fontWeight:"600", paddingHorizontal:72, paddingVertical:10}}>이번학기 시간표 만들기</Text>                        
             </LinearGradient>
-            <View style={{height:"55%",width:"100%", paddingVertical:20, paddingHorizontal:25, display:"flex", justifyContent:"space-between", backgroundColor:"rgba(227, 227, 227, 0.3)",borderRadius:10}}>
-                <View style={{width:"100%", height:"24%", borderRadius:10, backgroundColor:'rgba(227, 227, 227, 1)', padding:15, justifyContent:'space-between'}}>
-                    <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
-                        <Text style={{color:'rgba(0, 98, 255, 1)', fontSize:14}}>학점 계산기</Text>
+            <ContentsWrap>
+                <GradeCalculateWrap>
+                    <ContentTitle>
+                        <Content>학점 계산기</Content>
                         <Image source={require('../../../images/gradecalculate.png')} alt="none"/>
-                    </View>
-                    <View style={{display:'flex', flexDirection:'row', paddingHorizontal:30}}>
-                        <Text style={{marginRight:19, fontWeight:'500'}}>평균학점 <Text style={{fontWeight:'700'}}>4.00</Text> <Text style={{fontSize:12, color:'rgba(129, 129, 129, 1)'}}>/ 4.5</Text></Text>
-                        <Text style={{marginRight:19, fontWeight:'500'}}>취득학점 <Text style={{fontWeight:'700'}}>100</Text> <Text style={{fontSize:12, color:'rgba(129, 129, 129, 1)'}}>/ 140</Text></Text>
-                    </View>
-                </View>
-                <View style={{width:"100%", height:"72%", borderRadius:10, backgroundColor:'rgba(227, 227, 227, 1)', padding:15}}>
-                    <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
-                        <Text style={{color:'rgba(0, 98, 255, 1)', fontSize:14}}>친구 시간표</Text>
+                    </ContentTitle>
+                    <GradeContainer>
+                        <GradeWrap>평균학점 <CurrentGrade>4.00 </CurrentGrade><TotalGrade>/ 4.5</TotalGrade></GradeWrap>
+                        <GradeWrap>취득학점 <CurrentGrade>100 </CurrentGrade><TotalGrade>/ 140</TotalGrade></GradeWrap>
+                    </GradeContainer>
+                </GradeCalculateWrap>
+                <FriendsWrap>
+                    <ContentTitle>
+                        <Content>친구 시간표</Content>
                         <Image source={require('../../../images/addfriends.png')} alt="none"/>
-                    </View>
+                    </ContentTitle>
                     <View>
-                        {friends.map((friend, idx)=> <Text key={`friend${idx}`} style={{paddingHorizontal:30, marginTop:10}}>{friend}</Text>)}
+                        {friends.map((friend, idx)=> <Friend key={`friend${idx}`}>{friend}</Friend>)}
                     </View>
-                </View>
-            </View>
-        </View>
+                </FriendsWrap>
+            </ContentsWrap>
+        </Container>
     )
 }
