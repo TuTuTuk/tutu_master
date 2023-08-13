@@ -10,6 +10,7 @@ import Timetable from "../screens/TabScreens/Timetable";
 import LinearGradient from 'react-native-linear-gradient';
 import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/Ionicons";
+import TimeTableMain from "../screens/StackScreens/Timetable/Timetable";
 
 const BottomImge = styled.Image`
     width:30px;

@@ -49,6 +49,7 @@ import Matching_Request from "../screens/StackScreens/Matching/Matching_Request"
 //매칭(준서)
 import Matching_junseo from "../screens/StackScreens/Matching/Matching_junseo";
 import Agreement from "../screens/StackScreens/Agreement/Agreement";
+import TimeTableMain from "../screens/StackScreens/Timetable/Timetable";
 
 
 const NativeStack = createNativeStackNavigator();
@@ -104,6 +105,8 @@ const Stack =()=>(
         <NativeStack.Screen name="Matching_junseo" component={Matching_junseo}/>
 
         <NativeStack.Screen name="Agreement" component={Agreement}/>
+
+        <NativeStack.Screen name="TimeTableMain" component={TimeTableMain}/>
 
     </NativeStack.Navigator>
 )
