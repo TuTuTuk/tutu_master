@@ -51,9 +51,9 @@ const Designboard_min = ({navigation:{navigate},route})=>{
     const [boardSave,setBoardSave] = useState("");
 
     const UpdateData=async()=>{
-        const tempSave = await firestore().collection("boards").doc(route.params.title).get();
-        console.log(tempSave._data+" @@@@")
-        setBoardSave(tempSave._data);
+        const tempSave = await firestore().collection("boards").doc(route.params.title).collection("boardsUid").get();
+        console.log(tempSave._docs)
+        setBoardSave(tempSave._docs);
     }
     
     useEffect(()=>{
@@ -82,13 +82,12 @@ const Designboard_min = ({navigation:{navigate},route})=>{
                         </>
                     }
                     showsVerticalScrollIndicator={false} //scroll바 가리기
-                    keyExtractor={(item)=>`${item.create_time}`}//고유 키값 부여
-                    data={boardSave.arr}
+                    keyExtractor={(item)=>`${item._data.create_time}`}//고유 키값 부여
+                    data={boardSave}
                     renderItem={({item,index})=>
                         //info={item} 으로 한번에 안넘기고 item.title 로 나눠서 넘기는 이유
                         //route.params.info.title 처럼 쓰지 않으면 info.title로 바로 쓸 수 없다.
-                        index==0?null:
-                        <BoardBox info={item} title={item.title} contents={item.contents} kind={route.params.title} index={index}/>
+                        <BoardBox info={item._data} title={item._data.title} contents={item._data.contents} kind={route.params.title} index={index}/>
 
                     }
                 />}
