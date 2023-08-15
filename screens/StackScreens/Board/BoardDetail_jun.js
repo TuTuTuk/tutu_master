@@ -121,7 +121,7 @@ const MainDetail = styled.View`
                 height:20px;
                 flex-direction: row;
             `;
-                const CGCGBox = styled.View`
+                const CGCGBox = styled.Pressable`
                     border-radius: 3px;
                     background-color: white;
                     flex-direction: row;
@@ -198,6 +198,23 @@ const BoardDetail_jun =({route})=>{
     useEffect(()=>{
         UpdateData()
     },[])
+
+    //게시물 좋아요 클릭
+    const pressGood = async()=>{
+        const tempData = await firestore().collection("boards").doc(route.params.kind).get();
+        
+        await firestore().collection("boards").doc(route.params.kind).update({
+            arr:[...tempSave._data.arr,{
+                user_name:auth().currentUser.displayName,
+                user_uid: auth().currentUser.uid,
+                user_class_number : tempUser._data.user_class_number,
+                user_profile: tempUser._data.user_profile,
+                comment: comment,
+                time: timeStr
+            }]
+        })
+
+    }
 
 
 
@@ -277,7 +294,7 @@ const BoardDetail_jun =({route})=>{
                                                     />
                                                     <CGCGBoxText>1222</CGCGBoxText>
                                                 </CGCGBox>
-                                                <CGCGBox>
+                                                <CGCGBox  onPress={()=>console.log('1')}>
                                                     <CGCGBoxImage
                                                         resizeMode="stretch"
                                                         source={require('../../../images/good.png')}
