@@ -24,7 +24,7 @@ const TitleText = styled.Text`
     text-align: center;
 `;
 
-const TopBar_Close=()=>{
+const TopBar_Close=({title})=>{
     const navigation = useNavigation();
     return(
         <Container>
@@ -33,7 +33,7 @@ const TopBar_Close=()=>{
             >
                 <Image style={{marginLeft:20}} source={require('../images/Back.png')}/>
             </PressableBox>
-            <TitleText>선-후배 매칭</TitleText>
+            <TitleText>{title}</TitleText>
             <Image style={{marginRight:20}} source={require('../images/Close.png')}/>
         </Container>
     )
