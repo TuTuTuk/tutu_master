@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+
+=======
+>>>>>>> fe4a0daaaaf45e77362b387d6ce80ea9b31ac8c5
 import React from "react";
 import { Text ,FlatList,Keyboard,TouchableWithoutFeedback} from "react-native";
 import TopBar from "../../../components/TopBar";
@@ -6,9 +10,15 @@ import { useEffect } from "react";
 
 import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
+<<<<<<< HEAD
+
+import { useState } from "react";
+import CommentBox from "../../../components/NotUsing/CommentBox_jun";
+=======
 import { useState  } from "react";
 import CommentBox from "../../../components/NotUsing/CommentBox_jun";
 import BlueButton from "../../../components/BlueButton";
+>>>>>>> fe4a0daaaaf45e77362b387d6ce80ea9b31ac8c5
 
 const Container = styled.View`
     border-color:red;

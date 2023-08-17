@@ -19,12 +19,12 @@ const PressableBox = styled.Pressable`
 `;
 //--------------------------------
 const BackIcon = styled.Image`
-    width:100%;
-    height: 100%;
+    /* width:100%;
+    height: 100%; */
 `;
 const PlusIcon = styled.Image`
-    width:5%;
-    height: 100%;
+    /* width:5%;
+    height: 100%; */
 `;
 //--------------------------------
 

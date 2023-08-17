@@ -41,7 +41,7 @@ import ChangePW from "../screens/StackScreens/My/Account/ChangePW";
 import MyComments from "../screens/StackScreens/My/Imformation/MyComments";
 import MyBoards from "../screens/StackScreens/My/Imformation/MyBoards";
 import MyScrap from "../screens/StackScreens/My/Imformation/MyScrap";
-
+import Announce_Detail from "../screens/StackScreens/My/Announce_Detail"
 //매칭(민정)
 import Registration from "../screens/StackScreens/Matching/Registration";
 import Matching111 from "../screens/StackScreens/Matching/Matching111";
@@ -98,7 +98,7 @@ const Stack =()=>(
         <NativeStack.Screen name="MyComments" component={MyComments}/>
         <NativeStack.Screen name="MyBoards" component={MyBoards}/>
         <NativeStack.Screen name="MyScrap" component={MyScrap}/>
-
+        <NativeStack.Screen name="Announce_Detail" component={Announce_Detail}/>
 
 
         <NativeStack.Screen name="Matching_junseo" component={Matching_junseo}/>

@@ -1,8 +1,13 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import { Text, View} from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import TopBar from "../../components/TopBar";
+
 import auth from "@react-native-firebase/auth";
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 
 
@@ -12,49 +17,12 @@ const Container = styled.ScrollView.attrs(() => ({
     }
 }))`
     flex:1;
+    margin-Left : 7%;
+    margin-Right : 7%;
 `;
-
-const HeaderBox = styled.View`
-    //border: 1px;
-    width: 86%;
-    margin:10px;
-    justify-content: space-between;
-    align-self: center;
-    flex-direction:row;
-`;
-    const BackView = styled.View`
-        //border: 1px;
-        border-color: orange;
-        width:8.8%;
-        height:40px;
-    `;
-        const BackBtn = styled.TouchableOpacity`
-            //border : 1px;
-            height : 40px;
-            justify-content: center;
-        `;
-    const BoardTextBox = styled.View`
-        //border: 1px;
-        border-radius: 7px;
-        width : 79%;
-        justify-content: center;
-    `;
-        const BoardText = styled.Text`
-            font-family: 'Pretendard';
-            font-style: normal;
-            font-weight: 600;
-            font-size: 16px;
-            align-self: center;
-        `;
-    const PlusBtn = styled.TouchableOpacity`
-        //border: 1px;
-        border-color: orange;
-        height: 40px;
-        justify-content: center;
-    `;
 
 const InformBtn = styled.Pressable`
-    width:86%;
+    width:100%;
     background: #E3E3E3;
     border-radius: 10px;
     flex-direction:row;
@@ -106,7 +74,7 @@ const InformBtn = styled.Pressable`
         `;
 
 const BGBox = styled.View`
-        width:86%;
+        width:100%;
         align-self: center;
         background-color: #E3E3E3;
         border-Radius: 10px;
@@ -147,8 +115,8 @@ const NotionBtn = styled.TouchableOpacity`
     height:30px;
 `;
 const NotionText = styled.Text`
-color:black;
-font-size:10px;
+    color : black;
+    font-size : 10px;
 `;
 
 const ServiceBtn = styled.TouchableOpacity`
@@ -160,48 +128,48 @@ const ServiceText = styled.Text`
         color:black;
         font-size:10px;
     `;
-
-const Menus = ({contents, nav}) => {
-    return(
-        <PopualrBox>
-            <PickText>{contents}</PickText>
-            <GoIcon onPress={()=>!!nav ? navigate("Stack",{screen:`${nav}`}) : alert("이동할 페이지 없음")}>
-            <Icon name="chevron-forward-outline" size={25}/>
-            </GoIcon>
-        </PopualrBox>
-    )
-}
     
 const My = ({navigation:{navigate}}) => {
-    const [click,setClick] = useState(false);
+
+    const [userName, setUserName] = useState("");
+    const [userMajor, setUserMajor] = useState("");
+    const [userID, setUserID] = useState("");
+    const [userPoint, setUserPoint] = useState(0);
+    const [userImage, setUserImage] = useState();
+    
+    const GetData= async() => {
+        const data = await firestore().collection("users").doc(auth().currentUser.uid).get(); 
+        setUserName(data._data.user_name)
+        setUserMajor(data._data.user_department)
+        setUserID(data._data.user_class_number)
+        setUserImage(data._data.user_profile)
+    }
+
+    useEffect(()=>{
+        GetData()
+    },[])
+
+    const Menus = ({contents, nav}) => {
+        return(
+            <PopualrBox>
+                <PickText>{contents}</PickText>
+                <GoIcon onPress={()=>!!nav ? navigate("Stack",{screen:`${nav}`}) : alert("이동할 페이지 없음")}>
+                <Icon name="chevron-forward-outline" size={25}/>
+                </GoIcon>
+            </PopualrBox>
+        )
+    }
 
     return(
     <Container>
-        <HeaderBox>
-                <BackView>
-                    <BackBtn 
-                        onPress={()=>navigate("Tabs",{screen:"Home"})}>
-                        <Icon name="chevron-back-outline" size = {30} />
-                    </BackBtn>
-                </BackView>
-                <BoardTextBox>
-                    <BoardText>내 정보</BoardText>   
-                </BoardTextBox>
-                <PlusBtn
-                    onPress={()=>setModalVisible(true)}>
-                    <Icon name="ellipsis-vertical-outline" size = {25}/>
-                </PlusBtn>
-            </HeaderBox>
-        <InformBtn onPress={()=>navigate("Stack",{screen:"ProfilePage"})}
-                    onPressIn={()=>setClick(true)}    
-                    onLongPress={()=>console.log("onLongPress")}  
-                    onPressOut={()=>setClick(false)} >
+        <TopBar title="내 정보"></TopBar>
+        <InformBtn onPress={()=>navigate("Stack",{screen:"ProfilePage"})}>
         <ImageBox>
-            <ProfileImage></ProfileImage>
-        </ ImageBox>
+            <ProfileImage source={userImage}></ProfileImage>
+        </ImageBox>
         <InformBox>
-            <IDtext>tukorea123</IDtext>
-            <MajorText>산업디자인공학/18</MajorText>
+            <IDtext>{userName}</IDtext>
+            <MajorText>{userMajor}/{userID}</MajorText>
             <PointText>1,930p</PointText>
         </InformBox>
         </InformBtn>
@@ -213,66 +181,12 @@ const My = ({navigation:{navigate}}) => {
             <Menus contents={"내가 쓴 게시물"} nav={"MyBoards"}/>
             <Menus contents={"내 질문"} nav={""}/>
             <Menus contents={"스크랩"} nav={"MyScrap"}/>
-            {/* <PopualrBox>
-                <PickText>쪽지 내역</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"NoteHistory_min"})}>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>최근에 본 댓글</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>내가 쓴 댓글</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"MyComments"})}>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>내가 쓴 게시물</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"MyBoards"})}>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>내 질문</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>스크랩</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"MyScrap"})}>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox> */}
         </BGBox>
         <BGBox>
             <BGText>계정</BGText>
             <Menus contents={"학교 인증"} nav={"Certification"}/>
             <Menus contents={"비밀번호 변경"} nav={""}/>
             <Menus contents={"이메일 변경"} nav={""}/>
-            {/* <PopualrBox>
-                <PickText>학교 인증</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"Certification"})}>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>비밀번호 변경</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>이메일 변경</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox> */}
         </BGBox>
         <BGBox>
             <BGText>앱설정</BGText>
@@ -281,36 +195,6 @@ const My = ({navigation:{navigate}}) => {
             <Menus contents={"서비스 이용약관"} nav={""}/>
             <Menus contents={"개인정보 처리 방침"} nav={""}/>
             <Menus contents={"오픈소스 라이선스"} nav={""}/>
-            {/* <PopualrBox>
-                <PickText>문의하기</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"Inquiry"})}>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>공지사항</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"Announcement"})}>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>서비스 이용약관</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>개인정보 처리 방침</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox>
-            <PopualrBox>
-                <PickText>오픈소스 라이선스</PickText>
-                <GoIcon>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox> */}
         </BGBox>
         <BGBox>
             <BGText>기타</BGText>
@@ -318,21 +202,13 @@ const My = ({navigation:{navigate}}) => {
                 onPress={()=>auth().signOut()
                     .then(()=>{
                         navigate("Tabs",{screen:"Home"})
-                    })
-                }
-            >
+            })}>
                 <PickText>로그아웃</PickText>
                 <GoIcon>
                 <Icon name="chevron-forward-outline" size={25}/>
                 </GoIcon>
             </PopualrBox>
             <Menus contents={"회원 탈퇴"} nav={"Withdrawal"}/>
-            {/* <PopualrBox>
-                <PickText>회원 탈퇴</PickText>
-                <GoIcon onPress={()=>navigate("Stack",{screen:"Withdrawal"})}>
-                <Icon name="chevron-forward-outline" size={25}/>
-                </GoIcon>
-            </PopualrBox> */}
         </BGBox>
         </Container>
 )

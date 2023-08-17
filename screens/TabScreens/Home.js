@@ -200,24 +200,54 @@ const Home =({navigation:{navigate}})=>{
     const [mypage, setMypage] = useState("");
     const [notice, setNotice] = useState("");
 
-    const UpdateDate = async() => {
-        setTemps([])
-        firestore().collection("Notification").get().then((tempData)=>{
-            tempData.forEach((doc) => {
-                const tempObj = {
-                    id: doc.id,
-                }
-                setTemps(prev => [tempObj, ...prev])
-            });
-        })
-        console.log(temps)
+    const [content, setContent] = useState([]);
 
+<<<<<<< HEAD
+    const GetInfo = async () => {
+        const value = await firestore()
+          .collection('Notification')
+          .where(firestore.FieldPath.documentId(), '==', auth().currentUser.uid)
+          .get();
+
+        if (value.empty) {
+          console.log("문서를 찾을 수 없습니다.");
+          return;
+        }
+        
+        setContent(value.docs.map(doc => ({ 
+            id: doc.id,
+            data: doc.data(),
+        })));
+        console.log(content)
+ 
+=======
         //const tempd = await firestore().collection("Notification").doc(temps[0].id).collection("mypage").get();
         //console.log(tempd)
+>>>>>>> fe4a0daaaaf45e77362b387d6ce80ea9b31ac8c5
     }
 
+    //   const UpdateDate = async() => {
+    //     setTemps([])
+    //     const temp = await firestore().collection("Notification")
+    //     .doc("공지사항")
+    //     .get()
+    //     .then((result)=>{
+    //         const tempObj = {
+    //             id: result.id,
+    //             data : result.data()
+    //         }
+    //         setTemps(prev => [tempObj, ...prev])
+    //     })
+    //     console.log(temps[0].data)
+    //     var key = Object.keys(temps[0].data)
+    //     var value = Object.values(temps[0].data)
+    //     setDate(key)
+    //     setNotice(value)
+
+    // }
+
     useEffect(()=>{
-        UpdateDate()
+        GetInfo()
     },[])
 
     return(
