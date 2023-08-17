@@ -1,21 +1,4 @@
-<<<<<<< HEAD
-import React,{ useEffect, useState }from "react";
-import { Text } from "react-native";
-import styled from "styled-components/native";
-import firestore from '@react-native-firebase/firestore';
 
-import CommentBox from "../../../components/BoardPart/CommentBox_min";
-import TopBar from "../../../components/TopBar";
-import AllBoardBox_min from "../../../components/BoardPart/AllBoardBox_min";
-
-const Container = styled.ScrollView.attrs(()=>({
-    contentContainerStyle:{
-        showVerticalScrollIndicator:false,
-        alignItems:"center"
-}}))`
-    //border:1px;
-    margin-bottom: 10px;
-=======
 import React from "react";
 import { Text ,FlatList} from "react-native";
 import TopBar from "../../../components/TopBar";
@@ -26,7 +9,7 @@ import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
 
 import { useState } from "react";
-import CommentBox from "../../../components/CommentBox_jun";
+import CommentBox from "../../../components/NotUsing/CommentBox_jun";
 
 const Container = styled.View`
     //border:2px;
@@ -37,8 +20,6 @@ const Container = styled.View`
     justify-content: center;
 `;
 
-<<<<<<< HEAD
-=======
 const MainDetail = styled.View`
     //border:2px;
     background-color: #E3E3F3;
@@ -151,7 +132,6 @@ const MainDetail = styled.View`
                 const ImageBtn = styled.Image`
                 `;
 
->>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e
 const BoardDetail_jun =({route})=>{
     //console.log(route)
 
@@ -189,18 +169,6 @@ const BoardDetail_jun =({route})=>{
     }
 
     return(
-<<<<<<< HEAD
-        <>
-        <TopBar title=""/>
-        <Container>
-            <AllBoardBox_min name = {route.params.info.user_name} profile = {{uri:userData?userData.user_profile:null}} title={route.params.info.title} content={route.params.info.contents} time={route.params.info.create_time} goodCount="20" commentCountt="5" ></AllBoardBox_min>
-            <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
-            <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
-            <CommentBox name="프로필 익명 1" content="내용을 입력하세요"/>
-        </Container>
-        </>
-    )}
-=======
         <Container>
                 <TopBar title=""/>
                 {commentData==null? <Text>Loading</Text> :
@@ -245,5 +213,4 @@ const BoardDetail_jun =({route})=>{
     )
 }
 
->>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e
 export default BoardDetail_jun;

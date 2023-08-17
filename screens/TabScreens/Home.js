@@ -200,50 +200,65 @@ const Home =({navigation:{navigate}})=>{
     const [mypage, setMypage] = useState("");
     const [notice, setNotice] = useState("");
 
-    const UpdateDate = async() => {
-        setTemps([])
-        firestore().collection("Notification").get().then((tempData)=>{
-            tempData.forEach((doc) => {
-                const tempObj = {
-                    id: doc.id,
-                }
-                setTemps(prev => [tempObj, ...prev])
-            });
-        })
-        console.log(temps)
+    const [content, setContent] = useState([]);
 
-        const tempd = await firestore().collection("Notification").doc(temps[0].id).collection("mypage").get();
-        console.log(tempd)
+    const GetInfo = async () => {
+        const value = await firestore()
+          .collection('Notification')
+          .where(firestore.FieldPath.documentId(), '==', auth().currentUser.uid)
+          .get();
+
+        if (value.empty) {
+          console.log("문서를 찾을 수 없습니다.");
+          return;
+        }
+        
+        setContent(value.docs.map(doc => ({ 
+            id: doc.id,
+            data: doc.data(),
+        })));
+        console.log(content)
+ 
     }
 
+    //   const UpdateDate = async() => {
+    //     setTemps([])
+    //     const temp = await firestore().collection("Notification")
+    //     .doc("공지사항")
+    //     .get()
+    //     .then((result)=>{
+    //         const tempObj = {
+    //             id: result.id,
+    //             data : result.data()
+    //         }
+    //         setTemps(prev => [tempObj, ...prev])
+    //     })
+    //     console.log(temps[0].data)
+    //     var key = Object.keys(temps[0].data)
+    //     var value = Object.values(temps[0].data)
+    //     setDate(key)
+    //     setNotice(value)
+
+    // }
+
     useEffect(()=>{
-        UpdateDate()
+        GetInfo()
     },[])
 
     return(
         <Container scrollEnabled={!alarmVisible}>
             <Pressable className="modal" style={{position:"absolute", display: alarmVisible ? "flex" : "none", width:"100%", height:"100%", backgroundColor:"rgba(1,1,1,0.5)", zIndex:10, alignItems:"center"}}>
                 <View style={{alignItems:"center", backgroundColor:"white", width:"90%",height:"40%", position:"absolute", marginTop:"13%", zIndex:11, borderRadius:10 }}>
-<<<<<<< HEAD
-                    <Text style={{margin:16, fontSize:16, fontWeight:"700"}}>알림</Text>
+                    <Pressable>
+                        <Text style={{margin:16, fontSize:16, fontWeight:"700"}}>알림</Text>
+                        <Text style={{position:"absolute", margin:16, right:-150, fontSize: 16, fontWeight:"700"}}  onPress={()=>setAlarmVisible(!alarmVisible)}>X</Text>
+                    </Pressable>
                     <Date comment = {date}/>
                     <GetPoint comment = {getpoint}/>
                     <UsePoint comment = {usePoint}/>
                     <Notice comment = {notice}/>
                     <MyPage comment = {mypage}/>
                     <Message comment = {message}/>
-=======
-                    <Pressable>
-                        <Text style={{margin:16, fontSize:16, fontWeight:"700"}}>알림</Text>
-                        <Text style={{position:"absolute", margin:16, right:-150, fontSize: 16, fontWeight:"700"}}  onPress={()=>setAlarmVisible(!alarmVisible)}>X</Text>
-                    </Pressable>
-                    <Date/>
-                    <GetPoint/>
-                    <UsePoint/>
-                    <Notice/>
-                    <MyPage/>
-                    <Message/>
->>>>>>> 57df0f3a84f82d77a8302f4408e4ba1b00ef329e
                 </View>
             </Pressable>
             <ModalTwoOptions 
