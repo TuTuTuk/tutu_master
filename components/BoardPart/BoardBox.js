@@ -83,7 +83,6 @@ const BoardBox = ({info,title,contents,kind}) => {
     },[])
     
     const addBoardId=async()=>{ //user 정보에 방문한 board id 저장
-        console.log("@@@"+{title}+"####"+contents)
         const tempData = await firestore().collection("users").doc(auth().currentUser.uid).get();
         firestore().collection("users").doc(auth().currentUser.uid).update({
             user_watch_board_uid:[...tempData._data.user_watch_board_uid,
