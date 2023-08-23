@@ -202,7 +202,6 @@ const Home =({navigation:{navigate}})=>{
 
     const [content, setContent] = useState([]);
 
-<<<<<<< HEAD
     const GetInfo = async () => {
         const value = await firestore()
           .collection('Notification')
@@ -220,10 +219,6 @@ const Home =({navigation:{navigate}})=>{
         })));
         console.log(content)
  
-=======
-        //const tempd = await firestore().collection("Notification").doc(temps[0].id).collection("mypage").get();
-        //console.log(tempd)
->>>>>>> fe4a0daaaaf45e77362b387d6ce80ea9b31ac8c5
     }
 
     //   const UpdateDate = async() => {
