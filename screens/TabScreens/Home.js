@@ -193,62 +193,70 @@ const Home =({navigation:{navigate}})=>{
     const [alarmVisible, setAlarmVisible] = useState(false)
 
     const [temps, setTemps] = useState([]);
-    const [date,setDate] = useState("");
-    const [getpoint, setGetPoint] = useState("");
-    const [message, setMessage] = useState("");
-    const [usePoint, setUsePoint] = useState("");
-    const [mypage, setMypage] = useState("");
-    const [notice, setNotice] = useState("");
+    const [date,setDate] = useState([]);
+    const [getpoint, setGetPoint] = useState([]);
+    const [message, setMessage] = useState([]);
+    const [usePoint, setUsePoint] = useState([]);
+    const [mypage, setMypage] = useState([]);
+    const [notice, setNotice] = useState([]);
 
+    const [infor,setInfor] = useState([]);
+
+    const [title, setTitle] = useState([]);
     const [content, setContent] = useState([]);
 
-<<<<<<< HEAD
     const GetInfo = async () => {
-        const value = await firestore()
-          .collection('Notification')
-          .where(firestore.FieldPath.documentId(), '==', auth().currentUser.uid)
-          .get();
+        setDate([]);
+        setGetPoint([]);
+        setMypage([]);
+        setTitle([]);
+        setContent([]);
 
-        if (value.empty) {
-          console.log("문서를 찾을 수 없습니다.");
-          return;
+        try {
+            const temp = await firestore().collection('Notification').doc('AllNotices').get();
+            const fetchedData = temp.data(); // 데이터를 가져올 때 data() 메서드를 사용합니다.
+
+            // console.log(fetchedData)
+
+            if (fetchedData) {
+                Object.entries(fetchedData).forEach(([key,value]) => {
+                    if(key == 'user_id'){
+                        Object.entries(value).forEach(([key,value]) => {
+                            setDate(x => [...x,key])
+                            Object.entries(value).forEach(([key,value]) => {
+                                if(key == 'point'){setGetPoint(p=>[...p,value])} 
+                                else if(key == 'my'){ setMypage(m=>[...m,value])}
+                                else if(key == 'AllNotices'){ setNotice(a=>[...a,value])}
+                            });
+                        });
+                    }
+                });
+            console.log('Date: ',date);
+            // console.log('point: ',getpoint)
+            getpoint.forEach(element => {
+                Object.entries(element).forEach(([key,value])=>{
+                    setTitle(t=>[...t,key]);
+                    setContent(c=>[...c,value]);
+                })
+            });
+
+            console.log('point key: ',title, 'value: ',content);
+            console.log('my: ', mypage);
+            
+
+            } else {
+                console.log('No data found');
+            }
+        } catch (error) {
+          console.error('Error fetching data: ', error);
         }
-        
-        setContent(value.docs.map(doc => ({ 
-            id: doc.id,
-            data: doc.data(),
-        })));
-        console.log(content)
- 
-=======
-        //const tempd = await firestore().collection("Notification").doc(temps[0].id).collection("mypage").get();
-        //console.log(tempd)
->>>>>>> fe4a0daaaaf45e77362b387d6ce80ea9b31ac8c5
-    }
-
-    //   const UpdateDate = async() => {
-    //     setTemps([])
-    //     const temp = await firestore().collection("Notification")
-    //     .doc("공지사항")
-    //     .get()
-    //     .then((result)=>{
-    //         const tempObj = {
-    //             id: result.id,
-    //             data : result.data()
-    //         }
-    //         setTemps(prev => [tempObj, ...prev])
-    //     })
-    //     console.log(temps[0].data)
-    //     var key = Object.keys(temps[0].data)
-    //     var value = Object.values(temps[0].data)
-    //     setDate(key)
-    //     setNotice(value)
-
-    // }
+      };
 
     useEffect(()=>{
         GetInfo()
     },[])
+
+    const nameList = date.map(<Date comment = {date}/>)
 
     return(
         <Container scrollEnabled={!alarmVisible}>
@@ -258,17 +266,22 @@ const Home =({navigation:{navigate}})=>{
                         <Text style={{margin:16, fontSize:16, fontWeight:"700"}}>알림</Text>
                         <Text style={{position:"absolute", margin:16, right:-150, fontSize: 16, fontWeight:"700"}}  onPress={()=>setAlarmVisible(!alarmVisible)}>X</Text>
                     </Pressable>
+                    {nameList}
+                    {
+                    /*
                     <Date comment = {date}/>
                     <GetPoint comment = {getpoint}/>
                     <UsePoint comment = {usePoint}/>
                     <Notice comment = {notice}/>
                     <MyPage comment = {mypage}/>
                     <Message comment = {message}/>
+                    */
+                    }
                 </View>
             </Pressable>
             <ModalTwoOptions 
                 visible={modalVisible} 
-                setvisible={setModalVisible}
+                setvisible={setModalVisible} 
                 title="신고하기"
                 contents="해당 게시물을 신고 하시겠습니까?"
                 yestext="신고하기"
