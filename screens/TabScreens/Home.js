@@ -206,6 +206,7 @@ const Home =({navigation:{navigate}})=>{
     const [content, setContent] = useState([]);
 
     const GetInfo = async () => {
+
         setDate([]);
         setGetPoint([]);
         setMypage([]);

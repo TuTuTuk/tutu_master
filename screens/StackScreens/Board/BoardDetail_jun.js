@@ -182,17 +182,29 @@ const BoardDetail_jun =({route})=>{
 
     const [userData,setUserData] = useState(null);
     const [commentData,setCommentData] = useState(null);
-    const [comment,setComment] = useState("");
+    const [boardData,setBoardData] = useState(route.params.info);
+
+    const [loading,setLoading] = useState(true);
+    const [commentCount,setCommentCount] = useState("");
+    const [goodCount,setGoodCount] = useState(0);
+
+    const [commentBlank,setCommentBlank] = useState("");
 
     const UpdateData=async()=>{ //게시물을 쓴 사용자 정보,댓글 정보 가져오기
         const tempData = await firestore().collection("users").doc(route.params.info.user_uid).get();
         const tempCommentsData = await firestore().collection("Comments").doc(route.params.info.boards_uid).get()
+        const tempBoardData = await firestore().collection("boards").doc(route.params.kind).collection("boardsUid").doc(route.params.info.boards_uid).get()
         
         setUserData(tempData._data)
         setCommentData(tempCommentsData._data)
+        setBoardData(tempBoardData._data)
+        
+        setGoodCount(tempBoardData._data.good_count)
+        setCommentCount(tempCommentsData._data.arr.length)
+        setLoading(false);
 
        // console.log("route"+route.params)
-       console.log(commentData)
+       //console.log(commentData)
     }
 
     useEffect(()=>{
@@ -201,19 +213,13 @@ const BoardDetail_jun =({route})=>{
 
     //게시물 좋아요 클릭
     const pressGood = async()=>{
-        const tempData = await firestore().collection("boards").doc(route.params.kind).get();
-        
-        await firestore().collection("boards").doc(route.params.kind).update({
-            arr:[...tempSave._data.arr,{
-                user_name:auth().currentUser.displayName,
-                user_uid: auth().currentUser.uid,
-                user_class_number : tempUser._data.user_class_number,
-                user_profile: tempUser._data.user_profile,
-                comment: comment,
-                time: timeStr
-            }]
-        })
+        const tempData = await firestore().collection("boards").doc(route.params.kind).collection("boardsUid").doc(route.params.info.boards_uid).get();
 
+        setGoodCount(tempData._data.good_count+1)
+
+        await firestore().collection("boards").doc(route.params.kind).collection("boardsUid").doc(route.params.info.boards_uid).update({
+            good_count: tempData._data.good_count+1
+        })
     }
 
 
@@ -240,19 +246,19 @@ const BoardDetail_jun =({route})=>{
                 user_uid: auth().currentUser.uid,
                 user_class_number : tempUser._data.user_class_number,
                 user_profile: tempUser._data.user_profile,
-                comment: comment,
+                comment: commentBlank,
                 time: timeStr
             }]
         })
-        setComment("")
-        console.log(tempSave._data)
+        setCommentBlank("")
+        console.log(tempSave._data+"!!!")
         UpdateData()
     }
 
     return(
         <Container>
                 <TopBar title=""/>
-                {commentData==null? <Text>Loading</Text> :
+                {loading==true? <Text>Loading</Text> :
                     <FlatList
                         ListHeaderComponent={
                             <>
@@ -292,14 +298,14 @@ const BoardDetail_jun =({route})=>{
                                                         resizeMode="stretch"
                                                         source={require('../../../images/comment.png')}
                                                     />
-                                                    <CGCGBoxText>1222</CGCGBoxText>
+                                                    <CGCGBoxText>{commentCount}</CGCGBoxText>
                                                 </CGCGBox>
-                                                <CGCGBox  onPress={()=>console.log('1')}>
+                                                <CGCGBox  onPress={()=>pressGood()}>
                                                     <CGCGBoxImage
                                                         resizeMode="stretch"
                                                         source={require('../../../images/good.png')}
                                                     />
-                                                    <CGCGBoxText>1222</CGCGBoxText>
+                                                    <CGCGBoxText>{goodCount}</CGCGBoxText>
                                                 </CGCGBox>
                                             </OptionsCGBox>
                                         </MainOptions>
@@ -319,7 +325,7 @@ const BoardDetail_jun =({route})=>{
                     />
                 }
                 <ChatBox>
-                    <ChatInput placeholder="입력창" onChangeText={(text)=>setComment(text)} value={comment}/>
+                    <ChatInput placeholder="입력창" onChangeText={(text)=>setCommentBlank(text)} value={commentBlank}/>
                     <SendBtn onPress={()=>SendComment()}>
                         <ImageBtn resizeMode="stretch" source={require('../../../images/sendBtn.png')}/>
                     </SendBtn>
