@@ -48,7 +48,7 @@ const NonRequiredAgreement = ({content, select, nonReqAgr, index}) => {
     )
 }
 
-export default function Agreement() {
+const Agreement=()=> {
     const [agreeAll, setAgreeAll] = useState(false)
     const [actBtn, setActBtn] = useState(false)
 
@@ -149,3 +149,4 @@ export default function Agreement() {
         </View>
     )
 }
+export default Agreement;

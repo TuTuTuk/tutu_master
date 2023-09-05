@@ -57,29 +57,20 @@ const Announcement = ({navigation:{navigate}}) => {
     },[]);
 
     const GetInfo = async () => {
-        const value = await firestore().collection('Notification')
-          .doc('AllNotices').collection('AllNotices')
-          .get();
 
-        if (value.empty) {
-          console.log("문서를 찾을 수 없습니다.");
-          return;
-        }
-        
-        setContent(value.docs.map(doc => ({ 
-            id: doc.id,
-            data: doc.data()
-        })));
-        console.log(content)
-      }
+        const temp = await firestore().collection('Notification').doc('AllNotices').get();
+        const fetchedData = temp._data.AllNotices;
 
+        const strArr = Object.entries(fetchedData);
+        setContent(strArr);
+    }
       
       const renderItem = ({item}) =>{
         return (
         <>
         <AnnouncementBox>
-            <TitleText>{item.id}</TitleText>
-                <MoveBtn onPress={() => navigate("Stack", { screen: "Announce_Detail", params: { title: item.id , content: item.data.comment} })}>
+            <TitleText>{item[0]}</TitleText>
+                <MoveBtn onPress={() => navigate("Stack", { screen: "Announce_Detail", params: { title: item[0], content: item[1]} })}>
                     <IconImage source={require('../../../images/Next.png')}></IconImage>
                 </MoveBtn>
         </AnnouncementBox>
@@ -93,7 +84,7 @@ const Announcement = ({navigation:{navigate}}) => {
             <FlatList
                 data= {content}
                 renderItem = {renderItem}
-                keyExtractor ={item => item.data.number}
+                keyExtractor ={item => item}
             />
         </Container>
     )

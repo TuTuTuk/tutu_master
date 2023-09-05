@@ -34,7 +34,6 @@ const ContentBox = styled.View`
 
 const Announce_Detail =({navigation:{navigate}, route})=>{
 
-
     return(
     <Container>
         <TopBar title={route.params.title}/>

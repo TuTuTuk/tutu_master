@@ -50,7 +50,6 @@ import Matching_Request from "../screens/StackScreens/Matching/Matching_Request"
 import Matching_junseo from "../screens/StackScreens/Matching/Matching_junseo";
 import Agreement from "../screens/StackScreens/Agreement/Agreement";
 
-
 const NativeStack = createNativeStackNavigator();
 
 const Stack =()=>(

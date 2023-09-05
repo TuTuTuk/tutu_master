@@ -107,7 +107,140 @@ const SelectBox = styled.View`
         line-height: 19px;
         text-align: center;
     `;
-//--------------------------검색필터---------------------------
+//--------------------------최근 검색어-------------------------------
+//-------------------------------------------------------------------
+const BigView = styled.View`
+`;
+const SeachHistoryBox = styled.View`
+    //border  : 1px;
+    margin-top: 1.37%;
+    width : 100%;
+    height : 30px;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding-left: 8px;
+    background-color: #E3E3E3;
+    align-self: center;
+`; 
+    const SearchHistoryTextBox = styled.Pressable`
+        //border : 1px;
+        width : 90%;
+        height: 100%;
+        align-items: flex-start;
+        justify-content: center;
+    `;
+        const SearchHistoryText = styled.Text`
+            font-family: 'Pretendard';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 14px;
+            display: flex;
+            align-items: center;
+        `;
+    const DelectHistoryBox = styled.Pressable`
+        //border : 1px;
+        border-color: red;
+        justify-content: center;
+        height: 100%;
+        width : 30px;
+    `;
+        const DelectHistoryIcon = styled.Image`
+            width: 100%;
+            height: 100%;
+        `;
+
+const AllDelect = styled.TouchableOpacity`
+    margin-top: 40px;
+    width: 100%;
+    height : 30px;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #545454;
+    align-self: center;
+`;
+    const AllDelectText = styled.Text`
+        font-family: 'Pretendard';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 19px;
+        align-self: center;
+        color: white;
+    `;
+
+//---------------------------------------------------------------
+//-------------------------인기 키워드----------------------------
+//---------------------------------------------------------------
+const AllBox = styled.View`
+    //border: 1px;
+`;
+const HotKeywordBox = styled.View`
+    //border  : 1px;
+    margin-top: 1.37%;
+    width : 100%;
+    height : 30px;
+    flex-direction: row;
+    border-radius: 10px;
+    background-color: #E3E3E3 ;
+    align-self: center;
+`; 
+    const HotNumberBox = styled.View`
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        //border: 1px;
+        margin-top: 3px;
+        margin-right: 10px;
+    `;
+        const NumberTopText = styled.Text`
+            font-family: 'Pretendard';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19px;
+            align-self: center;
+            color: #0062FF;
+        `;
+        const NumberText = styled.Text`
+            font-family: 'Pretendard';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19px;
+            align-self: center;
+            color: #818181;
+        `;
+    const KeywordTextBox = styled.View`
+        height: 30px;
+        //border: 1px;
+        justify-content: center;
+        width : 80%;
+    `;
+        const KeywordText = styled.Text`
+            font-family: 'Pretendard';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 14px;
+            display: flex;
+            align-items: center;
+        `;
+    const UpDownBox = styled.View`
+        //border: 1px;
+        width: 30px;
+        height: 30px;
+    `;    
+    const UpDownIcon = styled.Image`
+        width: 100%;
+        height: 100%;
+    `;
+
+//---------------------------------------------------------------
+//-------------------------검색 필터------------------------------
+//---------------------------------------------------------------
+
 const ViewFilterBox  = styled.ScrollView`
     //border: 1px;
     margin-top: 2.45%;
