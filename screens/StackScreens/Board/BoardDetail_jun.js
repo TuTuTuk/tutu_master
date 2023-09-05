@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Text ,FlatList,Keyboard,TouchableWithoutFeedback} from "react-native";
 import TopBar from "../../../components/TopBar";
