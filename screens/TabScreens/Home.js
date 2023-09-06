@@ -257,8 +257,6 @@ const Home =({navigation:{navigate}})=>{
         GetInfo()
     },[])
 
-    const nameList = date.map(<Date comment = {date}/>)
-
     return(
         <Container scrollEnabled={!alarmVisible}>
             <Pressable className="modal" style={{position:"absolute", display: alarmVisible ? "flex" : "none", width:"100%", height:"100%", backgroundColor:"rgba(1,1,1,0.5)", zIndex:10, alignItems:"center"}}>
@@ -267,7 +265,6 @@ const Home =({navigation:{navigate}})=>{
                         <Text style={{margin:16, fontSize:16, fontWeight:"700"}}>알림</Text>
                         <Text style={{position:"absolute", margin:16, right:-150, fontSize: 16, fontWeight:"700"}}  onPress={()=>setAlarmVisible(!alarmVisible)}>X</Text>
                     </Pressable>
-                    {nameList}
                     {
                     /*
                     <Date comment = {date}/>
