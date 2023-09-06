@@ -23,7 +23,7 @@ const TitleText = styled.Text`
     text-align: center;
 `;
 
-const TopBar_Close=({title})=>{
+const TopBar_List=({title})=>{
     const navigation = useNavigation();
     return(
         <Container>
@@ -33,9 +33,9 @@ const TopBar_Close=({title})=>{
                 <Image style={{marginLeft:20}} source={require('../images/Back.png')}/>
             </PressableBox>
             <TitleText>{title}</TitleText>
-            <Image style={{marginRight:20}} source={require('../images/Close.png')}/>
+            <Image style={{marginRight:20}} source={require('../images/list.png')}/>
         </Container>
     )
 }
 
-export default TopBar_Close;
+export default TopBar_List;

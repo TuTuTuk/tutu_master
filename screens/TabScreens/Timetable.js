@@ -140,6 +140,9 @@ const Timetable =({navigation:{navigate}})=>{
         <TouchableOpacity onPress={()=>navigate("Stack",{screen:"Agreement"})}>
             <Text>약관동의</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigate("Stack",{screen:"TimeTableMain"})}>
+            <Text>시간표</Text>
+        </TouchableOpacity>
     </View>
     )
 }
