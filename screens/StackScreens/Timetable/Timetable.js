@@ -1,5 +1,6 @@
+import { useState } from "react"
 import TopBar_List from "../../../components/TopBar_List"
-import { Image, View, Text } from "react-native"
+import { Image, View, Text, Pressable } from "react-native"
 import LinearGradient from "react-native-linear-gradient"
 import styled from "styled-components/native"
 
@@ -91,23 +92,26 @@ const Friend = styled.Text`
 `
 
 export default function TimeTableMain() {
+    const [isMaking, setIsMaking] = useState(false)
     return(
         <Container>
             <TopBar_List title={"시간표"}/> 
             <Image source={require('../../../images/tutu-logo.png')} alt="none"/>
             <Text style={{fontSize:13, fontWeight:'600'}}>이번 학기 시간표를 만들어주세요</Text>
-            <LinearGradient style={{
-                    borderRadius: 10,
-                    backgroundColor:'#0062FF',
-                    alignItems:"center",
-                    justifyContent:"center",
-                    opacity: 1
-                }}
-                colors={['#0062FF', '#0A7DFF', '#1398FF']}
-                start={{x:1,y:0}} end={{x:0,y:0}}
-                >
-                <Text style={{color:"#FFFFFF",fontWeight:"600", paddingHorizontal:72, paddingVertical:10}}>이번학기 시간표 만들기</Text>                        
-            </LinearGradient>
+            {!isMaking ? <Pressable onPress={()=>setIsMaking(true)}>
+              <LinearGradient style={{
+                      borderRadius: 10,
+                      backgroundColor:'#0062FF',
+                      alignItems:"center",
+                      justifyContent:"center",
+                      opacity: 1
+                  }}
+                  colors={['#0062FF', '#0A7DFF', '#1398FF']}
+                  start={{x:1,y:0}} end={{x:0,y:0}}
+                  >
+                  <Text style={{color:"#FFFFFF",fontWeight:"600", paddingHorizontal:72, paddingVertical:10}}>이번학기 시간표 만들기</Text>                        
+              </LinearGradient>
+            </Pressable> : "만들기 취소"} 
             <ContentsWrap>
                 <GradeCalculateWrap>
                     <ContentTitle>
