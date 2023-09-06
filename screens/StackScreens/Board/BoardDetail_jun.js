@@ -9,6 +9,7 @@ import firestore from '@react-native-firebase/firestore';
 import { useState  } from "react";
 import CommentBox from "../../../components/NotUsing/CommentBox_jun";
 import BlueButton from "../../../components/BlueButton";
+import ViewMoreBox from "../../../components/BoardPart/viewMoreBox";
 
 const Container = styled.View`
     border-color:red;
@@ -330,6 +331,7 @@ const BoardDetail_jun =({route})=>{
                         <ImageBtn resizeMode="stretch" source={require('../../../images/sendBtn.png')}/>
                     </SendBtn>
                 </ChatBox>
+                <ViewMoreBox data={["문의하기","신고하기","새로고침","URL복사"]}/>
         </Container>
     )
 }
