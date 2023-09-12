@@ -15,20 +15,17 @@ const friends = [
     '김한국'
 ]
 
-const Container = styled.ScrollView.attrs(()=>({
-  contentContainerStyle:{
-    alignItems:'center'
-  }
-}))`
-  display : flex;
-  flex-direction : row;
-`
-
 const MakeTimeTableWrap = styled.View`
   display:flex;
   align-items:center;
   margin-top:50;
   margin-bottom:20;
+`
+
+const MakeTimeTableTitle = styled.Text`
+  font-size:13;
+  font-weight:600;
+  margin-vertical:24;
 `
 
 const ContentsWrap = styled.View`
@@ -108,7 +105,7 @@ export default function TimeTableMain() {
             {!isMaking ? 
             <MakeTimeTableWrap>
               <Image source={require('../../../images/tutu-logo.png')} alt="none"/>
-              <Text style={{fontSize:13, fontWeight:'600', marginVertical:24}}>이번 학기 시간표를 만들어주세요</Text>
+              <MakeTimeTableTitle>이번 학기 시간표를 만들어주세요</MakeTimeTableTitle>
               <Pressable onPress={()=>setIsMaking(true)}>
                 <LinearGradient style={{
                         borderRadius: 10,
@@ -124,7 +121,7 @@ export default function TimeTableMain() {
                 </LinearGradient>
               </Pressable>
             </MakeTimeTableWrap> : 
-            <MakeTimeTable />
+            <MakeTimeTable setIsMaking={setIsMaking}/>
             } 
             <ContentsWrap height={windowHeight / 1.8}>
                 <GradeCalculateWrap>
@@ -142,9 +139,7 @@ export default function TimeTableMain() {
                         <Content>친구 시간표</Content>
                         <Image source={require('../../../images/addfriends.png')} alt="none"/>
                     </ContentTitle>
-                    <View>
-                        {friends.map((friend, idx)=> <Friend key={`friend${idx}`}>{friend}</Friend>)}
-                    </View>
+                    {friends.map((friend, idx)=> <Friend key={`friend${idx}`}>{friend}</Friend>)}
                 </FriendsWrap>
             </ContentsWrap>
         </ScrollView>
