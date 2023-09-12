@@ -1,8 +1,9 @@
 import { useState } from "react"
 import TopBar_List from "../../../components/TopBar_List"
-import { Image, View, Text, Pressable } from "react-native"
+import { Image, View, Text, Pressable, ScrollView,Dimensions } from "react-native"
 import LinearGradient from "react-native-linear-gradient"
 import styled from "styled-components/native"
+import MakeTimeTable from "./MakeTimeTable"
 
 const friends = [
     '조준서',
@@ -14,18 +15,25 @@ const friends = [
     '김한국'
 ]
 
-const Container = styled.View`
-  background-color : #FFFFFF;
-  height : 100%;
-  width : 100%;
+const Container = styled.ScrollView.attrs(()=>({
+  contentContainerStyle:{
+    alignItems:'center'
+  }
+}))`
   display : flex;
-  align-items : center;
-  justify-content : space-between;
-  flex-direction : column;
+  flex-direction : row;
+`
+
+const MakeTimeTableWrap = styled.View`
+  display:flex;
+  align-items:center;
+  margin-top:50;
+  margin-bottom:20;
 `
 
 const ContentsWrap = styled.View`
-  height : 55%;
+  // height : 55%;
+  height:${props => props.height}
   width : 100%;
   padding-vertical : 20;
   padding-horizontal : 25;
@@ -93,26 +101,32 @@ const Friend = styled.Text`
 
 export default function TimeTableMain() {
     const [isMaking, setIsMaking] = useState(false)
+    const windowHeight = Dimensions.get('window').height;
     return(
-        <Container>
-            <TopBar_List title={"시간표"}/> 
-            <Image source={require('../../../images/tutu-logo.png')} alt="none"/>
-            <Text style={{fontSize:13, fontWeight:'600'}}>이번 학기 시간표를 만들어주세요</Text>
-            {!isMaking ? <Pressable onPress={()=>setIsMaking(true)}>
-              <LinearGradient style={{
-                      borderRadius: 10,
-                      backgroundColor:'#0062FF',
-                      alignItems:"center",
-                      justifyContent:"center",
-                      opacity: 1
-                  }}
-                  colors={['#0062FF', '#0A7DFF', '#1398FF']}
-                  start={{x:1,y:0}} end={{x:0,y:0}}
-                  >
-                  <Text style={{color:"#FFFFFF",fontWeight:"600", paddingHorizontal:72, paddingVertical:10}}>이번학기 시간표 만들기</Text>                        
-              </LinearGradient>
-            </Pressable> : "만들기 취소"} 
-            <ContentsWrap>
+        <ScrollView>
+            <TopBar_List title={"시간표"}/>
+            {!isMaking ? 
+            <MakeTimeTableWrap>
+              <Image source={require('../../../images/tutu-logo.png')} alt="none"/>
+              <Text style={{fontSize:13, fontWeight:'600', marginVertical:24}}>이번 학기 시간표를 만들어주세요</Text>
+              <Pressable onPress={()=>setIsMaking(true)}>
+                <LinearGradient style={{
+                        borderRadius: 10,
+                        backgroundColor:'#0062FF',
+                        alignItems:"center",
+                        justifyContent:"center",
+                        opacity: 1
+                    }}
+                    colors={['#0062FF', '#0A7DFF', '#1398FF']}
+                    start={{x:1,y:0}} end={{x:0,y:0}}
+                    >
+                    <Text style={{color:"#FFFFFF",fontWeight:"600", paddingHorizontal:72, paddingVertical:10}}>이번학기 시간표 만들기</Text>                        
+                </LinearGradient>
+              </Pressable>
+            </MakeTimeTableWrap> : 
+            <MakeTimeTable />
+            } 
+            <ContentsWrap height={windowHeight / 1.8}>
                 <GradeCalculateWrap>
                     <ContentTitle>
                         <Content>학점 계산기</Content>
@@ -133,6 +147,6 @@ export default function TimeTableMain() {
                     </View>
                 </FriendsWrap>
             </ContentsWrap>
-        </Container>
+        </ScrollView>
     )
 }
