@@ -1,19 +1,9 @@
 import { useState } from "react"
 import TopBar_List from "../../../components/TopBar_List"
-import { Image, View, Text, Pressable, ScrollView,Dimensions } from "react-native"
+import { Image, View, Text, Pressable, ScrollView,Dimensions, TextInput } from "react-native"
 import LinearGradient from "react-native-linear-gradient"
 import styled from "styled-components/native"
 import MakeTimeTable from "./MakeTimeTable"
-
-const friends = [
-    '조준서',
-    '김민정',
-    '박준범',
-    '임광수',
-    '이한공',
-    '박공학',
-    '김한국'
-]
 
 const MakeTimeTableWrap = styled.View`
   display:flex;
@@ -55,7 +45,6 @@ const FriendsWrap = styled.View`
   height : 72%;
   border-radius : 10;
   background-color : rgba(227, 227, 227, 1);
-  justify-content : space-between;
   padding-horizontal : 15;
   padding-vertical : 15;
 `
@@ -97,8 +86,30 @@ const Friend = styled.Text`
 `
 
 export default function TimeTableMain() {
-    const [isMaking, setIsMaking] = useState(false)
-    const windowHeight = Dimensions.get('window').height;
+  const [isMaking, setIsMaking] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
+  const [newFriend, setNewFriend] = useState('')
+  const [friends,setFriends] = useState([
+      '조준서',
+      '김민정',
+      '박준범',
+      '임광수',
+      '이한공',
+      '박공학'
+  ])
+  const windowHeight = Dimensions.get('window').height;
+  const addFriend = () => {
+    if(newFriend.length === 0) {
+      setIsEditing(false)
+      return;
+    }
+    
+    const oldFriends = [...friends]
+    setNewFriend('')
+    setFriends([...oldFriends, newFriend])
+    console.log(friends)
+    setIsEditing(false)
+  }
     return(
         <ScrollView>
             <TopBar_List title={"시간표"}/>
@@ -137,9 +148,23 @@ export default function TimeTableMain() {
                 <FriendsWrap>
                     <ContentTitle>
                         <Content>친구 시간표</Content>
-                        <Image source={require('../../../images/addfriends.png')} alt="none"/>
+                        <View style={{flexDirection:'row', alignItems:'center'}}>
+                          {isEditing ? 
+                          <>
+                            <TextInput placeholder="1글자 이상 입력해주세요." value={newFriend} onChangeText={(e)=>setNewFriend(e)} style={{backgroundColor:'white',width:180, height:"auto", marginRight:10}}/>
+                            <Pressable onPress={addFriend}>
+                              <Image source={require('../../../images/checked.png')} alt="none"/>
+                            </Pressable>
+                          </> : 
+                          <Pressable onPress={()=>setIsEditing(true)}>
+                            <Image source={require('../../../images/addfriends.png')} alt="none"/>
+                          </Pressable>
+                          }
+                        </View>
                     </ContentTitle>
-                    {friends.map((friend, idx)=> <Friend key={`friend${idx}`}>{friend}</Friend>)}
+                    <ScrollView style={{borderWidth:1}}>
+                      {friends.map((friend, idx)=> <Friend key={`friend${idx}`}>{friend}</Friend>)}
+                    </ScrollView>
                 </FriendsWrap>
             </ContentsWrap>
         </ScrollView>

@@ -3,7 +3,7 @@ import styled from "styled-components/native"
 
 const Container = styled.View`
   margin:0;
-  width:${props=>props.width}
+  width:${props=>props.width};
   align-self:center;
   margin-bottom : 60;
 `
