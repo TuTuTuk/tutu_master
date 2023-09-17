@@ -9,7 +9,7 @@ import firestore from '@react-native-firebase/firestore';
 import { useState  } from "react";
 import CommentBox from "../../../components/NotUsing/CommentBox_jun";
 import BlueButton from "../../../components/BlueButton";
-import ViewMoreBox from "../../../components/BoardPart/viewMoreBox";
+import ViewMoreBox from "../../../components/BoardPart/ViewMoreBox"
 
 const Container = styled.View`
     border-color:red;
@@ -191,6 +191,8 @@ const BoardDetail_jun =({route})=>{
 
     const [commentBlank,setCommentBlank] = useState("");
 
+    const [viewMoreToggle,setViewMoreToggle] = useState(false);
+
     const UpdateData=async()=>{ //게시물을 쓴 사용자 정보,댓글 정보 가져오기
         const tempData = await firestore().collection("users").doc(route.params.info.user_uid).get();
         const tempCommentsData = await firestore().collection("Comments").doc(route.params.info.boards_uid).get()
@@ -258,7 +260,7 @@ const BoardDetail_jun =({route})=>{
 
     return(
         <Container>
-                <TopBar title=""/>
+                <TopBar title="" useStateFunc={setViewMoreToggle} useStateValue={viewMoreToggle}/>
                 {loading==true? <Text>Loading</Text> :
                     <FlatList
                         ListHeaderComponent={
@@ -331,7 +333,7 @@ const BoardDetail_jun =({route})=>{
                         <ImageBtn resizeMode="stretch" source={require('../../../images/sendBtn.png')}/>
                     </SendBtn>
                 </ChatBox>
-                <ViewMoreBox data={["문의하기","신고하기","새로고침","URL복사"]}/>
+                {viewMoreToggle==false?null:<ViewMoreBox data={["문의하기","신고하기","새로고침","URL 복사"]}/>}
         </Container>
     )
 }
