@@ -18,18 +18,16 @@ const PressableBox = styled.Pressable`
     width: 10%;
 `;
 //--------------------------------
-const BackIcon = styled.Image`
-    //border:1px;
-    left:25px;
-    /* width:30px;
-    height: 40px; */
+    const BackIcon = styled.Image`
+        //border:1px;
+        left:25px;
+        /* width:30px;
+        height: 40px; */
+        `;
+
+    const ViewMoreIcon = styled.Image`
+        //border:1px;
     `;
-const PlusIcon = styled.Image`
-    //border:1px;
-    right:25px;
-    /* width:5%;
-    height: 100%; */
-`;
 //--------------------------------
 
 
@@ -40,7 +38,7 @@ const TitleText = styled.Text`
 `;
 const XButton = styled.View``;
 
-const TopBar=({title})=>{
+const TopBar=({title,useStateFunc,useStateValue})=>{
     const navigation = useNavigation();
     return(
         <Container>
@@ -50,7 +48,11 @@ const TopBar=({title})=>{
                 <BackIcon source={require('../images/Back.png')}></BackIcon>
             </PressableBox>
             <TitleText>{title}</TitleText>
-            <PlusIcon source={require('../images/ViewMore.png')}/>
+            <PressableBox
+                onPressOut={()=>useStateFunc(!useStateValue)}
+            >
+                <ViewMoreIcon source={require('../images/ViewMore.png')}/>
+            </PressableBox>
         </Container>
     )
 }

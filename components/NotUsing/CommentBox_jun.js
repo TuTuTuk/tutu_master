@@ -1,6 +1,8 @@
 import React from "react";
+import { useState } from "react";
 import { Text } from "react-native";
 import styled from "styled-components/native";
+import ViewMoreBox from "../BoardPart/ViewMoreBox";
 
 const Container = styled.View`
     //border:1px;
@@ -13,6 +15,7 @@ const Container = styled.View`
 `;
 
 const TopView = styled.View`
+    //border:1px;
     flex-direction:row;
     justify-content: space-between;
 `;
@@ -37,8 +40,12 @@ const TopView = styled.View`
             color: #1D1D1D;
         `;
     const RightView = styled.View`
+        //border:1px;    
         flex-direction:row;
     `;
+        const FunctionBtn = styled.Pressable`
+            //border:1px;
+        `;
         const FunctionImage = styled.Image`
             //border:1px;
             margin-top: 5px;
@@ -54,6 +61,9 @@ const Content = styled.Text`
     color: #1D1D1D
 `;
 const CommentBox=({info})=>{
+
+    const [viewMoreToggle,setViewMoreToggle] = useState(false);
+
     return (
         <Container>
             <TopView>
@@ -64,20 +74,29 @@ const CommentBox=({info})=>{
                     </Name>
                 </LeftView>
                 <RightView>
-                    <FunctionImage 
-                        resizeMode="stretch"
-                        source={require('../../images/comment.png')}
-                    />
-                    <FunctionImage 
-                        resizeMode="stretch"
-                        source={require('../../images/good.png')}
-                    />
-                    <FunctionImage 
-                        resizeMode="stretch"
-                        source={require('../../images/ViewMore.png')}
-                    />
+                    <FunctionBtn>
+                        <FunctionImage 
+                            resizeMode="stretch"
+                            source={require('../../images/comment.png')}
+                        />
+                    </FunctionBtn>
+                    <FunctionBtn>
+                        <FunctionImage 
+                            resizeMode="stretch"
+                            source={require('../../images/good.png')}
+                        />
+                    </FunctionBtn>
+                    <FunctionBtn
+                        onPressOut={()=>setViewMoreToggle(!viewMoreToggle)}
+                    >
+                        <FunctionImage 
+                            resizeMode="stretch"
+                            source={require('../../images/ViewMore.png')}
+                        />
+                    </FunctionBtn>
                 </RightView>
             </TopView>
+            {viewMoreToggle==false?null:<ViewMoreBox data={["댓글달기","신고하기","쪽지 보내기"]}/>}
             <Content>
                 {info.comment}
             </Content>
