@@ -96,7 +96,7 @@ const CommentBox=({info})=>{
                     </FunctionBtn>
                 </RightView>
             </TopView>
-            {viewMoreToggle==false?null:<ViewMoreBox data={["댓글달기","신고하기","쪽지 보내기"]}/>}
+            {viewMoreToggle==false?null:<ViewMoreBox kind="Comment" data={["댓글달기","신고하기","쪽지 보내기"]} info={info}/>}
             <Content>
                 {info.comment}
             </Content>

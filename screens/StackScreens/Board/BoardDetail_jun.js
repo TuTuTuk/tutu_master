@@ -333,7 +333,7 @@ const BoardDetail_jun =({route})=>{
                         <ImageBtn resizeMode="stretch" source={require('../../../images/sendBtn.png')}/>
                     </SendBtn>
                 </ChatBox>
-                {viewMoreToggle==false?null:<ViewMoreBox data={["문의하기","신고하기","새로고침","URL 복사"]}/>}
+                {viewMoreToggle==false?null:<ViewMoreBox kind="board" data={["문의하기","신고하기","새로고침","URL 복사"]} info={route.params.info}/>}
         </Container>
     )
 }
