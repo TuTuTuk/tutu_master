@@ -30,14 +30,18 @@ const ButtonWrap = styled.View`
   flex-direction:row;
 `
 
-const Week = styled.Text`
+const CommonWrap = styled.View`
+  display:flex;
+  flex-direction:row;
+`
+
+const WeekWrap = styled.View`
+  display:flex;
+  align-items : center;
+  justify-content : center;
   background-color:rgba(187, 187, 187, 1);
-  display: flex;
-  text-align:center;
-  padding-vertical:5;
-  flex: ${props => props.idx === 0 ? 0.5 : 1};
-  font-size:10;
-  color: rgba(255, 255, 255, 1);
+  width : ${props => props.idx === 0 ? props.w1 : props.w2};
+  height : ${props => props.h1};
   border-top-left-radius: ${props => props.idx === 0? 10 : 0};
   border-top-right-radius: ${props => props.idx === 5? 10 : 0};
   border-left-width: ${props => props.idx === 0 ? 0 : 1};
@@ -45,16 +49,17 @@ const Week = styled.Text`
   border-color : rgba(255, 255, 255, 1);
 `
 
-const CommonWrap = styled.View`
-  display:flex;
-  flex-direction:row;
+const Week = styled.Text`
+  font-size:10;
+  color: rgba(255, 255, 255, 1);
 `
 
 const ClassesWrap = styled.View`
   align-items:center;
-  flex:0.49;
+  justify-content : center;
+  width : ${props => props.w1}
+  height : ${props => props.h2}
   background-color:rgba(187, 187, 187, 1);
-  padding-vertical:8;
   border-bottom-left-radius: ${props => props.idx === 11 ? 10 : 0}
   border-width:1
   border-left-width:0;
@@ -74,7 +79,8 @@ const ClassesTime = styled.Text`
 `
 
 const TimeTableContent = styled.Text`
-  flex:1;
+  width : ${props => props.w2}
+  height : ${props => props.h2}
   background-color:rgba(227, 227, 227, 1);
   borderbottom-right-radius:${props=>props.innerIdx === 4 && props.idx === 11 ? 10 : 0};
   border-width:1;
@@ -85,21 +91,42 @@ const TimeTableContent = styled.Text`
 
 export default function MakeTimeTable({setIsMaking}) {
     const week = [['', 'MON', 'TUE', 'WEN', 'THU', 'FRI'],
-        [['1', '09:30-', '10:20'], '', '', '', '', '', ],
-        [['2', '10:30-','11:20'], '', '', '', '', '', ],
-        [['3', '11:30-','12:20'], '', '', '', '', '', ],
-        [['4', '12:30-','13:20'], '', '', '', '', '', ],
-        [['5', '13:30-','14:20'], '', '', '', '', '', ],
-        [['6', '14:30-','15:20'], '', '', '', '', '', ],
-        [['7', '15:30-','16:20'], '', '', '', '', '', ],
-        [['8', '16:30-','17:20'], '', '', '', '', '', ],
-        [['9', '17:30-','18:15'], '', '', '', '', '', ],
-        [['10', '18:15-','19:05'], '', '', '', '', '', ],
-        [['11', '19:15-','20:05'], '', '', '', '', '', ],
-        [['12', '20:15-','21:05'], '', '', '', '', '', ]]
-    const windowWidth = Dimensions.get('window').height;
+        [['1', '09:30-', '10:20'], '', '', '', '', ''],
+        [['2', '10:30-','11:20'], '', '', '', '', ''],
+        [['3', '11:30-','12:20'], '', '', '', '', ''],
+        [['4', '12:30-','13:20'], '', '', '', '', ''],
+        [['5', '13:30-','14:20'], '', '', '', '', ''],
+        [['6', '14:30-','15:20'], '', '', '', '', ''],
+        [['7', '15:30-','16:20'], '', '', '', '', ''],
+        [['8', '16:30-','17:20'], '', '', '', '', ''],
+        [['9', '17:30-','18:15'], '', '', '', '', ''],
+        [['10', '18:15-','19:05'], '', '', '', '', ''],
+        [['11', '19:15-','20:05'], '', '', '', '', ''],
+        [['12', '20:15-','21:05'], '', '', '', '', '']]
+
+    const emptyTable = [['','','','','',''],
+    ['','','','','',''],
+    ['','','','','',''],
+    ['','','','','',''],
+    ['','','','','',''],
+    ['','','','','',''],
+    ['','','','','',''],
+    ['','','','','',''],
+    ['','','','','',''],
+    ['','','','','',''],
+    ['','','','','',''],
+    ['','','','','','']]
+    const data = [{start : 4, end : 6, weekIdx : 1}]
+    const test = ['']
+    // 3 : 29
+    const windowWidth = Math.floor(Dimensions.get('window').width * 0.9);
+    const windowHeight = Math.floor(Dimensions.get('window').height);
+    const w1 = Math.floor(windowWidth * 3 / 32)
+    const w2 = Math.floor((windowWidth * 29 / 32) / 5)
+    const h1 = Math.floor(windowHeight / 25)
+    const h2 = Math.floor(windowHeight / 13)
     return(
-        <Container width={Math.floor(windowWidth / 2.25)}>
+        <Container width={windowWidth}>
             <CurrentSemester>2023학년 2학기</CurrentSemester>
             <GradeSemesterWrap>
                 <GradeSemester>3학년 2학기</GradeSemester>
@@ -113,20 +140,28 @@ export default function MakeTimeTable({setIsMaking}) {
                 </ButtonWrap>
             </GradeSemesterWrap>
             <CommonWrap>
-              {week.slice(0,1).map((w)=> w.map((ww, idx)=><Week idx={idx}>{ww}</Week>))}
+              {week.slice(0,1).map((w)=> w.map((ww, idx)=><WeekWrap h1={h1} w1={w1} w2={w2} idx={idx}><Week>{ww}</Week></WeekWrap>))}
             </CommonWrap>
+            <View>
             {week.slice(1).map((t, idx)=>(
               <CommonWrap>
-                <ClassesWrap idx={idx}>
+                <ClassesWrap h2={h2} w1={w1} idx={idx}>
                   <Classes>{t[0][0]}</Classes>
                   <View>
                     <ClassesTime>{t[0][1]}</ClassesTime>
                     <ClassesTime>{t[0][2]}</ClassesTime>
                   </View>
                 </ClassesWrap>
-                {t.slice(1).map((tt, innerIdx)=><TimeTableContent idx={idx} innerIdx={innerIdx}>{tt}</TimeTableContent>)}
+                {t.slice(1).map((tt, innerIdx)=><TimeTableContent h2={h2} w2={w2} idx={idx} innerIdx={innerIdx}>{tt}</TimeTableContent>)}
               </CommonWrap>
-            ))}    
+            ))} 
+                <View style={{zIndex:10,position:'absolute'}}>
+                  <View style={{backgroundColor: 'orange', zIndex:10,width:w2,height:h2 * 4, left: w1 }}></View>
+                </View>
+                <View style={{zIndex:10,position:'absolute', left:w2 * 2 + w1}}>
+                  <View style={{backgroundColor: 'orange', zIndex:10,width:w2,height:h2, }}></View>
+                </View>
+            </View>
         </Container>
     )
 }
