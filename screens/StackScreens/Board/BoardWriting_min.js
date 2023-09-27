@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Modal } from "react-native";
+import { Modal, View, Text, Pressable, ScrollView} from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from "moment"
@@ -13,6 +13,8 @@ import storage from '@react-native-firebase/storage';
 
 import TopBar from "../../../components/TopBar";
 import BlueButton from "../../../components/BlueButton";
+import MajorTag from '../../../components/MajorTag'
+import FieldTag from '../../../components/FieldTag'
 
 import {v4 as uuid} from "uuid";
 
@@ -27,6 +29,7 @@ const Container = styled.ScrollView.attrs(()=>({
     margin-bottom: 10px;
 `;
 
+// 해시태그 선택 box
 const AllBox = styled.View`
     border: 1px;
     border-color: #1398FF;
@@ -36,63 +39,39 @@ const AllBox = styled.View`
     padding: 2.7%;
     padding-bottom: 5px;
 `;
-    const KeyBox = styled.View`
-        //border: 1px;
+    const TitleBox = styled.View`
         width: 100%;
-        margin-bottom: 20px;
-    `;
-        const TitleBox = styled.View`
-            //border: 1px;
-            width: 100%;
-            height: auto;
-            flex-direction: row;
-            margin-bottom: 10px;
-            justify-content: space-between;
-        `;  
-            const Title = styled.Text`
-                font-size: 14px;
-                font-weight: 700;
-                //border: 1px;
-            `;
-            const ClearTextBox = styled.View`
-                //border: 1px;
-                justify-content: center;
-            `;
-            const ClearText = styled.Text`
-                color: #818181;
-                font-size: 12px;
-                font-weight: 500;
-                text-decoration: underline;
-            `;
-            const ChoiceText = styled.Text`
-                //border: 1px;
-                font-size: 12px;
-                font-weight: 500;
-                color: #FF3D00;
-            `;
-        const KeywordBox = styled.View`
-            //border: 1px;
-            height: auto;
+        flex-direction: row;
+        margin-bottom: 10px;
+        justify-content: space-between;
+    `;  
+        // 선택해제 버튼
+        const ClearTextBox = styled.Pressable`
+            justify-content: center;
         `;
-            const Row = styled.View`
-                //border: 1px;
-                height: 22px;
-                margin-bottom: 5px;
-                flex-direction: row;
-            `;
-    const MajorKeyword = styled.View`
-        border: 1px;
-        border-radius: 5px;
-        border-color: #0062FF;
-        padding-left: 2%;
-        padding-right: 2%;
-        margin-right: 5px;
-    `;
-        const MajorKeywordText = styled.Text`
-            color: #0062FF;
-            text-align: center;
+        const ClearText = styled.Text`
+            color: #818181;
+            font-size: 12px;
+            font-weight: 500;
+            text-decoration: underline;
         `;
-    const FieldKeyword = styled.View`
+        // 선택 버튼
+        const ChoiceText = styled.Text`
+            font-size: 12px;
+            font-weight: 500;
+            color: #FF3D00;
+        `;
+
+    // 키워드 선택 줄
+    const Row = styled.View`
+        // border: 1px;
+        height: 22px;
+        margin-bottom: 5px;
+        flex-direction: row;
+        align-items: flex-start;
+    `;
+
+    const FieldKeyword = styled.Pressable`
         //border: 1px;
         border-radius: 5px;
         background-color: #FFAB40;
@@ -191,11 +170,6 @@ const WritingBox = styled.View`
         background-color: #E3E3E3;
         margin-bottom: 10px;
     `;
-
-    const IconBox = styled.View`
-        //border: 1px;
-        flex-direction: row;
-    `;
         const Icon1 = styled.View`
             //border: 1px;
             margin-right: 5px;
@@ -203,7 +177,6 @@ const WritingBox = styled.View`
             height: 20px;
             background-color: #E3E3E3;
         `;
-
 const AddKeywordBox = styled.View`
     //border: 1px;
     width: 100%;
@@ -219,34 +192,8 @@ const AddKeywordBox = styled.View`
         border-radius: 10px;
     `;
 
-//-------------Modal-----------------
-const ModalBackView=styled.View`
-    position:absolute;
-    width:100%;
-    height:100%; 
-`;
-const ModalView = styled.View`
-    background-color: #BBBBBB;
-    width:95px;
-    height:50px;
-    border-radius: 5px;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-right: 6.5%;
-    align-self: flex-end;
-    top:15%;
-    padding-left:10px;
-    padding-right:10px;
-    padding-top:5px;
-`;
-    const Modalinquire = styled.Pressable`
-        height:50%;
-    `;
-        const MiddleText = styled.Text`
-            font-size:12px;
-        `;
-
 const BoardWriting_min = ({navigation:{navigate},route})=>{
+
     const navigation = useNavigation();
     const [modalVisible,setModalVisible] = useState(false)
 
@@ -331,190 +278,196 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
 
     }
 
+    const [saveTag, setSaveTag] = useState([])
+
+    const delTag=(tag)=>{
+        const tags = [...saveTag];
+        let filtered = tags.filter((element) => element != tag);
+        setSaveTag(filtered)
+        console.log(saveTag)
+    }
+    const AlldelTag=(tag)=>{
+        let tags = [...saveTag];
+        data1.map((value,index)=>(
+            tags = tags.filter((element) => element != value)
+        ))
+        setSaveTag(tags)
+    }
+    const AllFielddelTag=(tag)=>{
+        let tags = [...saveTag];
+        data2.map((value,index)=>(
+            tags = tags.filter((element) => element != value)
+        ))
+        setSaveTag(tags)
+    }
+
+    const addTag=(tag)=>{
+        const tags = [...saveTag];
+        tags.push(tag);
+        setSaveTag(tags)
+        console.log(saveTag)
+    }
+    const AlladdTag=(tag)=>{
+        setSaveTag([]);
+        const tags = [...saveTag];
+        data1.map((value,index)=>(
+            tags.push(value)
+        ))
+        setSaveTag(tags)
+    }
+
+    const data1 = ["게임공학과", "컴퓨터공학부", "기계설계공학과", "메카트로닉스공학부", "전자공학부", "신소재공학과", "생명화학공학과", "나노반도체공학과"
+                    ,"에너지,전기공학과", "경영학부", "디자인공학부"]
+    const data2 = ["기타", "전공", "교양", "비교과", "대외활동", "장학금", "핫플", "취업진로"]
+
     return(
     <Container>
-        <Modal
-            animationType="fade"
-            transparent={true}
-            visible={modalVisible}>
-            <ModalBackView>
-            </ModalBackView>
-            <ModalView>
-                <Modalinquire onPress={()=>setModalVisible(false)}>
-                    <MiddleText>
-                        문의하기
-                    </MiddleText>
-                </Modalinquire>
-                <Modalinquire onPress={()=>setModalVisible(false)}>
-                    <MiddleText>
-                        새로고침
-                    </MiddleText>
-                </Modalinquire>
-            </ModalView>
-        </Modal>
         <TopBar title="게시판 글쓰기"></TopBar>
+        <AllBox>
         {
-            hide==false?
-            <AllBox>
-            <KeyBox>
-                <TitleBox>
-                    <Title>학과</Title>
-                    <ClearTextBox><ClearText>선택해제</ClearText></ClearTextBox>
-                </TitleBox>
-                <KeywordBox>
-                    <Row>
-                        <MajorKeyword>
-                            <MajorKeywordText>전체학과</MajorKeywordText>
-                        </MajorKeyword>
-                    </Row>
-                    <Row>
-                        <MajorKeyword><MajorKeywordText>컴퓨터공학부</MajorKeywordText></MajorKeyword>
-                        <MajorKeyword><MajorKeywordText>게임공학과</MajorKeywordText></MajorKeyword>
-                    </Row>
-                    <Row>
-                        <MajorKeyword><MajorKeywordText>기계설계공학과</MajorKeywordText></MajorKeyword>
-                        <MajorKeyword><MajorKeywordText>메카트로닉스공학부</MajorKeywordText></MajorKeyword>
-                        <MajorKeyword><MajorKeywordText>전자공학부</MajorKeywordText></MajorKeyword>
-                    </Row>
-                    <Row>
-                        <MajorKeyword><MajorKeywordText>신소재공학과</MajorKeywordText></MajorKeyword>
-                        <MajorKeyword><MajorKeywordText>생명화학공학과</MajorKeywordText></MajorKeyword>
-                        <MajorKeyword><MajorKeywordText>나노반도체공학과</MajorKeywordText></MajorKeyword>
-                    </Row>
-                    <Row>
-                        <MajorKeyword><MajorKeywordText>에너지,전기공학과</MajorKeywordText></MajorKeyword>
-                        <MajorKeyword><MajorKeywordText>경영학부</MajorKeywordText></MajorKeyword>
-                        <MajorKeyword><MajorKeywordText>디자인공학부</MajorKeywordText></MajorKeyword>
-                    </Row>
-                </KeywordBox>
-            </KeyBox>
-            <KeyBox>
-                <TitleBox>
-                    <Title>분야</Title>
-                    <ClearTextBox><ClearText>선택해제</ClearText></ClearTextBox>
-                </TitleBox>
-                <KeywordBox>
-                    <Row>
-                        <FieldKeyword><FieldKeywordText>기타</FieldKeywordText></FieldKeyword>
-                    </Row>
-                    <Row>
-                        <FieldKeyword><FieldKeywordText>전공</FieldKeywordText></FieldKeyword>
-                        <FieldKeyword><FieldKeywordText>교양</FieldKeywordText></FieldKeyword>
-                        <FieldKeyword><FieldKeywordText>비교과</FieldKeywordText></FieldKeyword>
-                        <FieldKeyword><FieldKeywordText>대외활동</FieldKeywordText></FieldKeyword>
-                    </Row>
-                    <Row>
-                        <FieldKeyword><FieldKeywordText>장학금</FieldKeywordText></FieldKeyword>
-                        <FieldKeyword><FieldKeywordText>핫플</FieldKeywordText></FieldKeyword>
-                        <FieldKeyword><FieldKeywordText>취업진로</FieldKeywordText></FieldKeyword>
-                    </Row>
-                </KeywordBox>
-            </KeyBox>
-            <ViewMoreIcon onPress={()=>setHide(true)}>
-                <Icon name="caret-down-outline" size={20} color = '#FF3D00'/>
-            </ViewMoreIcon>
-            </AllBox>
-            :
-            <HashTagBox>
-                <KeyBox>
-                    <KeywordBox>
-                        <Row>
-                            <Hashtag><HashtagText>전체학과</HashtagText></Hashtag>
-                            <Hashtag><HashtagText>교양</HashtagText></Hashtag>
-                            <Hashtag><HashtagText>직접작성</HashtagText></Hashtag>
-                        </Row>
-                    </KeywordBox>
-                </KeyBox>
-                <ViewMoreIcon onPress={()=>setHide(false)}><Icon name="caret-up" size={20} color = '#00E676'/></ViewMoreIcon>
-            </HashTagBox>
+            saveTag[0]? (
+            <View style={{marginBottom:20}}>
+                <ScrollView horizontal={true}>
+                <Row>
+                { saveTag.map((keyword, index)=> {
+                    return ( 
+                        keyword == "전공"||keyword == "교양"||keyword == "비교과"||keyword == "대외활동"||
+                        keyword == "장학금"||keyword == "핫플"||keyword == "취업진로"? 
+                        <FieldTag name={keyword} key ={index} addTag={addTag} delTag={delTag}></FieldTag>
+                        : 
+                        keyword == "컴퓨터공학부"||keyword == "게임공학과"||keyword == "인공지능학과"||keyword == "기계설계공학과"||
+                        keyword == "메카트로닉스공학부"||keyword == "전자공학부"||keyword == "신소재공학과"||keyword == "생명화학공학과"||
+                        keyword == "나노반도체공학과"||keyword == "에너지,전기공학과"||keyword == "경영학부"||keyword == "디자인공학부"? 
+                        <MajorTag name={keyword} key ={index} addTag={addTag} delTag={delTag}></MajorTag>
+                        :null:null
+                    )
+                })}
+                </Row>
+                </ScrollView>
+            </View>) : null
         }
+        { hide == false?
+        <>
+            <View style={{marginBottom: 20}}>
+                <TitleBox>
+                    <Text style={{fontSize: 14, fontWeight: "700"}}>학과</Text>
+                    <ClearTextBox onPress={()=> {
+                        AlldelTag()
+                        return(
+                            data1.map((value,index)=>(<MajorTag name={value} key ={index} passive= "off"></MajorTag>))
+                        )}
+                    }><ClearText>선택해제</ClearText></ClearTextBox>
+                </TitleBox>
+                <View>
+                    <Row><MajorTag name="전체학과" addTag={AlladdTag} delTag={AlldelTag} Passive={"true"}></MajorTag></Row>
+                    <Row>
+                        <MajorTag name="컴퓨터공학부" addTag={addTag} delTag={delTag}></MajorTag>
+                        <MajorTag name="게임공학과" addTag={addTag} delTag={delTag}></MajorTag>
+                    </Row>
+                    <Row>
+                        <MajorTag name="기계설계공학과" addTag={addTag} delTag={delTag}></MajorTag>
+                        <MajorTag name="메카트로닉스공학부" addTag={addTag} delTag={delTag}></MajorTag>
+                        <MajorTag name="전자공학부" addTag={addTag} delTag={delTag}></MajorTag>
+                    </Row>
+                    <Row>
+                        <MajorTag name="신소재공학과" addTag={addTag} delTag={delTag}></MajorTag>
+                        <MajorTag name="생명화학공학과" addTag={addTag} delTag={delTag}></MajorTag>
+                        <MajorTag name="나노반도체공학과" addTag={addTag} delTag={delTag}></MajorTag>
+                    </Row>
+                    <Row>
+                        <MajorTag name="에너지,전기공학과" addTag={addTag} delTag={delTag}></MajorTag>
+                        <MajorTag name="경영학부" addTag={addTag} delTag={delTag}></MajorTag>
+                        <MajorTag name="디자인공학부" addTag={addTag} delTag={delTag}></MajorTag>
+                    </Row>
+                </View>
+            </View>
+            <View style={{marginBottom: 20}}>
+                <TitleBox>
+                    <Text style={{fontSize: 14, fontWeight: "700"}}>분야</Text>
+                    <ClearTextBox onPress={()=> AllFielddelTag()}><ClearText>선택해제</ClearText></ClearTextBox>
+                </TitleBox>
+                <View>
+                    <Row><FieldTag name="기타" addTag={addTag} delTag={delTag}></FieldTag></Row>
+                    <Row>
+                        <FieldTag name="전공" addTag={addTag} delTag={delTag}></FieldTag>
+                        <FieldTag name="교양" addTag={addTag} delTag={delTag}></FieldTag>
+                        <FieldTag name="비교과" addTag={addTag} delTag={delTag}></FieldTag>
+                        <FieldTag name="대외활동" addTag={addTag} delTag={delTag}></FieldTag>
+                    </Row>
+                    <Row>
+                        <FieldTag name="장학금" addTag={addTag} delTag={delTag}></FieldTag>
+                        <FieldTag name="핫플" addTag={addTag} delTag={delTag}></FieldTag>
+                        <FieldTag name="취업진로" addTag={addTag} delTag={delTag}></FieldTag>
+                    </Row>
+                </View>
+            </View> 
+            </> : null
+        }
+            <Pressable style={{alignSelf: "center"}} onPress={()=>setHide(!hide)}>
+                <Icon name="caret-down-outline" size={20} color = '#FF3D00'/>
+            </Pressable>
+            </AllBox>
         <WritingBox>
             <WritingTitleBox>
                 <WritingTitleText
                     placeholder="제목을 입력하세요"
                     onChangeText={(text)=>setTitleText(text)}
                 />
-                <WritingTitlePlus>
-                    <InformTextBox><InformText>정보글</InformText></InformTextBox>
-                    {
-                        check == false?
-                        <RemoveBtn onPress={()=>setCheck(true)}>
-                            <IconImage source={require('../../../images/체크X.png')}></IconImage>
-                        </RemoveBtn>
-                        :
-                        <RemoveBtn onPress={()=>setCheck(false)}>
-                            <IconImage source={require('../../../images/체크.png')}></IconImage>
-                        </RemoveBtn>
-                    }
+            <WritingTitlePlus>
+            <InformTextBox><InformText>정보글</InformText></InformTextBox>
+            {
+                check == false?
+                <RemoveBtn onPress={()=>setCheck(true)}><IconImage source={require('../../../images/체크X.png')}></IconImage></RemoveBtn>
+                :
+                <RemoveBtn onPress={()=>setCheck(false)}><IconImage source={require('../../../images/체크.png')}></IconImage></RemoveBtn>
+            }
                 </WritingTitlePlus>
             </WritingTitleBox>
             <WritingContentBox
                 placeholder="내용을 입력하고 원하는 해시태그를 사용해보세요!"
                 onChangeText={(text)=>setContentText(text)}
             />
-            <IconBox>
+            <View style={{flexDirection: "row"}}>
                 <Icon1><Icon name="image" size={20} color = '#545454'/></Icon1>
                 <Icon1><Icon name="camera" size={20} color = '#545454'/></Icon1>
                 <Icon1><Icon name="attach" size={20} color = '#545454'/></Icon1>
-            </IconBox>
+            </View>
         </WritingBox>
+
         <AddKeywordBox>
-            <KeyBox>
+            <View style={{marginBottom: 20}}>
                 <TitleBox>
-                    <Title>인기</Title>
+                    <Text style={{fontSize: 14, fontWeight: "700"}}>인기</Text>
                     <ClearTextBox><ChoiceText>*선택</ChoiceText></ClearTextBox>
                 </TitleBox>
-                <KeywordBox>
+                <View>
                     <Row>
-                        <HotKeyword>
-                            <HotKeywordText>#인기키워드</HotKeywordText>
-                        </HotKeyword>
-                        <HotKeyword>
-                            <HotKeywordText>#인기키워드</HotKeywordText>
-                        </HotKeyword>
-                        <HotKeyword>
-                            <HotKeywordText>#인기키워드</HotKeywordText>
-                        </HotKeyword>
+                        <HotKeyword><HotKeywordText>#인기키워드</HotKeywordText></HotKeyword>
+                        <HotKeyword><HotKeywordText>#인기키워드</HotKeywordText></HotKeyword>
+                        <HotKeyword><HotKeywordText>#인기키워드</HotKeywordText></HotKeyword>
                     </Row>
                     <Row>
-                        <HotKeyword>
-                            <HotKeywordText>#인기키워드</HotKeywordText>
-                        </HotKeyword>
-                        <HotKeyword>
-                            <HotKeywordText>#인기키워드</HotKeywordText>
-                        </HotKeyword>
-                        <HotKeyword>
-                            <HotKeywordText>#인기키워드</HotKeywordText>
-                        </HotKeyword>
+                        <HotKeyword><HotKeywordText>#인기키워드</HotKeywordText></HotKeyword>
+                        <HotKeyword><HotKeywordText>#인기키워드</HotKeywordText></HotKeyword>
+                        <HotKeyword><HotKeywordText>#인기키워드</HotKeywordText></HotKeyword>
                     </Row>
                     <Row>
-                        <HotKeyword>
-                            <HotKeywordText>#인기키워드</HotKeywordText>
-                        </HotKeyword>
-                        <HotKeyword>
-                            <HotKeywordText>#인기키워드</HotKeywordText>
-                        </HotKeyword>
-                        <HotKeyword>
-                            <HotKeywordText>#인기키워드</HotKeywordText>
-                        </HotKeyword>
+                        <HotKeyword><HotKeywordText>#인기키워드</HotKeywordText></HotKeyword>
+                        <HotKeyword><HotKeywordText>#인기키워드</HotKeywordText></HotKeyword>
+                        <HotKeyword><HotKeywordText>#인기키워드</HotKeywordText></HotKeyword>
                     </Row>
                     <Row>
-                        <HotKeyword>
-                            <HotKeywordText>#인기키워드</HotKeywordText>
-                        </HotKeyword>
+                        <HotKeyword><HotKeywordText>#인기키워드</HotKeywordText></HotKeyword>
                     </Row>
-                </KeywordBox>
-            </KeyBox>
+                </View>
+            </View>
             <TitleBox>
-                <Title>키워드 추가</Title>
-                <ClearTextBox>
-                    <ChoiceText>*선택</ChoiceText>
-                </ClearTextBox>
+                <Text style={{fontSize: 14, fontWeight: "700"}}>키워드 추가</Text>
+                <ClearTextBox><ChoiceText>*선택</ChoiceText></ClearTextBox>
             </TitleBox>
             <InputKeywordBox></InputKeywordBox>
         </AddKeywordBox>
         <BlueButton title="작성완료" click={DoneWrite2} mbottom="35"/>
     </Container>
     );
-        };
-export default BoardWriting_min;
+}; export default BoardWriting_min;

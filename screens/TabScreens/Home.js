@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, View,Modal, Image, Pressable } from "react-native";
+import { Text, TouchableOpacity, View,Modal, Image, Pressable, FlatList } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -198,60 +198,52 @@ const Home =({navigation:{navigate}})=>{
     const [message, setMessage] = useState([]);
     const [usePoint, setUsePoint] = useState([]);
     const [mypage, setMypage] = useState([]);
-    const [notice, setNotice] = useState([]);
 
     const [infor,setInfor] = useState([]);
 
-    const [title, setTitle] = useState([]);
-    const [content, setContent] = useState([]);
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [notice, setNotice] = useState([]);
 
     const GetInfo = async () => {
 
         setDate([]);
         setGetPoint([]);
         setMypage([]);
-        setTitle([]);
-        setContent([]);
+        setTitle("");
+        setContent("");
+        setNotice([]);
 
         try {
             const temp = await firestore().collection('Notification').doc('AllNotices').get();
-            const fetchedData = temp.data(); // 데이터를 가져올 때 data() 메서드를 사용합니다.
+            const mytemp = await firestore().collection('Notification').doc('userID').get();
 
-            // console.log(fetchedData)
+            const fetchedData = temp.data(); // 데이터를 가져올 때 data() 메서드를 사용합니다.
+            const myData = mytemp.data();
 
             if (fetchedData) {
                 Object.entries(fetchedData).forEach(([key,value]) => {
-                    if(key == 'user_id'){
-                        Object.entries(value).forEach(([key,value]) => {
-                            setDate(x => [...x,key])
-                            Object.entries(value).forEach(([key,value]) => {
-                                if(key == 'point'){setGetPoint(p=>[...p,value])} 
-                                else if(key == 'my'){ setMypage(m=>[...m,value])}
-                                else if(key == 'AllNotices'){ setNotice(a=>[...a,value])}
-                            });
-                        });
+                    setNotice(prev => ([...prev,{key,value}]))
+                });
+            } else {
+                console.log('No data found');
+            }
+
+            if (myData) {
+                Object.entries(myData).forEach(([key,value]) => {
+                    if(key == 'my'){
+                        
                     }
                 });
-            console.log('Date: ',date);
-            // console.log('point: ',getpoint)
-            getpoint.forEach(element => {
-                Object.entries(element).forEach(([key,value])=>{
-                    setTitle(t=>[...t,key]);
-                    setContent(c=>[...c,value]);
-                })
-            });
-
-            console.log('point key: ',title, 'value: ',content);
-            console.log('my: ', mypage);
-            
-
             } else {
                 console.log('No data found');
             }
         } catch (error) {
           console.error('Error fetching data: ', error);
         }
-      };
+
+        // console.log(notice)
+    };
 
     useEffect(()=>{
         GetInfo()
@@ -275,6 +267,17 @@ const Home =({navigation:{navigate}})=>{
                     <Message comment = {message}/>
                     */
                     }
+                    <View>
+                        <FlatList
+                            data = {notice}
+                            renderItem={({item})=>(
+                                <View>
+                                    <Notice comment = {item.key}/>
+                                </View>
+                            )}
+                            keyExtractor={(item) => item.key}
+                        />
+                    </View>
                 </View>
             </Pressable>
             <ModalTwoOptions 

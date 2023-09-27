@@ -673,9 +673,7 @@ const Research = ({navigation:{navigate}})=>{
 
             {
                 Keywords[0] != null?
-                <ViewFilterBox
-                    horizontal={true}
-                >
+                <ViewFilterBox horizontal={true}>
                 {
                     Keywords.map((keyword)=>{
                     //console.log(majorKeyword)

@@ -4,7 +4,7 @@ import  Icon  from "react-native-vector-icons/Ionicons";
 import { useNavigation } from '@react-navigation/native';
 
 const Container = styled.View`
-    //border:1px;
+    // border:1px;
     width:100%;
     height:40px;
     margin-top:9px;
