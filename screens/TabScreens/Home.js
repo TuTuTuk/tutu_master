@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, TouchableOpacity, View,Modal, Image, Pressable, FlatList } from "react-native";
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons'
+import LinearGradient from 'react-native-linear-gradient';
 
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
@@ -110,7 +111,6 @@ const SignBoardBox = styled.Pressable`
         font-style: normal;
         font-weight: 400;
         font-size: 8px;
-
         text-align: center;
     `;
 
@@ -119,47 +119,44 @@ const SignBoardBox = styled.Pressable`
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
-
         text-align: center;
     `;
 
 const ImageBox = styled.View`
+    padding-Left: 10px;
+    padding-right: 10px;
+    margin-Top: 35px;
+    // border:1px;
     width:86.11%;
-    height:140px;
     flex-direction: row;
     justify-content: space-between;
     align-items:center;
 `;
     const Image1Box = styled.View`
-        height:140px;
-        width:103px;
         flex-direction:column;
         justify-content: center;
         align-items: center;
     `;
-        const Image1 = styled.Image`
-            border:1px;
-            border-color:black;
+        const Image1 = styled.View`
             border-radius:40px;
             width:80px;
             height:80px;
+            align-Items : center;
+            justify-content: center;
+            margin-Bottom: 15px;
         `;
         const ImageTextBox = styled.Text`
             width:100%;
-            height:14px;
             font-weight: 600;
             font-size: 12px;
             text-align: center;
         `;
 const PopularBoardBox = styled.View`
     width:86.11%;
-    height:100%;
-    margin:2px;
+    margin-top : 5%;
 `;
-
     const PopularText = styled.Text`
         width:100%;
-        height:21px;
         margin-bottom:10px;
         margin-top:10px;
         font-size: 18px;
@@ -177,10 +174,22 @@ const PopularBoardBox = styled.View`
 const Menus = ({name}) => {
     return(
         <Image1Box>
-            <Image1
-            resizeMode="stretch"
-            source={require('../../images/tutu-logo.png')}
-            />
+            <Image1>
+                <LinearGradient style={{
+                        width:"100%",
+                        height:"100%",
+                        borderRadius: 40,
+                        alignItems:"center",
+                        justifyContent:"center"
+                    }}
+                        colors={['#0062FF', '#0A7DFF', '#1398FF']}
+                        start={{x:1,y:0}} end={{x:0,y:0}}>
+                    <Image
+                        resizeMode="stretch"
+                        source={require('../../images/Home_Icon/MyIcon-Home.png')}
+                    />
+                </LinearGradient>
+            </Image1>
             <ImageTextBox>{name}</ImageTextBox>
         </Image1Box>
     )
@@ -329,27 +338,6 @@ const Home =({navigation:{navigate}})=>{
                 <Menus name={"마이페이지"}/>
                 <Menus name={"게시판"}/>
                 <Menus name={"선후배 매칭"}/>
-                {/* <Image1Box>
-                    <Image1
-                        resizeMode="stretch"
-                        source={require('../../images/tutu-logo.png')}
-                    />
-                    <ImageTextBox>마이페이지</ImageTextBox>
-                </Image1Box>
-                <Image1Box>
-                    <Image1
-                        resizeMode="stretch"
-                        source={require('../../images/tutu-logo.png')}
-                    />
-                    <ImageTextBox>게시판</ImageTextBox>
-                </Image1Box>
-                <Image1Box>
-                    <Image1
-                        resizeMode="stretch"
-                        source={require('../../images/tutu-logo.png')}
-                    />
-                    <ImageTextBox>선후배 매칭</ImageTextBox>
-                </Image1Box> */}
             </ImageBox>
             <PopularBoardBox>
                 <TouchableOpacity onPress={()=>navigate("Stack",{screen:"PopularBoard"})}>
