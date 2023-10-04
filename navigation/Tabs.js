@@ -23,7 +23,7 @@ const Tabs=()=>(
             tabBarBackground:()=>(
                 <LinearGradient 
                     colors={['#0062FF', '#0A7DFF', '#1398FF']}
-                    style={{height:56,borderTopLeftRadius:15,borderTopRightRadius:15}}
+                    style={{height:56,borderTopLeftRadius:30,borderTopRightRadius:30}}
                     start={{x:1,y:0}} end={{x:0,y:0}}
                 />
             ),
