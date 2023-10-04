@@ -188,7 +188,9 @@ export default function MakeTimeTable({setIsMaking}) {
             {timeTableDatas.length === 0 ? '' : timeTableDatas.map((timeTableData, idx)=>{
               return(
                 <View style={{position:'absolute', zIndex:100}}>
-                  <View style={{backgroundColor: 'orange', borderWidth:1, borderColor:'rgba(0,0,0,0)', borderRadius:10, width:tableCol,height:classRow * timeTableData.length, left: classCol + tableCol * timeTableData.week, top : classRow * timeTableData.start }}></View>
+                  <View style={{backgroundColor: 'orange', borderWidth:1, borderColor:'rgba(0,0,0,0)', borderRadius:10, width:tableCol,height:classRow * timeTableData.length, left: classCol + tableCol * timeTableData.week, top : classRow * timeTableData.start }}>
+                    시간표 추가됨
+                  </View>
                 </View>
                 )
             })}
