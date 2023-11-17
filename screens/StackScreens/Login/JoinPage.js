@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useRef } from "react";
 import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Input from "../../../components/Input";
@@ -153,7 +153,6 @@ const ErrorMessage = styled.Text`
 
 const JoinPage =({navigation:{navigate,reset}})=>{
     const height = Dimensions.get('window').height;
-    console.log(height);
     //input
     const [nameText,setNameText] = useState("");
     const [pwText,setPwText] = useState("");
@@ -174,7 +173,11 @@ const JoinPage =({navigation:{navigate,reset}})=>{
     const [emailError,setEmailError] = useState("");
     const [numError,setNumError] = useState("");
     const [departError,setDepartError] = useState("");
-
+    
+    //매니저 검사
+    //const [managerBool,setManagerBool] = useState(false);
+    //useState로 하면 바로 반영이 안되는 문제 발생 -> useRef사용
+    const managerRef = useRef(false);
 
     const nameCheck=()=>{
         if(nameText==""){
@@ -194,13 +197,26 @@ const JoinPage =({navigation:{navigate,reset}})=>{
             return false;
         }
         if(pwText!=pwCheckText) {
+            if(pwCheckText.length>13){ //매니저 검사하기
+                const checkManager = pwCheckText.slice(-13);
+                const code = await firestore().collection("ManagerCode").doc("Default").get();
+                if(checkManager == code._data.code){
+                    console.log("managerBool11");
+                    
+                    //setManagerBool(true);
+                    managerRef.current = true;
+
+                    setPwError("");
+                    setPwCheckError("");
+                    return true;
+                }
+            }
             setPwError("");
             setPwCheckError("P/W가 일치하지 않습니다.");
             return false;
         }
         setPwError("");
         setPwCheckError("");
-        console.log("pw")
         return true;
     }
 
@@ -242,7 +258,7 @@ const JoinPage =({navigation:{navigate,reset}})=>{
         ,200); 
     },[chooseRadio])
     
-    const onPress=()=>{
+    const onPress=async()=>{
 
         //검사
         const nameBool = nameCheck();
@@ -250,6 +266,8 @@ const JoinPage =({navigation:{navigate,reset}})=>{
         const emailBool = emailCheck();
         const numBool = numCheck(); 
         const departBool = departCheck();
+        
+        console.log("managerBool22");
 
         if(!nameBool || !pwBool || !emailBool || !numBool || !departBool) return; //하나라도 false 이면 return
 
@@ -270,9 +288,12 @@ const JoinPage =({navigation:{navigate,reset}})=>{
                     user_profile:profileURL,
                     user_profile_history:[],
                     user_point:0,
+
+                    manager:managerRef.current
+
                 }).then(async()=>{
                     console.log("join!!");
-                    console.log(auth().currentUser.photoURL);
+                    //console.log(auth().currentUser.photoURL);
                     reset({routes:[{name:"Home"}]}) //새로고침
                     navigate("Tabs",{screen:"Home"})
                 })

@@ -260,6 +260,7 @@ const Home =({navigation:{navigate}})=>{
 
     return(
         <Container scrollEnabled={!alarmVisible}>
+
             <Pressable className="modal" style={{position:"absolute", display: alarmVisible ? "flex" : "none", width:"100%", height:"100%", backgroundColor:"rgba(1,1,1,0.5)", zIndex:10, alignItems:"center"}}>
                 <View style={{alignItems:"center", backgroundColor:"white", width:"90%",height:"40%", position:"absolute", marginTop:"13%", zIndex:11, borderRadius:10 }}>
                     <Pressable>
@@ -277,15 +278,7 @@ const Home =({navigation:{navigate}})=>{
                     */
                     }
                     <View>
-                        <FlatList
-                            data = {notice}
-                            renderItem={({item})=>(
-                                <View>
-                                    <Notice comment = {item.key}/>
-                                </View>
-                            )}
-                            keyExtractor={(item) => item.key}
-                        />
+                                <Notice comment = {"123"}/>
                     </View>
                 </View>
             </Pressable>

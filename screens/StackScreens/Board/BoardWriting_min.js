@@ -329,18 +329,19 @@ const BoardWriting_min = ({navigation:{navigate},route})=>{
             <View style={{marginBottom:20}}>
                 <ScrollView horizontal={true}>
                 <Row>
-                { saveTag.map((keyword, index)=> {
-                    return ( 
-                        keyword == "전공"||keyword == "교양"||keyword == "비교과"||keyword == "대외활동"||
-                        keyword == "장학금"||keyword == "핫플"||keyword == "취업진로"? 
-                        <FieldTag name={keyword} key ={index} addTag={addTag} delTag={delTag}></FieldTag>
-                        : 
-                        keyword == "컴퓨터공학부"||keyword == "게임공학과"||keyword == "인공지능학과"||keyword == "기계설계공학과"||
-                        keyword == "메카트로닉스공학부"||keyword == "전자공학부"||keyword == "신소재공학과"||keyword == "생명화학공학과"||
-                        keyword == "나노반도체공학과"||keyword == "에너지,전기공학과"||keyword == "경영학부"||keyword == "디자인공학부"? 
-                        <MajorTag name={keyword} key ={index} addTag={addTag} delTag={delTag}></MajorTag>
-                        :null:null
-                    )
+                { 
+                    saveTag.map((keyword, index)=> {
+                        return ( 
+                            keyword == "전공"||keyword == "교양"||keyword == "비교과"||keyword == "대외활동"||
+                            keyword == "장학금"||keyword == "핫플"||keyword == "취업진로"? 
+                            <FieldTag name={keyword} key ={index} addTag={addTag} delTag={delTag}></FieldTag>
+                            : 
+                            keyword == "컴퓨터공학부"||keyword == "게임공학과"||keyword == "인공지능학과"||keyword == "기계설계공학과"||
+                            keyword == "메카트로닉스공학부"||keyword == "전자공학부"||keyword == "신소재공학과"||keyword == "생명화학공학과"||
+                            keyword == "나노반도체공학과"||keyword == "에너지,전기공학과"||keyword == "경영학부"||keyword == "디자인공학부"? 
+                            <MajorTag name={keyword} key ={index} addTag={addTag} delTag={delTag}></MajorTag>
+                            :null
+                        )
                 })}
                 </Row>
                 </ScrollView>
